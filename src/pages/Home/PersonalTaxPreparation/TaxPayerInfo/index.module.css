@@ -1,0 +1,130 @@
+.searchContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.searchInput {
+  width: 320px;
+}
+
+.subjectContainer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.marginRight {
+  margin-right: 30px;
+}
+
+.typeContainer {
+  display: flex;
+  flex-direction: column;
+  width: 110px;
+  background-color: var(--white);
+  border-radius: 4px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.linkContainer {
+  justify-content: flex-start;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.activeLinkContainer {
+  background-color: #ebf0ff;
+  border-left: 3px solid var(--blue8);
+  color: var(--blue8);
+}
+
+.activeContainer {
+  background-color: #ebf0ff;
+  border-left: 3px solid var(--blue8);
+  color: var(--blue8);
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.subTitle {
+  font-weight: 800;
+}
+
+.questionContainer {
+  margin-top: 10px;
+}
+
+.selectContainer {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.inputContainer {
+  max-width: 300px;
+}
+
+.containerCheckbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxItemContainer {
+  margin-left: 0px !important;
+}
+
+.noAppointmentContainer {
+  display: grid;
+  row-gap: 30px;
+  height: calc(100vh - 70px);
+  width: 100%;
+  justify-items: center;
+  align-content: center;
+}
+
+.noAppointment {
+  width: 200px;
+  height: 200px;
+}
+
+.noAppointmentText {
+  font-size: var(--font25);
+  font-weight: 500;
+  line-height: var(--font28);
+  color: var(--gray11);
+  text-align: center;
+  margin-bottom: 0;
+  max-width: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: initial;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .subjectContainer {
+    display: grid;
+    grid-template-columns: auto;
+  }
+
+  .typeContainer {
+    display: none;
+  }
+
+  .selectContainer {
+    display: initial;
+  }
+
+  .marginBottom {
+    margin-bottom: 0px;
+  }
+}

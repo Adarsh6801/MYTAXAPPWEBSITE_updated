@@ -1,0 +1,38 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: var(--blue15);
+  color: var(--blue9);
+  min-width: 40px;
+  margin-bottom: 20px;
+}
+
+.questionSubClass {
+  align-content: flex-start;
+}
+
+.formContainer {
+  margin-bottom: 30px;
+}
+
+.marginTop {
+  margin-top: 30px;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

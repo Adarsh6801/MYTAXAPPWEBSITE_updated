@@ -1,0 +1,21 @@
+.img {
+  padding-right: 10px;
+}
+
+.container {
+  margin-right: 20px;
+}
+
+.marginBottom {
+  margin-bottom: 20px;
+}
+
+.questionSubClass {
+  align-content: flex-start;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

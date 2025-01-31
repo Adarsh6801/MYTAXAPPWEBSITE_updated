@@ -1,0 +1,16 @@
+.buttonText {
+  height: auto;
+  font-weight: 500;
+  font-size: var(--font16);
+}
+.button {
+  border: 1px solid #345ce2 !important;
+}
+
+.iconLeft {
+  padding-right: 4px;
+}
+
+.iconRight {
+  padding-left: 3px;
+}

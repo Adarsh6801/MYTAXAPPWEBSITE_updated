@@ -1,0 +1,37 @@
+.context {
+  max-width: 915px;
+  margin-left: 10%;
+}
+
+.promptText {
+  font-size: var(--font14);
+  color: var(--gray19);
+  line-height: 15px;
+}
+
+.marginBottom {
+  margin-bottom: 0px;
+}
+
+.uploadContainer {
+  display: flex;
+  align-items: center;
+}
+.uploadFileContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: "column";
+}
+.attachedItemBtn {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  min-width: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .context {
+    margin-left: 0;
+    max-width: initial;
+  }
+}

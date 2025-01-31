@@ -1,0 +1,43 @@
+.marginBR {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
+}
+
+.subContainer {
+  align-content: flex-start;
+}
+
+.dataInputContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  .inputContainer {
+    display: block;
+  }
+
+  .subTitle {
+    margin-left: 10px;
+  }
+
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+  .dataInputContainer {
+    display: grid;
+    grid-template-columns: auto;
+    column-gap: 10px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .dataInputContainer {
+    display: grid;
+  }
+}

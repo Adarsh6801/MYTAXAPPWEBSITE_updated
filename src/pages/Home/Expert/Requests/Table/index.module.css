@@ -1,0 +1,63 @@
+.professional {
+  flex-direction: row;
+}
+
+.text {
+  margin-bottom: 0;
+  margin-right: 6px;
+  align-self: center;
+}
+
+.pdfBtnContainer {
+  min-width: 10px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+}
+
+.viewBtn {
+  width: auto;
+  font-size: 14px;
+  padding: 0 !important;
+}
+
+.buttonContainer {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 13px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.btnIconContainer {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 13px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nameText {
+  font-weight: 700;
+  color: var(--gray14);
+}
+
+.otherText {
+  color: var(--gray8);
+}
+
+.marginBottom {
+  margin-bottom: 0px;
+}
+
+.marginRight {
+  margin-right: 4px;
+}
+
+.marginLeft {
+  margin-left: 4px;
+}

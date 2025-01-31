@@ -1,0 +1,7 @@
+export const REQUEST_TYPES = {
+  INDIVIDUAL: "INDIVIDUAL",
+  BUSINESS: "BUSINESS",
+};
+
+export const REQUESTED_ITEMS_COUNT = 20;
+export const REQUESTED_ITEMS_COUNT_STEP = 20;

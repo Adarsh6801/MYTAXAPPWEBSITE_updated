@@ -1,0 +1,30 @@
+.container {
+  max-width: 500px;
+  margin-left: 15%;
+}
+
+.infoText {
+  margin-bottom: 91px;
+}
+
+.title {
+  color: var(--gray12);
+  font-weight: 600;
+  font-size: var(--font25);
+  line-height: 28px;
+  margin-bottom: 0px;
+}
+
+.description {
+  color: var(--gray12);
+  font-weight: 400;
+  font-size: var(--font14);
+  line-height: 28px;
+}
+
+.question {
+  color: var(--gray12);
+  font-weight: 400;
+  font-size: var(--font25);
+  line-height: 28px;
+}

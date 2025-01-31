@@ -1,0 +1,38 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.dropDownContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+}
+
+.pickerContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+}
+
+.marginBottom {
+  margin-bottom: 20px;
+}
+
+.radioContentContainer {
+  max-width: 100;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .pickerContainer {
+    grid-template-columns: auto;
+  }
+  .dropDownContainer {
+    grid-template-columns: auto;
+  }
+}

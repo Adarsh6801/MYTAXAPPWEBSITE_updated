@@ -1,0 +1,36 @@
+.container {
+  position: relative;
+  display: grid;
+  row-gap: 10px;
+  justify-items: center;
+  max-width: 350px;
+  min-width: 250px;
+  padding: 60px 20px 35px;
+  border: 2px solid #ebeaed;
+  border-radius: 10px;
+  background-color: var(--white);
+}
+
+.img {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-weight: 500;
+  font-size: var(--font20);
+  line-height: 30px;
+  text-align: center;
+  color: #1e0e62;
+  margin-bottom: 0;
+}
+
+.position {
+  font-weight: 700;
+  font-size: var(--font14);
+  text-align: center;
+  color: rgba(21, 20, 57, 0.4);
+  margin-bottom: 0;
+}

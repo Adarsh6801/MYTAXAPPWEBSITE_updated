@@ -1,0 +1,19 @@
+.context {
+  justify-self: end;
+  margin-right: 6px;
+}
+
+.descriptionContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.description {
+  max-width: 416px;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionCardContainer {
+    grid-template-columns: initial;
+  }
+}

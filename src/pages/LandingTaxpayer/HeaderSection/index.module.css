@@ -1,0 +1,186 @@
+.container {
+  position: relative;
+  background-color: var(
+    --white
+  ); /* For browsers that do not support gradients */
+  background-image: linear-gradient(var(--blue11), var(--blue11-transparent));
+  padding-top: 220px;
+  padding-bottom: 50px;
+  overflow: hidden;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas:
+    "title image"
+    "subtitle image"
+    "descriptionWrapper image"
+    "radio image";
+  gap: 10px 20px;
+  justify-content: space-between;
+}
+
+.title {
+  grid-area: title;
+  font-size: var(--font45);
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.2px;
+  color: var(--gray12);
+  margin-bottom: 10px;
+  z-index: 2;
+}
+
+.subtitle {
+  grid-area: subtitle;
+  font-size: var(--font20);
+  font-weight: bold;
+  line-height: normal;
+  color: var(--gray12);
+  margin-bottom: 30px;
+  z-index: 2;
+}
+
+.descriptionWrapper {
+  grid-area: descriptionWrapper;
+  z-index: 2;
+}
+
+.description {
+  font-size: var(--font18);
+  line-height: 24px;
+  color: var(--gray12);
+  margin-bottom: 15px;
+}
+
+.radio {
+  grid-area: radio;
+  z-index: 3;
+}
+
+.radioContentContainer {
+  width: 100% !important;
+  max-width: 385px;
+}
+
+.rightContainer {
+  grid-area: image;
+  position: relative;
+  background-image: url("../../../assets/svgs/dots-group1.svg");
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  min-height: 620px;
+  max-width: 530px;
+  min-width: 400px;
+}
+
+.img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 305px;
+  z-index: 1;
+}
+
+.giftCard {
+  position: absolute;
+  bottom: 140px;
+  right: 10px;
+  z-index: 1;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+@media only screen and (max-width: 992px) {
+  .container {
+    padding-top: 120px;
+    padding-bottom: 50px;
+  }
+
+  .grid {
+    grid-template-areas:
+      "title title"
+      "subtitle subtitle"
+      "descriptionWrapper descriptionWrapper"
+      "radio image";
+  }
+
+  .title {
+    margin-bottom: 10px;
+  }
+
+  .mask {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .rightContainer {
+    background-size: 200px auto;
+    min-height: 500px;
+    min-width: 350px;
+  }
+
+  .img {
+    max-width: 210px;
+  }
+
+  .giftCard {
+    max-width: 280px;
+    bottom: 140px;
+    right: 0;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .container {
+    padding-top: 80px;
+    padding-bottom: 30px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: initial;
+    -moz-column-gap: 0;
+    column-gap: 0;
+    grid-template-areas:
+      "title"
+      "subtitle"
+      "image"
+      "descriptionWrapper"
+      "radio";
+  }
+
+  .title {
+    font-size: var(--font35);
+    line-height: initial;
+    margin-bottom: 25px;
+  }
+
+  .mask {
+    width: auto;
+    right: -200px;
+  }
+
+  .rightContainer {
+    background-size: auto;
+    min-height: 400px;
+    min-width: auto;
+  }
+
+  .img {
+    max-width: 210px;
+  }
+
+  .giftCard {
+    max-width: 250px;
+    bottom: 30px;
+    right: 0;
+  }
+}

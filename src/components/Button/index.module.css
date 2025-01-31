@@ -1,0 +1,6 @@
+.button {
+  height: auto;
+  line-height: 25px;
+  font-size: 16px;
+  min-width: 100px;
+}

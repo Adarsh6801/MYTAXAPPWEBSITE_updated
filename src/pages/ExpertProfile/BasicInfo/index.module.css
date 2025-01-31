@@ -1,0 +1,17 @@
+.subTitle {
+  font-weight: 600;
+  font-size: var(--font14);
+  color: var(--black2);
+}
+
+.marginLeft {
+  margin-left: 5px;
+}
+
+.historyBtn {
+  padding: 0;
+}
+
+.historyBtnIcon {
+  margin-right: 5px;
+}

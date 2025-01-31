@@ -1,0 +1,10 @@
+.container {
+  position: relative;
+  background-color: var(
+    --white
+  ); /* For browsers that do not support gradients */
+  background-image: linear-gradient(var(--blue11), var(--blue11-transparent));
+  height: 100vh;
+  display: grid;
+  align-content: center;
+}

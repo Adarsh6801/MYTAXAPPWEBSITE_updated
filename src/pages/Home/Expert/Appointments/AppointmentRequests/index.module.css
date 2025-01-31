@@ -1,0 +1,14 @@
+.clientName {
+  color: var(--black);
+  margin-bottom: 0px;
+}
+
+.marginButton {
+  margin-bottom: 0px;
+}
+
+.submitBtnContainer {
+  display: flex;
+  flex-direction: column;
+  column-gap: 10px;
+}

@@ -1,0 +1,332 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Trans, useTranslation } from "react-i18next";
+import { Table, Input, Form, DatePicker } from "antd";
+import { useParams } from "react-router-dom";
+import moment from "moment";
+import _ from "lodash";
+
+import OrganizerQuestionCard from "../../../../../../components/OrganizerQuestionCard";
+import CircularDirection from "../../../../../../components/CircularDirection";
+import Select from "../../../../../../components/Select";
+import {
+  IOrganizerStepProps,
+  ITaxPayerInfoStepsProps,
+} from "../../../index.props";
+import { EditableCellProps, Item } from "./index.props";
+import {
+  getTaxpayerIndividualOrganizer,
+  setIndividualOrganizer,
+} from "../../../../../../redux/individualOrganizerSlice";
+import {
+  addQuoteIdOrganizer,
+  findIndexData,
+  getClassNames,
+  getCurrentType,
+} from "../../../../../../helpers/format";
+import { disabledDateFuture } from "../../../../../../helpers/date";
+import { radio } from "../../../../../../components/Module";
+import {
+  dataTaxpayerQuestion,
+  columns,
+  dataTabel,
+  DATA_KEY,
+  radioButtons,
+} from "./index.constants";
+import { DEFAULT_DATE_FORMAT } from "../../../../../../constants/format";
+
+import { ReactComponent as Calendar } from "../../../../../../assets/svgs/calendar.svg";
+import styles from "./index.module.css";
+
+const noop = () => {};
+
+const EditableCell: React.FC<EditableCellProps> = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  record,
+  index,
+  children,
+  ...restProps
+}) => {
+  let inputNode = <Input defaultValue={record.federal.toString()} />;
+
+  if (inputType === "state") {
+    inputNode = (
+      <Input defaultValue={record.federal.toString()} type={"number"} />
+    );
+  }
+
+  if (inputType === "datePaid") {
+    inputNode = (
+      <DatePicker
+        suffixIcon={<Calendar />}
+        placeholder="Date"
+        defaultValue={
+          record.datePaid === ""
+            ? undefined
+            : moment(
+                moment(record.datePaid).format(DEFAULT_DATE_FORMAT).toString(),
+                DEFAULT_DATE_FORMAT,
+              )
+        }
+        disabledDate={disabledDateFuture}
+      />
+    );
+  }
+
+  return (
+    <td {...restProps}>
+      {dataIndex !== "name" && record !== undefined ? (
+        <Form.Item name={`${dataIndex}${record.key}`} style={{ margin: 0 }}>
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
+
+const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
+  const { onStepSubmit = noop, prevStep = noop, goTo = noop } = props;
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const { id: quoteId } = useParams();
+  const [originData, setOriginData] = useState(dataTabel);
+  const dataOrganizer = useSelector(
+    (state: any) => state.individualOrganizer.data,
+  );
+
+  const [data, setData] = useState<IOrganizerStepProps[]>(
+    addQuoteIdOrganizer(dataTaxpayerQuestion, Number(quoteId)),
+  );
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    if (dataOrganizer) {
+      const stepData = dataOrganizer.filter((el: any, i: number) => {
+        return (
+          !!DATA_KEY.find(item => {
+            return el.question.includes(item);
+          }) &&
+          dataOrganizer.filter(
+            (item: any, index: number) =>
+              index < i && item.question === el.question,
+          )?.length < 2
+        );
+      });
+
+      const currentType = stepData.map((el: any) => {
+        return getCurrentType(el);
+      });
+
+      const resultData: any[] =
+        stepData.length > 0
+          ? addQuoteIdOrganizer(currentType, Number(quoteId))
+          : [];
+
+      if (resultData.length >= DATA_KEY.length) {
+        const tabledata = JSON.parse(stepData[1].answer);
+        setData(resultData);
+        form.setFieldsValue({
+          didPayAnyEstimatedTaxesDuringTheYear:
+            resultData[
+              findIndexData("didPayAnyEstimatedTaxesDuringTheYear", resultData)
+            ].answer,
+        });
+        setOriginData(JSON.parse(tabledata.data));
+      }
+    }
+  }, [dataOrganizer]);
+
+  const init = async () => {
+    await dispatch(
+      getTaxpayerIndividualOrganizer({
+        quoteId: Number(quoteId),
+      }),
+    );
+  };
+
+  const mergedColumns = columns.map(col => {
+    if (!col.editable) {
+      return col;
+    }
+
+    return {
+      ...col,
+      onCell: (record: Item) => ({
+        record,
+        inputType: col.dataIndex,
+        dataIndex: col.dataIndex,
+        title: col.title,
+      }),
+    };
+  });
+
+  const restField = () => {
+    setOriginData([
+      {
+        key: "1",
+        name: t("organizer.individual.yes_flow.step4.question1"),
+        dataKey: "firstQuarter",
+        federal: "",
+        state: "",
+        datePaid: "",
+      },
+      {
+        key: "2",
+        name: t("organizer.individual.yes_flow.step4.question2"),
+        dataKey: "secondeQuarter",
+        federal: "",
+        state: "",
+        datePaid: "",
+      },
+      {
+        key: "3",
+        name: t("organizer.individual.yes_flow.step4.question3"),
+        dataKey: "thirdQuarter",
+        federal: "",
+        state: "",
+        datePaid: "",
+      },
+      {
+        key: "4",
+        name: t("organizer.individual.yes_flow.step4.question4"),
+        dataKey: "fourthQuarter",
+        federal: "",
+        state: "",
+        datePaid: "",
+      },
+    ]);
+
+    form.resetFields(["estimatedTaxesPaidTableInfo"]);
+  };
+
+  const onFinish = async (values: any) => {
+    try {
+      const newData = [...data];
+      newData[1].answer = JSON.stringify({
+        data: JSON.stringify(originData),
+        columns: JSON.stringify(columns),
+      });
+      setData(newData);
+      onStepSubmit(newData);
+      await dispatch(setIndividualOrganizer(newData));
+      goTo(9);
+    } catch (e: any) {
+      // ToDO: error modal
+    }
+  };
+
+  const onValuesChange = (value: any) => {
+    const [name] = Object.keys(value);
+    if (name === "didPayAnyEstimatedTaxesDuringTheYear") {
+      const newData = [...data];
+      newData[0].answer = value[name];
+      setData(newData);
+      !newData[0].answer && restField();
+      return;
+    }
+
+    const columnIndex = +name[name.length - 1] - 1;
+    const filedName = name.replace(/.$/, "");
+
+    const newOriginData = [...originData];
+    newOriginData[columnIndex] = {
+      ...newOriginData[columnIndex],
+      [filedName]: value[name],
+    };
+
+    setOriginData(newOriginData);
+  };
+
+  const questionContainer = (dataQuestion: any) => {
+    const { key, question, children } = dataQuestion;
+    const index: number = +findIndexData(key, data);
+    return (
+      <OrganizerQuestionCard
+        data={data[index]}
+        question={question}
+        onAlert={() => {
+          const newData = [...data];
+          newData[index] = { ...data[index], reminder: !data[index].reminder };
+          setData(newData);
+        }}
+        onMessage={(comment: string) => {
+          const newData = [...data];
+          newData[index] = { ...data[index], message: comment };
+          setData(newData);
+        }}
+        className={getClassNames(styles.questionContainer)}
+      >
+        {children}
+      </OrganizerQuestionCard>
+    );
+  };
+
+  return (
+    <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish}>
+      <div>
+        <p className={styles.text}>
+          {
+            <Trans
+              i18nKey="organizer.individual.yes_flow.step4.description"
+              values={{ note: "Note -" }}
+              components={[<span className={styles.notesTitle}>text</span>]}
+            />
+          }
+        </p>
+        {questionContainer({
+          key: "didPayAnyEstimatedTaxesDuringTheYear",
+          question: t("organizer.individual.yes_flow.step4.radio_question"),
+          children: radio({
+            name: "didPayAnyEstimatedTaxesDuringTheYear",
+            radioButtons: radioButtons,
+            value:
+              data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]
+                ?.answer === "true",
+            onChange: ({ target: { value } }) => {
+              const newData = [...data];
+              newData[newData.length - 1].answer = value;
+              setData(newData);
+            },
+          }),
+        })}
+      </div>
+      {data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]
+        .answer === true &&
+        questionContainer({
+          key: "estimatedTaxesPaidTableInfo",
+          children: (
+            <Table
+              components={{
+                body: {
+                  cell: EditableCell,
+                },
+              }}
+              bordered
+              dataSource={originData}
+              columns={mergedColumns}
+              pagination={false}
+              scroll={{ x: 1070 }}
+              style={{ width: "50vw" }}
+            />
+          ),
+        })}
+      <CircularDirection
+        rightButton={{
+          htmlType: "submit",
+        }}
+        onClickLeft={prevStep}
+      />
+    </Form>
+  );
+};
+
+export default OrganizerIndividualYesFlowStep4;

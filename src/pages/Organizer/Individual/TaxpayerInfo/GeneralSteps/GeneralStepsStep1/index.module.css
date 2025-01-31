@@ -1,0 +1,25 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.description {
+  margin-bottom: 77px;
+}
+
+.maxWidthGrid {
+  grid-template-columns: auto minmax(300px, 1fr);
+}
+
+.maxWidthText {
+  min-width: 270px;
+}
+
+@media only screen and (max-width: 992px) {
+  .maxWidthText {
+    min-width: 270px;
+  }
+
+  .questionCardContainer {
+    grid-template-columns: auto;
+  }
+}

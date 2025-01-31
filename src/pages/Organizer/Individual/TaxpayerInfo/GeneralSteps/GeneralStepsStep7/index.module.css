@@ -1,0 +1,39 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.btn {
+  background-color: var(--blue15);
+  color: var(--blue9);
+  min-width: 40px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 20px;
+}
+
+.radioContentContainer {
+  flex-direction: row;
+}
+
+.marginBottom {
+  margin-bottom: 30px;
+}
+
+.text {
+  color: var(--gray11);
+  font-weight: 300;
+  font-size: var(--font14);
+  line-height: 24px;
+}
+
+.subjectContainer {
+  align-content: flex-start;
+  -moz-column-gap: 0px;
+  column-gap: 0px;
+}
+
+.questionContainer {
+  -moz-column-gap: 0px;
+  column-gap: 0px;
+  margin-bottom: 20px;
+}

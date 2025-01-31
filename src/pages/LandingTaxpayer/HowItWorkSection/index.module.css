@@ -1,0 +1,70 @@
+.container {
+  position: relative;
+  background-color: var(--white);
+  padding-top: 200px;
+  z-index: 2;
+}
+
+.background {
+  background-color: var(--blue14);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  transform: translateY(-240px);
+  max-height: 565px;
+  z-index: 1;
+}
+
+.title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: var(--font50);
+  line-height: 69px;
+  letter-spacing: 0.2px;
+  color: var(--gray11);
+}
+
+.card {
+  margin-top: 75px;
+}
+
+.img {
+  position: absolute;
+  left: 7%;
+  bottom: 0px;
+  transform: translateY(25%);
+}
+
+.btn {
+  background-color: transparent !important;
+  margin-top: 40px;
+}
+
+@media only screen and (max-width: 576px) {
+  .inner {
+    transform: translateY(-190px);
+    max-height: 550px;
+  }
+
+  .title {
+    font-size: var(--font35);
+    line-height: initial;
+  }
+
+  .card {
+    margin-top: 55px;
+  }
+
+  .img {
+    left: 50%;
+    bottom: 0px;
+    transform: translate(-50%, 15%);
+  }
+
+  .btn {
+    background-color: white !important;
+  }
+}

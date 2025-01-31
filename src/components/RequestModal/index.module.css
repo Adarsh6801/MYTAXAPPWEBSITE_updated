@@ -1,0 +1,46 @@
+.container {
+  position: relative;
+}
+
+.iconBtn {
+  min-width: initial !important;
+  width: 35px;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.divider {
+  margin: 10px 0 15px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  -moz-column-gap: 15px;
+  column-gap: 15px;
+  align-items: center;
+}
+
+.text {
+  font-size: var(--font14);
+  color: var(--gray11);
+}
+
+.formTitle {
+  margin: 0;
+  color: var(--gray11);
+  font-weight: 500;
+  font-size: var(--font16);
+  line-height: 22px;
+  margin-bottom: 20px;
+}
+
+.uploadBtn {
+  padding: 0;
+}
+
+.numberInput {
+  min-width: 200px;
+}

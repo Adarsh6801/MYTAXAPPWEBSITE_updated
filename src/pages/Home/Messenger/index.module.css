@@ -1,0 +1,282 @@
+.container {
+  position: relative;
+  padding-top: 70px;
+}
+
+.container > aside {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  max-width: 325px;
+  min-width: 225px;
+  overflow-y: scroll;
+  box-shadow: 0px 4px 8px rgba(16, 24, 64, 0.16);
+  border-radius: 4px;
+  background-color: var(--white);
+}
+
+.sidebarTitle {
+  font-size: var(--font16);
+  font-weight: 700;
+  line-height: 19px;
+  color: var(--gray10);
+  margin: 35px 40px;
+}
+
+.container > div {
+  position: relative;
+  margin-left: 325px;
+}
+
+.messages {
+  position: relative;
+  display: grid;
+}
+
+.messagesItem {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0 30px;
+}
+
+.activeMessageItem {
+  background-color: var(--blue2);
+  border-left: 2px solid var(--blue8);
+}
+
+.messageContent {
+  position: relative;
+  height: 92px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.fullName {
+  font-size: var(--font14);
+  font-weight: 400;
+  line-height: var(--font14);
+  color: var(--gray11);
+  margin-bottom: 4px;
+}
+
+.date {
+  display: block;
+  font-size: var(--font14);
+  font-weight: 300;
+  line-height: var(--font14);
+  color: var(--gray10);
+}
+
+.divider {
+  margin: 0;
+}
+
+.conversationContainer {
+  position: relative;
+  padding: 40px 50px;
+}
+
+.conversationHeader {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.backBtn {
+  display: none;
+}
+
+.conversationTitle {
+  font-size: var(--font25);
+  font-weight: 600;
+  line-height: var(--font28);
+  color: var(--gray11);
+  margin-bottom: 0;
+}
+
+.conversationDescription {
+  font-size: var(--font14);
+  font-weight: 300;
+  line-height: var(--font14);
+  color: var(--gray11);
+  margin-bottom: 15px;
+}
+
+.conversationInner {
+  position: relative;
+  box-shadow: 0px 1px 8px rgba(16, 24, 64, 0.16);
+  border-radius: 4px;
+  padding-bottom: 15px; /* For textArea bottom margin */
+}
+
+.conversation {
+  min-height: 200px;
+  max-height: 500px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.conversationItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  padding: 30px 50px 30px 30px;
+}
+
+.conversationItem > div > p {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.activeConversationItem {
+  background-color: var(--gray2);
+}
+
+.textAreaContainer {
+  position: relative;
+  margin: 30px 50px 0;
+}
+
+.textArea {
+  padding-bottom: 35px;
+}
+
+.sendBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.attachments {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  margin-bottom: 15px;
+  margin-right: 10px;
+}
+
+.attachmentsLeft {
+  justify-content: left;
+  margin-bottom: 0;
+  margin-right: 0;
+}
+
+.attachedItemBtn {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.attachBtn {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.back {
+  display: none;
+}
+
+.noMessageContainer {
+  display: grid;
+  row-gap: 30px;
+  height: calc(100vh - 70px);
+  width: 100%;
+  justify-items: center;
+  align-content: center;
+}
+
+.noMessage {
+  width: 200px;
+  height: 200px;
+}
+
+.noMessageText {
+  font-size: var(--font25);
+  font-weight: 500;
+  line-height: var(--font28);
+  color: var(--gray11);
+  text-align: center;
+  margin-bottom: 0;
+  max-width: 300px;
+}
+
+.unreadMessage {
+  background-color: var(--blue1);
+}
+
+@media screen and (max-width: 992px) {
+  .container > aside {
+    max-width: 225px;
+  }
+
+  .container > div {
+    margin-left: 225px;
+  }
+
+  .messagesItem {
+    padding: 0 15px;
+  }
+
+  .messageContent {
+    height: 80px;
+  }
+
+  .conversationContainer {
+    padding: 20px 10px;
+  }
+
+  .conversationInner {
+    padding-bottom: 0px; /* For textArea bottom margin */
+  }
+
+  .conversation {
+    max-height: 320px;
+  }
+
+  .textAreaContainer {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .container > aside {
+    max-width: initial;
+    min-width: initial;
+    z-index: 5;
+  }
+
+  .container > div {
+    margin-left: 0;
+  }
+
+  .conversationItem {
+    padding: 20px;
+  }
+
+  .backBtn {
+    display: block;
+  }
+}

@@ -1,0 +1,27 @@
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.img {
+  margin-right: 20px;
+}
+
+.marginBottom {
+  margin-bottom: 0px;
+}
+
+.subContainer {
+  align-content: initial;
+}
+
+.questionSubClass {
+  align-content: initial;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+    align-content: initial;
+  }
+}

@@ -1,0 +1,26 @@
+.container {
+  padding-top: 120px;
+  padding-bottom: 30px;
+}
+
+.title {
+  font-size: var(--font25);
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  color: var(--gray11);
+}
+
+.card {
+  max-width: 800px;
+  margin: 30px 15px;
+}
+
+.seeMore {
+  max-width: 800px;
+  margin: 0 15px;
+}
+
+.noDataContainer {
+  margin-top: 50px;
+}

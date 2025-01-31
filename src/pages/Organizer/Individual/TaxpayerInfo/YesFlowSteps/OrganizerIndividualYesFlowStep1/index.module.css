@@ -1,0 +1,31 @@
+.context {
+  justify-self: end;
+  margin-right: 24px;
+}
+
+.img {
+  margin-right: 6px;
+}
+
+.button {
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+.uploadContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.textInfo {
+  font-size: var(--font14);
+  font-weight: 400;
+  color: var(--gray12);
+}
+
+@media only screen and (max-width: 992px) {
+  .container {
+    max-width: initial;
+    grid-template-columns: initial;
+  }
+}

@@ -1,0 +1,79 @@
+.sidebarTitle {
+  font-size: var(--font16);
+  font-weight: 700;
+  line-height: 19px;
+  color: var(--gray10);
+  margin: 35px 40px;
+}
+
+.messages {
+  position: relative;
+  display: grid;
+}
+
+.messagesItem {
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0 30px;
+}
+
+.activeMessageItem {
+  background-color: var(--blue2);
+  border-left: 2px solid var(--blue8);
+}
+
+.messageContent {
+  position: relative;
+  height: 92px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.fullName {
+  font-size: var(--font14);
+  font-weight: 400;
+  line-height: var(--font14);
+  color: var(--gray11);
+  margin-bottom: 4px;
+}
+
+.date {
+  display: block;
+  font-size: var(--font14);
+  font-weight: 300;
+  line-height: var(--font14);
+  color: var(--gray10);
+}
+
+.divider {
+  margin: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.unreadMessage {
+  background-color: var(--blue1);
+}
+
+@media screen and (max-width: 992px) {
+  .messagesItem {
+    padding: 0 15px;
+  }
+
+  .messageContent {
+    height: 80px;
+  }
+}

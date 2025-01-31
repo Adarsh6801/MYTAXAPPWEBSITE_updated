@@ -1,0 +1,50 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.marginBottom {
+  margin-bottom: 20px;
+}
+
+.pickerContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 20px;
+}
+
+.btn {
+  background-color: var(--blue15);
+  color: var(--blue9);
+  min-width: 40px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-bottom: 20px;
+}
+
+.addRemoveContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.addAndRemoveBtn {
+  width: 134px;
+}
+
+.link {
+  margin-right: 90px;
+  text-align: end;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .pickerContainer {
+    display: grid;
+    grid-template-columns: auto;
+    column-gap: 20px;
+  }
+}

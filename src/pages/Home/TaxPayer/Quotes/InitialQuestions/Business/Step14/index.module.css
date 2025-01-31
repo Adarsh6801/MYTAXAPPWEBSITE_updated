@@ -1,0 +1,17 @@
+.container {
+  max-width: 500px;
+  margin-left: 15%;
+}
+
+.title {
+  max-width: 700px;
+  color: var(--gray12);
+  font-weight: 400;
+  font-size: var(--font28);
+  line-height: 38px;
+  margin-bottom: 30px;
+}
+
+.checkboxes {
+  width: 100%;
+}

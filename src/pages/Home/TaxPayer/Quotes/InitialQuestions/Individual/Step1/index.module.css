@@ -1,0 +1,15 @@
+.container {
+  max-width: 600px;
+  margin-left: 15%;
+}
+
+.title {
+  color: var(--gray12);
+  font-weight: 400;
+  font-size: var(--font20);
+  line-height: 28px;
+}
+
+.radioContentContainer {
+  width: 100% !important;
+}

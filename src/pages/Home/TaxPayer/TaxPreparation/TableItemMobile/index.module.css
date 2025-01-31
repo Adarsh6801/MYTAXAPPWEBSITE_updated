@@ -1,0 +1,57 @@
+.container {
+  border-radius: 15px;
+  padding-top: 13px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 15px rgba(37, 77, 189, 0.35);
+}
+
+.subjectContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  padding: 0px 10px 0 10px;
+}
+
+.marginTop {
+  margin-top: 10px;
+}
+
+.quoteContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.text {
+  margin-bottom: 0;
+  margin-right: 6px;
+}
+
+.tableTextGreyFields {
+  color: var(--gray8);
+  margin-bottom: 0px;
+}
+
+.pdfBtnContainer {
+  min-width: 10px;
+}
+
+.notStarted {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  background-color: #e9eeff;
+  grid-gap: 3px;
+  padding: 13px 15px 13px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+}

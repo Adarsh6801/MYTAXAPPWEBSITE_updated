@@ -1,0 +1,34 @@
+.content {
+  background-image: url("../../assets/images/faq-page.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 120px 0;
+}
+
+.wrapper {
+  width: 100%;
+  min-width: 250px;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.wrapper > h3 {
+  color: #101840;
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.panel {
+  margin-bottom: 20px;
+  border: 1px solid #d8dae5 !important;
+  background-color: white;
+}
+
+.panel p {
+  margin: 0;
+  color: #696f8c;
+  font-size: 16px;
+}

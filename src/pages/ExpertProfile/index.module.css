@@ -1,0 +1,116 @@
+.container {
+  padding: 100px 10px 20px;
+  background-color: var(--gray4);
+}
+
+.card {
+  background: var(--white);
+  box-shadow: 0px 1px 8px rgba(16, 24, 64, 0.16);
+  border-radius: 10px;
+  padding: 50px 35px 30px;
+}
+
+.cardHeader {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.personalInfo {
+  text-align: left;
+  margin-left: 40px;
+}
+
+.title {
+  font-size: var(--font28);
+  margin-bottom: 0px;
+}
+
+.supText {
+  font-size: 16px;
+}
+
+.rateContainer {
+  flex-direction: row;
+  display: flex;
+}
+
+.text {
+  margin: 0;
+  color: var(--gray11);
+  font-size: var(--font20);
+}
+
+.linkText {
+  display: contents;
+}
+
+.rateText {
+  margin-left: 6px;
+}
+
+.marginRight {
+  margin-right: 20px;
+}
+
+.urlContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  justify-content: left;
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: flex-start;
+}
+
+.leftSideContainer {
+  background-color: greenyellow;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.rightSideContainer {
+  width: 40px;
+  height: 40px;
+  background-color: hotpink;
+}
+
+.btnContainer {
+  display: none;
+}
+
+.btn {
+  background-color: var(--gray4);
+}
+
+.footer {
+  padding: 0;
+}
+
+@media screen and (max-width: 992px) {
+  .btnContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .mainContainer {
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .cardHeader {
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .urlContainer {
+    grid-template-columns: auto;
+  }
+  .personalInfo {
+    margin-left: 0px;
+  }
+}

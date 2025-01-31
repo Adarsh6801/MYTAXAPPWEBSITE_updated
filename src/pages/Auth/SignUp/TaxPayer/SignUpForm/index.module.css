@@ -1,0 +1,29 @@
+.container {
+  max-width: 550px;
+  padding-left: 90px;
+}
+
+.input {
+  max-width: 270px;
+}
+
+.title {
+  color: var(--gray12);
+  font-weight: 500;
+  font-size: var(--font25);
+  line-height: 29px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.checkbox {
+  margin-bottom: 0px;
+}
+
+.text {
+  color: var(--gray11);
+}
+
+.linkText {
+  color: var(--blue5);
+}

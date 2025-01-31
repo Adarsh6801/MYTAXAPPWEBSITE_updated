@@ -1,0 +1,31 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding-left: 0px;
+  padding-right: 0px;
+  background-color: var(--blue15);
+  color: var(--blue9);
+  min-width: 40px;
+  margin-bottom: 20px;
+}
+
+.checkbox {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 20px;
+}
+
+.questionContainer {
+  grid-template-columns: auto;
+  max-width: 350px;
+}
+
+.text {
+  font-weight: 800;
+}

@@ -1,0 +1,106 @@
+.container {
+  position: relative;
+  height: 100vh;
+  background-color: var(
+    --white
+  ); /* For browsers that do not support gradients */
+  background-image: linear-gradient(var(--blue11), var(--blue11-transparent));
+  padding-top: 35px;
+  overflow: hidden;
+}
+
+.wrapper {
+  height: inherit;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  width: auto;
+}
+.logo {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  z-index: 10;
+}
+
+.formContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  align-content: center;
+  background: var(--white);
+  box-shadow: 0px 0px 15px rgba(54, 74, 103, 0.16);
+  border-radius: 20px;
+  padding: 36px 43px 56px;
+  width: 100%;
+  max-width: 470px;
+  z-index: 10;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 23px;
+}
+
+.icon {
+  align-self: center;
+}
+
+.dots {
+  position: absolute;
+  right: 23%;
+  bottom: 7%;
+}
+
+.codeContainer {
+  display: flex !important;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.title {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  color: var(--black);
+}
+.rederConto {
+  width: 60px;
+  height: 80px;
+  font-size: 50px;
+  text-align: center;
+  border-radius: 4px;
+  color: black;
+  margin-right: 15px;
+  margin-left: 15px;
+  border: 1px solid #cad5f8;
+}
+@media only screen and (max-width: 576px) {
+  .wrapper {
+    height: initial;
+  }
+
+  .logo {
+    position: relative;
+  }
+
+  .formContainer {
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: initial;
+    padding: 25px 15px;
+    margin: 30px auto 0;
+  }
+
+  .dots {
+    right: 25%;
+    bottom: -70px;
+  }
+}

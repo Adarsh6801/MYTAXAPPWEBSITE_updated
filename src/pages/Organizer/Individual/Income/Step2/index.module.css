@@ -1,0 +1,39 @@
+.container {
+  display: grid;
+  grid-template-columns: auto auto;
+  -moz-column-gap: 25px;
+  column-gap: 25px;
+  margin-bottom: 20px;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload {
+  max-width: 220px;
+  margin-left: 5px;
+}
+
+.marginTop {
+  margin-top: 23px;
+}
+
+.marginLeft {
+  margin-left: 0px !important;
+}
+
+.img {
+  padding-right: 10px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    display: grid;
+    grid-template-columns: auto;
+    -moz-column-gap: 25px;
+    column-gap: 25px;
+    margin-bottom: 20px;
+  }
+}

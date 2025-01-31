@@ -1,0 +1,91 @@
+.container {
+  position: relative;
+  height: 100vh;
+  background-color: var(
+    --white
+  ); /* For browsers that do not support gradients */
+  background-image: linear-gradient(var(--blue11), var(--blue11-transparent));
+  padding-top: 35px;
+  overflow: hidden;
+}
+
+.wrapper {
+  height: inherit;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  z-index: 10;
+}
+
+.formContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  align-content: center;
+  background: var(--white);
+  box-shadow: 0px 0px 15px rgba(54, 74, 103, 0.16);
+  border-radius: 20px;
+  padding: 36px 43px 56px;
+  width: 100%;
+  max-width: 370px;
+  z-index: 10;
+}
+
+.reset {
+  font-size: var(--font30);
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--gray11);
+  text-align: center;
+}
+
+.reset {
+  margin-bottom: 10px;
+}
+
+.button {
+  width: 100%;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: inherit;
+}
+
+.dots {
+  position: absolute;
+  right: 29%;
+  bottom: 12%;
+}
+
+@media only screen and (max-width: 576px) {
+  .wrapper {
+    height: initial;
+  }
+
+  .logo {
+    position: relative;
+  }
+
+  .formContainer {
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: initial;
+    padding: 25px 15px;
+    margin: 30px auto 0;
+  }
+
+  .dots {
+    right: 25%;
+    bottom: -70px;
+  }
+}

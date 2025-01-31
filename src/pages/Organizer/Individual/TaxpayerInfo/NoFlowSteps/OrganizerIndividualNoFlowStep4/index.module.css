@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto;
+  -moz-column-gap: 10px;
+  grid-column-gap: 10px;
+  column-gap: 10px;
+  align-content: center;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

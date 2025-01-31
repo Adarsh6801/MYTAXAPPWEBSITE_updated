@@ -1,0 +1,166 @@
+.container {
+  max-width: 956px;
+  border-radius: 30px;
+  padding-bottom: 0px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.title {
+  margin-bottom: 0px;
+}
+
+.radioContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "title radio"
+    "title field";
+}
+
+.subTitle {
+  grid-area: title;
+  color: var(--gray11);
+}
+
+.radio {
+  grid-area: radio;
+}
+
+.inputContainer {
+  grid-area: field;
+  width: 82%;
+  justify-self: center;
+}
+
+.dateContainer {
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: auto auto auto;
+  grid-template-areas:
+    "title calendar box"
+    "title calendar box";
+}
+
+.calendar {
+  grid-area: calendar;
+  max-width: 300px;
+  justify-self: flex-end;
+}
+
+.calendarHeder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dateText {
+  align-self: center;
+  font-size: var(--font18);
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--black);
+  margin: 0;
+}
+
+.btn {
+  min-width: 30px;
+}
+
+.hoursContainer {
+  grid-area: box;
+  justify-self: center;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 20px;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.radioButton {
+  border-radius: 10px !important;
+  box-shadow: 0px 0px 15px rgb(39 82 166 / 10%);
+  border-color: var(--white) !important;
+  color: var(--black) !important;
+}
+
+.disabledButton {
+  border-color: #cbd2e0 !important;
+  border-style: dashed;
+  border-left: 1px dashed #cbd2e0 !important;
+}
+
+.submitBtnContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 768px) {
+  .radioContainer {
+    grid-template-areas:
+      "title title"
+      "radio radio"
+      "input input";
+  }
+  .dateContainer {
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: auto;
+    grid-template-areas:
+      "title title title"
+      "calendar calendar calendar"
+      "box box box";
+  }
+  .calendar {
+    grid-area: calendar;
+    max-width: 400px;
+    justify-self: flex-start;
+  }
+
+  .hoursContainer {
+    grid-area: box;
+    justify-self: initial;
+    border-left: initial;
+    padding-left: 00px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    grid-template-rows: initial;
+    grid-gap: initial;
+    gap: initial;
+    grid-auto-flow: initial;
+    grid-auto-columns: initial;
+  }
+
+  .radioBtnContainer {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .radioContainer {
+    display: initial;
+    grid-template-columns: initial;
+    flex-direction: column;
+  }
+
+  .dateContainer {
+    display: initial;
+    flex-direction: initial;
+    grid-template-columns: initial;
+    grid-template-areas: initial;
+  }
+
+  .hoursContainer {
+    grid-area: initial;
+    justify-self: initial;
+  }
+}

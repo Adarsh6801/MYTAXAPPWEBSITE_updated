@@ -1,0 +1,29 @@
+.infoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.notesTitle {
+  color: var(--blue12);
+}
+
+.img {
+  margin-right: 20px;
+}
+
+.marginBottom {
+  margin-bottom: 0px;
+}
+
+.textContainer {
+  margin-left: 58px;
+}
+
+.questionTextContainer {
+  max-width: 400px;
+}
+
+.maxWidth {
+  max-width: 300px;
+}

@@ -1,0 +1,46 @@
+.notesTitle {
+  color: var(--blue12);
+}
+
+.emptyDiv {
+  display: grid;
+  grid-template-columns: auto minmax(250px, 1fr);
+}
+
+.context {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  grid-column-gap: 59px;
+}
+
+.subTitle {
+  display: grid;
+  -moz-column-gap: 15px;
+  grid-column-gap: 15px;
+  column-gap: 15px;
+  grid-template-columns: auto 1fr;
+}
+
+.textContainer {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 60px;
+}
+
+.questionCardContainer {
+  max-width: 200px !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionCardContainer {
+    max-width: 200px !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .subClass {
+    grid-template-columns: auto minmax(250px, 1fr);
+  }
+}

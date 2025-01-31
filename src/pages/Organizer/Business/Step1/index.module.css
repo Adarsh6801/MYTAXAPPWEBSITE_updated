@@ -1,0 +1,9 @@
+.img {
+  padding-right: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

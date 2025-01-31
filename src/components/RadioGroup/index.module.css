@@ -1,0 +1,81 @@
+.container {
+  position: relative;
+  display: block;
+}
+
+.item {
+  position: relative;
+  background-color: var(--white);
+  padding: 11px;
+  box-shadow: 0px 1px 5px rgba(49, 72, 191, 0.25);
+  border-radius: 7px;
+}
+
+.radioContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  align-items: center;
+  background: var(--white);
+  box-shadow: 0px 1px 5px rgba(49, 72, 191, 0.25);
+  border-radius: 7px;
+  padding: 11px;
+}
+
+.radioContainer:focus .checker,
+.radioContainer:hover .checker {
+  border-color: var(--blue12);
+}
+
+.checker {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--blue13);
+  border-radius: 100%;
+  transition: 0.4s;
+}
+
+.checked {
+  position: relative;
+  border-color: var(--blue12);
+  background-color: var(--blue12);
+}
+
+.checked::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background-color: var(--white);
+  content: "";
+}
+
+.text {
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--font16);
+  line-height: var(--font16);
+  color: var(--gray11);
+  margin-bottom: 2px;
+}
+
+.textActive {
+  color: var(--blue12);
+}
+
+.hide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  cursor: pointer;
+  opacity: 0;
+}

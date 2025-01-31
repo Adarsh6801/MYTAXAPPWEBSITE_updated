@@ -1,0 +1,16 @@
+export type DataKey =
+  | "hasSignatureOrIsACoOwnerBankAccountInForeignCountry"
+  | "receivedInheritanceFromSomeoneInForeignCountry"
+  | "hasForeignBankAccount"
+  | "receivedDistributionFromForeignTrust"
+  | "holdInterestInForeignFinancialAsset"
+  | "receive_Sell_Exchang_FinancialInterestInVirtualCurrency"
+  | "investInQualifiedOpportunityFund"
+  | "beenDeniedEarnedIncomeCreditByTheIRS"
+  | "beenRecertifiedForEarned_Income_ChildTax_AmericanOpportunityCredit"
+  | "bought_Sold_GiftedRealEstateIn"
+  | "madeGiftOfMoneyOrPropertyToAnyIndividual"
+  | "madeGiftOfMoneyOrPropertyToAnyIndividual"
+  | "employHouseholdWorkers"
+  | "sellPreciousMetalsDuringTheYear"
+  | "wishToContributeToThePresidentialCampaignFund";

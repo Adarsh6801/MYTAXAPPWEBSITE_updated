@@ -1,0 +1,13 @@
+.img {
+  padding-right: 10px;
+}
+
+.subjectContainer {
+  align-content: initial;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: initial;
+  }
+}

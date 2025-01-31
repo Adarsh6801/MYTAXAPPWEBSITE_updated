@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  justify-items: center;
+}
+
+.svg {
+  width: 100%;
+}
+
+.title {
+  font-weight: 500;
+  font-size: var(--font20);
+  line-height: 35px;
+  text-align: center;
+  letter-spacing: 0.2px;
+  color: var(--gray11);
+  margin: 0;
+}
+
+.description {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: var(--font16);
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.2px;
+  color: var(--gray9);
+}

@@ -1,0 +1,87 @@
+.cardHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+
+.personalInfo {
+  text-align: left;
+  margin-left: 40px;
+}
+
+.btn {
+  height: 50px;
+  font-size: 14px;
+}
+
+.syncBtn {
+  padding: 5px 10px;
+  white-space: normal !important;
+  max-width: 158px !important;
+  text-align: left;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.title {
+  font-size: var(--font28);
+  margin-bottom: 0px;
+  margin-right: 10px;
+}
+
+.supText {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.urlContainer {
+  display: grid;
+  grid-template-columns: auto auto;
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  justify-content: left;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rateText {
+  margin-bottom: 0px;
+  margin-left: 10px;
+}
+
+.anchorText {
+  display: block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 992px) {
+  .btn {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .cardHeader {
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .urlContainer {
+    grid-template-columns: auto;
+  }
+  .personalInfo {
+    margin-left: 0px;
+  }
+  .textContainer {
+    display: grid;
+    grid-template-columns: auto;
+  }
+}

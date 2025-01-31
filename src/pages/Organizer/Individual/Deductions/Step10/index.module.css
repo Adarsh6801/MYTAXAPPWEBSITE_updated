@@ -1,0 +1,22 @@
+.img {
+  padding-right: 10px;
+}
+
+.marginBottom {
+  margin-bottom: 20px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  height: auto;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

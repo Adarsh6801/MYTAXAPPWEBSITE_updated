@@ -1,0 +1,40 @@
+.sectionContainer {
+  position: relative;
+  background-color: var(
+    --white
+  ); /* For browsers that do not support gradients */
+  background-image: linear-gradient(
+    var(--blue11),
+    var(--blue11-transparent) 50%
+  );
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  margin-top: 150px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: var(--font35);
+  color: var(--gray11);
+}
+
+.ulNoStyle {
+  list-style-type: none;
+  white-space: pre-line;
+}
+
+.textWhiteSpace {
+  white-space: pre-line;
+}
+
+@media only screen and (max-width: 576px) {
+  .container {
+    margin-top: 120px;
+  }
+}

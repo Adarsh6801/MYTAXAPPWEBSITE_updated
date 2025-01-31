@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  padding: 2px 2px 2px 10px;
+  border-radius: 7px;
+  box-shadow: 0px 0px 6px rgba(49, 72, 191, 0.25);
+  margin-bottom: 17px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.checkbox {
+  width: 100%;
+  min-width: 120px;
+  color: var(--gray11) !important;
+}
+
+.dataPicker {
+  width: 100%;
+  min-width: 70px;
+  max-width: 140px;
+  height: 35px !important;
+  border: 1px solid var(--blue4) !important;
+}

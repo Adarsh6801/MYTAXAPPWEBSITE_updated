@@ -1,0 +1,11 @@
+.context {
+  max-width: 915px;
+  margin-left: 10%;
+}
+
+@media only screen and (max-width: 768px) {
+  .context {
+    margin-left: 0;
+    max-width: initial;
+  }
+}

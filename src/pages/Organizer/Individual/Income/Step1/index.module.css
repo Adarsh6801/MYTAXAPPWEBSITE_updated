@@ -1,0 +1,46 @@
+.container {
+  display: grid;
+  grid-template-columns: auto auto;
+  -moz-column-gap: 25px;
+  column-gap: 25px;
+  margin-bottom: 20px;
+}
+
+.subContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 23px;
+}
+
+.upload {
+  max-width: 220px;
+  margin-left: 5px;
+}
+
+.subjectContainer {
+  grid-template-columns: auto minmax(142px, 1fr);
+}
+
+.marginTop {
+  margin-top: 23px;
+}
+
+.marginLeft {
+  margin-left: 0px !important;
+}
+
+.img {
+  padding-right: 10px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    grid-template-columns: auto;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .subjectContainer {
+    align-content: center;
+  }
+}

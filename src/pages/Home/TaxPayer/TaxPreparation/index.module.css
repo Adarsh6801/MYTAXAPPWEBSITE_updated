@@ -1,0 +1,44 @@
+.container {
+  padding-top: 120px;
+}
+
+.title {
+  font-size: var(--font25);
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
+  color: var(--gray11);
+}
+
+.tableTextGreyFields {
+  color: var(--gray8);
+  margin-bottom: 0px;
+}
+
+.clientName {
+  color: var(--black);
+  margin-bottom: 0px;
+}
+
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.containerMobile {
+  display: flex;
+  flex-direction: column;
+}
+
+.iconBtnContainer {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+@media only screen and (max-width: 576px) {
+  .tableContainer {
+    flex-direction: column;
+  }
+}

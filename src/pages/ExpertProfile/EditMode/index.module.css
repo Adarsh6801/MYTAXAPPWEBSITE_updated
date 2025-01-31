@@ -1,0 +1,13 @@
+.subTitle {
+  font-size: var(--font14);
+  font-weight: 800;
+}
+
+.upload {
+  max-width: 280px;
+}
+
+.form {
+  margin: 0 auto;
+  max-width: 450px;
+}

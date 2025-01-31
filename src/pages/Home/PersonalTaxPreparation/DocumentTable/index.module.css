@@ -1,0 +1,19 @@
+.categoryNames {
+  color: var(--gray11);
+  margin-bottom: 0px;
+}
+
+.tableText {
+  color: var(--gray9);
+  margin-bottom: 0px;
+}
+
+.fileRowContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.marginRight {
+  margin-right: 5px;
+}

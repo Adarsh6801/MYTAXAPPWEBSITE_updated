@@ -1,0 +1,25 @@
+.marginButton {
+  margin-bottom: 0px;
+}
+
+.noAppointmentContainer {
+  display: grid;
+  row-gap: 30px;
+  justify-items: center;
+  align-content: center;
+}
+
+.noAppointment {
+  width: 200px;
+  height: 200px;
+}
+
+.noAppointmentText {
+  font-size: var(--font25);
+  font-weight: 500;
+  line-height: var(--font28);
+  color: var(--gray11);
+  text-align: center;
+  margin-bottom: 0;
+  max-width: 300px;
+}

@@ -1,0 +1,56 @@
+.container {
+  display: grid;
+  -moz-column-gap: 15px;
+  column-gap: 15px;
+  grid-template-columns: auto 1fr;
+}
+
+.subContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(250px, 1fr);
+  -moz-column-gap: 10px;
+  column-gap: 10px;
+  align-content: center;
+}
+
+.subContainerMinMax {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0px, 1fr);
+  -moz-column-gap: 10px;
+  grid-column-gap: 10px;
+  column-gap: 10px;
+  align-content: center;
+  max-width: 570px;
+  justify-items: end;
+}
+
+.question {
+  max-width: 200px;
+}
+
+.iconContainer {
+  min-width: 74px;
+}
+
+.button {
+  min-width: 25px;
+  height: 22px;
+}
+
+@media only screen and (max-width: 992px) {
+  .container {
+    max-width: initial;
+  }
+
+  .question {
+    max-width: initial;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .subContainer {
+    grid-template-columns: auto auto;
+  }
+}

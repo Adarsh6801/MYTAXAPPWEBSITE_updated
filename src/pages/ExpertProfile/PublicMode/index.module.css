@@ -1,0 +1,32 @@
+.leftSideContainer {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) auto;
+  border-right: 1px solid var(--gray4);
+  padding-right: 18px;
+  margin-right: 18px;
+}
+
+.link {
+  margin-left: 10px;
+}
+
+.subTitle {
+  font-size: var(--font14);
+  font-weight: 800;
+}
+
+.titleUniversity {
+  margin-bottom: 0px;
+}
+
+.description {
+  color: var(--gray8);
+}
+
+@media screen and (max-width: 576px) {
+  .leftSideContainer {
+    grid-template-columns: auto;
+    border-right: initial;
+    margin-bottom: 30px;
+  }
+}

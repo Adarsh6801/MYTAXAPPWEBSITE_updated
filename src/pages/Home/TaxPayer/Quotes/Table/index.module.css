@@ -1,0 +1,29 @@
+.quoteContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.text {
+  margin-bottom: 0;
+  margin-right: 6px;
+  align-self: center;
+}
+
+.pdfBtnContainer {
+  min-width: 10px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+}
+
+.buttonContainer {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 13px;
+  justify-content: space-around;
+  align-items: center;
+}

@@ -1,0 +1,12 @@
+<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g id="rent">
+    <g id="Password">
+      <path id="Stroke 8" fill-rule="evenodd" clip-rule="evenodd" d="M16.9776 5.62305H9.65473C7.10283 5.62305 5.50293 7.42991 5.50293 9.98688V16.8866C5.50293 19.4435 7.09523 21.2504 9.65473 21.2504H16.9768C19.5371 21.2504 21.1303 19.4435 21.1303 16.8866V9.98688C21.1303 7.42991 19.5371 5.62305 16.9776 5.62305Z" fill="#E9EEFF" />
+      <path id="Stroke 1" fill-rule="evenodd" clip-rule="evenodd" d="M16.7324 2.75H8.06344C5.04244 2.75 3.14844 4.889 3.14844 7.916V16.084C3.14844 19.111 5.03344 21.25 8.06344 21.25H16.7314C19.7624 21.25 21.6484 19.111 21.6484 16.084V7.916C21.6484 4.889 19.7624 2.75 16.7324 2.75Z" stroke="#3F65E4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path id="Stroke 3" fill-rule="evenodd" clip-rule="evenodd" d="M11.0878 12.0004C11.0878 13.0234 10.2588 13.8524 9.23579 13.8524C8.21279 13.8524 7.38379 13.0234 7.38379 12.0004C7.38379 10.9774 8.21279 10.1484 9.23579 10.1484H9.23879C10.2598 10.1494 11.0878 10.9784 11.0878 12.0004Z" stroke="#3F65E4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path id="Stroke 5" d="M11.0908 12H17.4088V13.852" stroke="#3F65E4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path id="Stroke 7" d="M14.5801 13.852V12" stroke="#3F65E4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+  </g>
+</svg>
+  

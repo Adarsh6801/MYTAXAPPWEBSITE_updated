@@ -1,0 +1,118 @@
+import {
+  QUESTION_TYPE_ANSWER,
+  ORGANIZER_CATEGORY_ID,
+} from "../../../../constants/organizer";
+import i18n from "../../../../i18n";
+
+export const data = [
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_DoMaintainOnlineCloudBasedAccountingSystem",
+    answerTypeId: QUESTION_TYPE_ANSWER.boolean,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_SentInviteFromMyAccountingSoftware",
+    answerTypeId: QUESTION_TYPE_ANSWER.boolean,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_CanAttacheExcelFiles",
+    answerTypeId: QUESTION_TYPE_ANSWER.boolean,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_ExcelOfBalanceSheetFile",
+    answerTypeId: QUESTION_TYPE_ANSWER.file,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_ExcelOfGeneralLedgerFile",
+    answerTypeId: QUESTION_TYPE_ANSWER.file,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_ReportCoversCorrectAccountingPeriod",
+    answerTypeId: QUESTION_TYPE_ANSWER.boolean,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_ReportsAreTheSameBasisAsAccountingMethod",
+    answerTypeId: QUESTION_TYPE_ANSWER.boolean,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.automatedBookkeepingSystem,
+    forSpouse: false,
+    question: "automatedBookkeeping_ExcelOfIncomeStatementFile",
+    answerTypeId: QUESTION_TYPE_ANSWER.file,
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+];
+
+export const radioButtons = [
+  {
+    label: i18n.t("organizer.business.step11.yes"),
+    value: true,
+  },
+  {
+    label: i18n.t("organizer.business.step11.no"),
+    value: false,
+  },
+];
+
+export const DATA_KEY = [
+  "automatedBookkeeping_ExcelOfIncomeStatementFile",
+  "automatedBookkeeping_DoMaintainOnlineCloudBasedAccountingSystem",
+  "automatedBookkeeping_SentInviteFromMyAccountingSoftware",
+  "automatedBookkeeping_CanAttacheExcelFiles",
+  "automatedBookkeeping_ExcelOfBalanceSheetFile",
+  "automatedBookkeeping_ExcelOfGeneralLedgerFile",
+  "automatedBookkeeping_ReportCoversCorrectAccountingPeriod",
+  "automatedBookkeeping_ReportsAreTheSameBasisAsAccountingMethod",
+];

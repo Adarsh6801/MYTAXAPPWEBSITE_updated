@@ -1,0 +1,58 @@
+.container {
+  max-width: 500px;
+  margin-left: 15%;
+}
+
+.infoText {
+  margin-bottom: 91px;
+}
+
+.title {
+  color: var(--gray12);
+  font-weight: 600;
+  font-size: var(--font25);
+  line-height: 28px;
+  margin-bottom: 0px;
+}
+
+.description {
+  color: var(--gray10);
+  font-weight: 400;
+  font-size: var(--font14);
+  line-height: 28px;
+  white-space: pre-line;
+  max-width: 317px;
+}
+
+.question {
+  margin-bottom: 48px;
+}
+
+.avatarContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.avatarRating {
+  display: grid;
+  justify-items: center;
+  flex-direction: column;
+  margin-right: 22px;
+}
+
+.input {
+  margin-bottom: 70px;
+  cursor: pointer;
+  caret-color: transparent;
+}
+
+.input :focus {
+  outline: none;
+}
+@media only screen and (max-width: 576px) {
+  .avatarContainer {
+    align-items: center;
+    flex-direction: column;
+  }
+}

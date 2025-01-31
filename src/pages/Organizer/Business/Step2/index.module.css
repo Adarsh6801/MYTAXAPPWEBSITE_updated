@@ -1,0 +1,35 @@
+.inputContainer {
+  display: flex;
+}
+
+.marginBR {
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
+}
+
+.subTitle {
+  font-weight: 700;
+  font-size: var(--font16);
+  color: var(--gray11);
+  line-height: 19px;
+  margin-left: 104px;
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  .inputContainer {
+    display: block;
+  }
+
+  .subTitle {
+    margin-left: 10px;
+  }
+
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

@@ -1,0 +1,9 @@
+.marginBottom {
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 992px) {
+  .questionContainer {
+    grid-template-columns: auto;
+  }
+}

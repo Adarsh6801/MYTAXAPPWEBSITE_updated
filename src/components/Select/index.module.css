@@ -1,0 +1,15 @@
+.container {
+  min-width: 120px;
+  color: var(--gray11);
+}
+
+.title {
+  font-size: var(--font16);
+  color: var(--gray15);
+  line-height: 24px;
+  margin: 0px;
+}
+
+.item {
+  color: var(--gray11) !important;
+}
