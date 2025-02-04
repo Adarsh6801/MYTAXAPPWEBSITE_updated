@@ -3,4 +3,5 @@ export interface IQuestionContainer {
   key: string;
   style?: boolean;
   children: React.ReactNode;
+  required?: boolean;
 }

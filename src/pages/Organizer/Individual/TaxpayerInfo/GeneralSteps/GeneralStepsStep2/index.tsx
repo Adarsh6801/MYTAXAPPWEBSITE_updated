@@ -88,6 +88,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
       });
+      console.log(stepData,'stepDatastepData');
 
       const resultData: any[] =
         stepData.length > 0
@@ -105,10 +106,12 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
           });
         }
       });
-
+      console.log(resultData,'resultDataaa');
+      
       resultData.length >= DATA_KEY.length && setData(resultData);
       resultData.length >= DATA_KEY.length &&
         setCount(getDynamicDataCount("dependantFullName", resultData));
+        console.log(form.getFieldsValue(),"resultData");
     }
   }, [dataOrganizer]);
 
@@ -320,6 +323,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
     );
     setData(newData);
     setCount(count + 1);
+    console.log(form.getFieldsValue(),"resultData");
   };
 
   const remove = () => {
@@ -359,6 +363,12 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
           children: input({
             name: `dependantFullName${index + 1}`,
             label: t("organizer.individual.general_steps.step2.fullName"),
+            required : true,
+            placeholder:"Donald J Trump",
+            pattern:{
+              value : /^[a-zA-Z\s]*$/,
+              message : 'Only Alphabets and Spaces are Allowed'
+            }
           }),
 
         /*   key: `dependantFirstName${index + 1}`,
@@ -437,6 +447,10 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               placeholder: SOCIAL_SECURITY,
               isNumericOnly: true,
               required : true,
+              // pattern:{
+              // value :/^\d{3}-\d{2}-\d{5}$/,
+              // message : 'Social Security Number is Invalid'
+              // },
               message : 'Social Security Number is Required'
             })}
           </div>
@@ -562,10 +576,11 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               name: "hasDependants",
               radioButtons: radioButtons,
               value: data[findIndexData("hasDependants", data)].answer,
+              required:true
             })}
           </div>
         </OrganizerQuestionCard>
-        {data[0].answer && (
+        {data[0].answer  && (
           <div className={styles.marginTop}>
             {_.times(count, (index: number) => (
               <div key={index}>

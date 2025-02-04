@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
@@ -73,6 +73,8 @@ import styles from "./index.module.css";
 const OrganizerIndividual = () => {
   const { t } = useTranslation();
   const [state, setState] = useState<any>({} as any);
+  const [previousTaxYear, setpreviousTaxYear] = useState<any>('');
+
 
   const isLoading = useSelector(
     (state: any) => state.individualOrganizer.loading,
@@ -81,6 +83,25 @@ const OrganizerIndividual = () => {
   const onStepSubmit = (values: object) => {
     setState({ ...state, ...values });
   };
+  const dataOrganizer = useSelector(
+    (state: any) => state.individualOrganizer.data,
+  );
+// let previousTaxYear;
+    useEffect(() => {
+      if (dataOrganizer) {
+        console.log(dataOrganizer,'Data Organization');
+        const questionKey = "previousTaxYear"; // The question you want to match
+
+// Find the object with the matching question
+const foundItem = dataOrganizer.find((item:any) => item.question == questionKey);
+console.log(foundItem,'Found Item');
+
+// Get the answer if found, otherwise default to an empty string
+setpreviousTaxYear(foundItem ? foundItem.answer : "")
+ console.log(previousTaxYear,'Previous Tax Year');
+ 
+      }
+    }, [dataOrganizer]);
 
   return (
     <>
@@ -121,7 +142,7 @@ const OrganizerIndividual = () => {
             ),
             groupName: "Taxpayer info",
             stepIcon: <OrganizerFillingStatus />,
-            stepTitle: t("organizer.individual.yes_flow.step3.step_title"),
+            stepTitle: t("organizer.individual.yes_flow.step3.step_title") + " " + previousTaxYear ,
           },
           {
             // 3

@@ -54,9 +54,10 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
   if (inputType === "state") {
     inputNode = (
-      <Input defaultValue={record.federal.toString()} type={"number"} />
+      <Input defaultValue={record.state.toString()} type={"number"} />
     );
   }
+
 
   if (inputType === "datePaid") {
     inputNode = (
@@ -71,15 +72,51 @@ const EditableCell: React.FC<EditableCellProps> = ({
                 DEFAULT_DATE_FORMAT,
               )
         }
+        
         disabledDate={disabledDateFuture}
+        format={DEFAULT_DATE_FORMAT}
       />
     );
   }
+  interface ValidationRule {
+    required?: boolean;
+    message: string;
+    pattern?: RegExp;
+    min?: number;
+    max?: number;
+  }
+  
+
+    const rules:ValidationRule[]  = [{ required: true, message: `${title} is required!` }];
+
+    if (inputType === "state" || inputType === "name") {
+      rules.push({
+        pattern: /^\d+$/,
+        message: `${title} must be numeric!`,
+      });
+      rules.push({
+        min: 1,
+        message: `${title} must be at least 1 character!`,
+      });
+      rules.push({
+        max: 11,
+        message: `${title} must be at most 11 characters!`,
+      });
+    }
+
+    if (inputType === "datePaid") {
+
+    }
+  
 
   return (
     <td {...restProps}>
       {dataIndex !== "name" && record !== undefined ? (
-        <Form.Item name={`${dataIndex}${record.key}`} style={{ margin: 0 }}>
+        <Form.Item 
+          name={`${dataIndex}${record.key}`}
+          style={{ margin: 0 }}
+          rules={rules}
+        >
           {inputNode}
         </Form.Item>
       ) : (
@@ -139,10 +176,29 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
             resultData[
               findIndexData("didPayAnyEstimatedTaxesDuringTheYear", resultData)
             ].answer,
+
         });
-        setOriginData(JSON.parse(tabledata.data));
+        
+        let newdata = JSON.parse(tabledata.data)
+        setOriginData(newdata);
+        if(newdata.length > 0){
+            newdata.forEach((item:Item,i:number)=>{
+              console.log(item?.datePaid,'item?.datePaid')
+              form.setFieldsValue({
+                  [`federal${item.key}`]:item?.federal || '',
+                  [`state${item.key}`]:item?.state || '',
+                  // [`datePaid${item.key}`]: item?.datePaid ? new Date(item?.datePaid) : null,
+                  [`datePaid${item.key}`]: item?.datePaid ?  moment(
+                    moment(item?.datePaid).format(DEFAULT_DATE_FORMAT).toString(),
+                    DEFAULT_DATE_FORMAT,
+                  ) : null,
+
+              })
+          })
+        }
       }
     }
+    
   }, [dataOrganizer]);
 
   const init = async () => {

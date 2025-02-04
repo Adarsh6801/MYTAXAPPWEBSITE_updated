@@ -19,6 +19,12 @@ export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
 export interface IInputsName {
   key: string;
   value: string;
+  pattern?:{
+    value: RegExp;
+    message: string;
+  }
+  required?: boolean;
+  placeholder?: string;
 }
 
 export interface IQuestionProperties {

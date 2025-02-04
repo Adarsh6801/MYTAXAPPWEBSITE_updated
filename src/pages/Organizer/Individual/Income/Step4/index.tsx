@@ -152,7 +152,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
     return (
       <>
         {names.map((item, index) =>
-          input({ name: item.key, label: item.value, key: index }),
+          input({ name: item.key, label: item.value, key: index,pattern:item.pattern, required:item.required,placeholder:item.placeholder }),
         )}
       </>
     );
@@ -194,9 +194,26 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
       editable: true,
       render: (_: any, record: any) => {
         return (
-          <Form.Item name={`taxPayer${record.key}`} style={{ margin: 0 }}>
-            <Input defaultValue={record.taxPayer} />
-          </Form.Item>
+          // <Form.Item name={`taxPayer${record.key}`} style={{ margin: 0 }}>
+          //   <Input defaultValue={record.taxPayer} required={true}  />
+          // </Form.Item>
+          <Form.Item
+          label="Tax Payer"
+          name="taxPayer"
+          initialValue={record.taxPayer}
+          rules={[
+            {
+              required: true,
+              message: "Tax Payer ID is required",
+            },
+            {
+              pattern: /^\d{6}$/,
+              message: "Tax Payer ID must be exactly 6 digits",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
         );
       },
     },
@@ -381,9 +398,12 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   key: "taxPayer_VehicleMake",
                   question: t("organizer.individual.income.step4.question2"),
                   children: manyInput([
-                    { key: "taxPayer_VehicleMake", value: "Make" },
-                    { key: "taxPayer_VehicleModel", value: "Model" },
-                    { key: "taxPayer_VehicleYear", value: "Year" },
+                    { key: "taxPayer_VehicleMake", value: "Make", pattern:{value:/^[A-Za-z]+$/
+,message:"Only letters are allowed"},required:true, placeholder:"Chevy" },
+                    { key: "taxPayer_VehicleModel", value: "Model",pattern:{value:/^[A-Za-z]+$/
+                      ,message:"Only letters are allowed"}, required:true,placeholder:"Camero"  },
+                    { key: "taxPayer_VehicleYear", value: "Year", pattern:{value:/^(1[0-9]{3}|2[0-9]{3})$/
+                      ,message:"Enter valid year"}, required:true,placeholder:"2,023"},
                   ]),
                   subClass: styles.questionSubClass,
                 })}
@@ -473,6 +493,12 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   ),
                   children: input({
                     name: "taxPayer_TotalMilesDrivenThisYear",
+                    required:true,
+                    pattern:{
+                      value:/^\d{6}$/,
+                      message:"6 number allowed"
+                    },
+                    placeholder:"12,500"
                   }),
                 })}
               </>
@@ -495,6 +521,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   children: radio({
                     name: "spouse_HaveVehicleExpensesFromBusinessOrRealEstate",
                     radioButtons: radioButtons,
+                    required:true
                   }),
                 })}
                 <Divider />
@@ -622,6 +649,11 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                       subClass: styles.questionSubClass,
                       children: input({
                         name: "spouse_TotalMilesDrivenThisYear",
+                        required:true,
+                        pattern:{
+                          value:/^\d{6}$/,
+                          message:"6 number allowed"
+                        } 
                       }),
                     })}
                   </>
