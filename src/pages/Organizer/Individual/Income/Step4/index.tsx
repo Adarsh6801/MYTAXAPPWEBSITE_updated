@@ -199,7 +199,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
           // </Form.Item>
           <Form.Item
           label="Tax Payer"
-          name="taxPayer"
+          name={`taxPayer${record.key}`}
           initialValue={record.taxPayer}
           rules={[
             {
@@ -212,7 +212,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             },
           ]}
         >
-          <Input />
+          <Input defaultValue={record.taxPayer} />
         </Form.Item>
         );
       },
@@ -223,7 +223,16 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
       editable: true,
       render: (_: any, record: any) => {
         return (
-          <Form.Item name={`spouse${record.key}`} style={{ margin: 0 }}>
+          <Form.Item name={`spouse${record.key}`} style={{ margin: 0 }}           rules={[
+            {
+              required: true,
+              message: "Self Employed Business is required",
+            },
+            {
+              pattern: /^\d{6}$/,
+              message: "Self Employed Business must be exactly 6 digits",
+            },
+          ]}>
             <Input defaultValue={record.spouse} />
           </Form.Item>
         );

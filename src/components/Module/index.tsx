@@ -477,19 +477,30 @@ export const dataPicker = (dataPicker: IDataPicker) => {
 };
 
 export const checkbox = (dataCheckbox: IDataCheckbox) => {
-  const { name, label, value, style } = dataCheckbox;
+  const { name, label, value, style, required } = dataCheckbox;
+  const rules = [];
+
+  if (required) {
+    rules.push({
+      required: true,
+      message: `${label || name} is required.`, // Ensuring it's a string
+    });
+  }
+
   return (
     <Form.Item
       name={name}
       valuePropName="checked"
       className={styles.checkboxContainer}
+      rules={rules}
     >
-      <Checkbox className={style} value={value === null ? false : !!value}>
+      <Checkbox className={style} value={!!value}>
         {label}
       </Checkbox>
     </Form.Item>
   );
 };
+
 
 export const questionContainer = (dataQuestion: IQuestionContainer) => {
   const { question, key, data, onAlert, onMessage, children } = dataQuestion;

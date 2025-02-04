@@ -157,4 +157,5 @@ export interface IDataCheckbox {
   value: any;
   label?: string;
   style?: string;
+  required?: boolean; 
 }
