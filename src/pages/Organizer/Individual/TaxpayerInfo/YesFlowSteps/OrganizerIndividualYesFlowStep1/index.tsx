@@ -251,6 +251,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
               required:true,
               children: upload({
                 key: "previousTaxReturnFileUpload",
+                
                 label: t(
                   "organizer.individual.yes_flow.step1.upload_file_label",
                 ),
@@ -269,18 +270,33 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
                 },
                 onRemove: (index = 0) => {
                   const newData = [...data];
+                  const indexToRemove = index;
+                  const dataIndex = findIndexData("previousTaxReturnFileUpload", data);
+                  
+                  // Get the file UID being removed
+                  const removedFileUid = data[dataIndex].answer.fileList[indexToRemove]?.uid;
+                  
+                  // Remove from files array
                   const newFileList = [
-                    ...data[
-                      findIndexData("previousTaxReturnFileUpload", data)
-                    ].files.slice(0, index),
-                    ...data[
-                      findIndexData("previousTaxReturnFileUpload", data)
-                    ].files.slice(index + 1),
+                    ...data[dataIndex].files.slice(0, indexToRemove),
+                    ...data[dataIndex].files.slice(indexToRemove + 1),
                   ];
-                  newData[
-                    findIndexData("previousTaxReturnFileUpload", data)
-                  ].files = newFileList;
-
+                  
+                  // Remove from answer.fileList array
+                  const newAnswerFileList = [
+                    ...data[dataIndex].answer.fileList.slice(0, indexToRemove),
+                    ...data[dataIndex].answer.fileList.slice(indexToRemove + 1),
+                  ];
+                  
+                  // Remove answer.file if it matches the removed file
+                  if (data[dataIndex].answer.file?.uid === removedFileUid) {
+                    newData[dataIndex].answer.file = null; // Or delete newData[dataIndex].answer.file;
+                  }
+                  
+                  // Update the data object
+                  newData[dataIndex].files = newFileList;
+                  newData[dataIndex].answer.fileList = newAnswerFileList;
+                  
                   setData([...newData]);
                 },
                 allowedFileTypes:["application/pdf"],

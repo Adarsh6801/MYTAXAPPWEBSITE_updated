@@ -145,6 +145,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
   };
   function formatPhoneNumber(number: string): string {
     // Remove non-digit characters
+    if(!number) return "";
     const cleaned = number.replace(/\D/g, "");
 
     // Apply the regex pattern to format the number

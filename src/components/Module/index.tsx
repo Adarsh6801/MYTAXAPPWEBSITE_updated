@@ -603,6 +603,7 @@ export const ssnInput = (data: IInput) => {
 // function to support the ssnInput
 const formatPhoneNumber = (value: string) => {
   // Remove non-digit characters
+  if(!value) return '';
   let formattedValue = value.replace(/\D/g, '');
 
   // Format as XXX-XXX-XXXX
@@ -638,6 +639,7 @@ export const phoneNumberInput = (data: IInput) => {
 
   // Function to format the phone number
   const formatPhoneNumber = (value: string) => {
+    if(!value) return '';
     value = value.replace(/[^\d]/g, '');  // Remove non-numeric characters
     if (value.length <= 3) {
       value = `(${value}`;

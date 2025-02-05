@@ -24,7 +24,7 @@ export interface IOrganizerStepProps {
   question: string;
   message: string;
   reminder: boolean;
-  answer: null | FileList | string | number | boolean;
+  answer: null | FileList | string | number | boolean | any;
   isFile: boolean;
   files: any;
 }
