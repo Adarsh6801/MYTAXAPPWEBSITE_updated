@@ -131,6 +131,7 @@ export const HOURS_MODAL: IHoursModal = {
 export const namesSpouseFields: IPROPERTIES_STRING = {
   businessName: "spouseBusinessName",
   employerIDNumber: "spouseBusiness_EmployerIDNumber",
+  productOrService: "spouseproductOrService",
   selfEmployedHealthInsuranceCost:
     "spouseBusiness_SelfEmployedHealthInsuranceCost",
   grossIncome: "spouseBusiness_GrossIncome",
@@ -174,6 +175,7 @@ export const namesSpouseFields: IPROPERTIES_STRING = {
 export const namesTaxPayerFields: IPROPERTIES_STRING = {
   businessName: "taxPayerBusinessName",
   employerIDNumber: "taxPayerBusiness_EmployerIDNumber",
+  productOrService: "taxPayerBusiness_productOrService",
   selfEmployedHealthInsuranceCost:
     "taxPayerBusiness_SelfEmployedHealthInsuranceCost",
   grossIncome: "taxPayerBusiness_GrossIncome",
