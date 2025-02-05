@@ -7,6 +7,13 @@ export interface IQuestionProperties {
 export interface IInputsName {
   key: string;
   value: string;
+  pattern?: {
+    value: RegExp; // Regular expression for validation
+    message: string; // Error message if pattern fails
+  };
+  required?: boolean; // Add this property
+  placeholder?: string;
+
 }
 
 export interface IQuestionContainer {
@@ -14,4 +21,5 @@ export interface IQuestionContainer {
   key: string;
   children: React.ReactNode;
   subClass?: string;
+  required?: boolean;
 }

@@ -438,11 +438,11 @@ const Step15 = (props: ITaxPayerInfoStepsProps) => {
           question: t("organizer.business.step15.question32"),
           children: input({ name: "expenses_Telephone" }),
         })}
-        {questionContainer({
+        {/* {questionContainer({
           key: "expenses_Utilities",
           question: t("organizer.business.step15.question33"),
           children: input({ name: "expenses_Utilities" }),
-        })}
+        })} */}
         {_.times(countCostSold, index => {
           return (
             <div key={index}>

@@ -39,6 +39,7 @@ import OrganizerDeductionsStep1 from "./Deductions/Step1";
 import OrganizerDeductionsStep2 from "./Deductions/Step2";
 import OrganizerDeductionsStep3 from "./Deductions/Step3";
 import OrganizerDeductionsStep4 from "./Deductions/Step4";
+import OrganizerDeductionsStep4_1 from "./Deductions/step4_1";
 import OrganizerDeductionsStep5 from "./Deductions/Step5";
 import OrganizerDeductionsStep6 from "./Deductions/Step6";
 import OrganizerDeductionsStep7 from "./Deductions/Step7";
@@ -386,6 +387,18 @@ setpreviousTaxYear(foundItem ? foundItem.answer : "")
             groupName: "Deductions",
             stepIcon: <OrganizerHeart />,
             stepTitle: t("organizer.deductions.step4.step_title"),
+          },
+          {
+            // 26
+            component: (
+              <OrganizerDeductionsStep4_1
+                state={state}
+                onStepSubmit={onStepSubmit}
+              />
+            ),
+            groupName: "Deductions",
+            stepIcon: <OrganizerHeart />,
+            stepTitle: t("organizer.deductions.step4_1.step_title"),
           },
           {
             // 27

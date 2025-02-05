@@ -112,17 +112,23 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
     }
   }, [dataOrganizer]);
   function formatPhoneNumber(number: string): string {
-    // Remove non-digit characters
-    const cleaned = number.replace(/\D/g, "");
-  
-    // Apply the regex pattern to format the number
-    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})(\d{0,4})$/);
-  
-    if (match) {
-      return `(${match[1]}) ${match[2]}-${match[3]}${match[4] ? ` ${match[4]}` : ""}`;
+    if(number){
+
+      // Remove non-digit characters
+      const cleaned = number.replace(/\D/g, "");
+    
+      // Apply the regex pattern to format the number
+      const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})(\d{0,4})$/);
+    
+      if (match) {
+        return `(${match[1]}) ${match[2]}-${match[3]}${match[4] ? ` ${match[4]}` : ""}`;
+      }
+    
+      return number;  // Return the original number if it doesn't match the expected length
     }
-  
-    return number;  // Return the original number if it doesn't match the expected length
+    else{
+      return ""
+    }
   }
   useEffect(() => {
     fieldName === "hasMovedFromTheAddressOnThePriorYear" &&

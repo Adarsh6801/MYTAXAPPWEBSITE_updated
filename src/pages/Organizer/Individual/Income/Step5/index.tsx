@@ -165,13 +165,24 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
     );
   };
 
-  const manyInput = (names: IInputsName[]) => {
-    return (
-      <>
-        {names.map((item): any => input({ name: item.key, label: item.value }))}
-      </>
-    );
-  };
+  // const manyInput = (names: IInputsName[]) => {
+  //   return (
+  //     <>
+  //       {names.map((item): any => input({ name: item.key, label: item.value }))}
+  //     </>
+  //   );
+  // };
+
+
+    const manyInput = (names: IInputsName[]) => {
+      return (
+        <>
+          {names.map((item, index) =>
+            input({ name: item.key, label: item.value, key: index,pattern:item.pattern, required:item.required,placeholder:item.placeholder }),
+          )}
+        </>
+      );
+    };
 
   return (
     <div>
@@ -213,6 +224,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
               {questionContainer({
                 key: "taxPayerHomeOffice_HaveSelfEmployedBusiness",
                 question: t("organizer.individual.income.step5.question2"),
+                required: true,
                 children: checkbox({
                   name: "taxPayerHomeOffice_HaveSelfEmployedBusiness",
                   value:
@@ -228,9 +240,11 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
               {questionContainer({
                 key: "taxPayerHomeOffice_DateOfUseBegan",
                 question: t("organizer.individual.income.step5.question3"),
+                required: true,
                 children: dataPicker({
                   name: "taxPayerHomeOffice_DateOfUseBegan",
                   icon: <Calendar />,
+                  required:true,
                   disabledDate: disabledDateFuture,
                   defaultValue:
                     data[
@@ -247,14 +261,32 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                   {
                     key: "taxPayerHomeOffice_EntireHomeArea",
                     value: "Entire Home",
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,6}$/,
+                      message: "Only numbers are allowed maximum length 6"
+                    },
+                    placeholder: "2,500"
                   },
                   {
                     key: "taxPayerHomeOffice_OfficeArea",
                     value: "Office Area",
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,6}$/,
+                      message: "Only numbers are allowed maximum length 6"
+                    },
+                    placeholder: "1,250"
                   },
                   {
                     key: "taxPayerHomeOffice_BusinessStorage",
                     value: "BusinessStorage",
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,6}$/,
+                      message: "Only numbers are allowed maximum length 6"
+                    },
+                    placeholder: "75"
                   },
                 ]),
               })}
@@ -267,30 +299,62 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalRent",
                     value: t("organizer.individual.income.step5.label4"),
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,7}$/,
+                      message: "Only numbers are allowed maximum length 7"
+                    },
+                    placeholder: "12,500"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalInsurance",
                     value: t("organizer.individual.income.step5.label5"),
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,7}$/,
+                      message: "Only numbers are allowed maximum length 7"
+                    },
+                    placeholder: "2,500"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalMaintenance",
                     value: t("organizer.individual.income.step5.label6"),
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,7}$/,
+                      message: "Only numbers are allowed maximum length 7"
+                    },
+                    placeholder: "2,500"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalUtilities",
                     value: t("organizer.individual.income.step5.label7"),
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,7}$/,
+                      message: "Only numbers are allowed maximum length 7"
+                    },
+                    placeholder: "2,500"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalRepairs",
                     value: t("organizer.individual.income.step5.label8"),
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,7}$/,
+                      message: "Only numbers are allowed maximum length 7"
+                    },
+                    placeholder: "2,500"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalManagment",
                     value: t("organizer.individual.income.step5.label9"),
-                  },
-                  {
-                    key: "taxPayerHomeOfficeExpenses_AmountPaid",
-                    value: t("organizer.individual.income.step5.label10"),
+                    required:true,
+                    pattern:{
+                      value: /^[0-9]{1,7}$/,
+                      message: "Only numbers are allowed maximum length 7"
+                    },
+                    placeholder: "2,500"
                   },
                 ]),
               })}

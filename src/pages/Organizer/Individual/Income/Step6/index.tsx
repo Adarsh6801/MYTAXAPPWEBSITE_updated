@@ -243,19 +243,38 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
               {input({
                 name: names[0] + index,
                 label: t("organizer.individual.income.step6.label1"),
+                required:true,
+                pattern: {
+                  value: /^[a-zA-Z0-9]+$/,
+                  message: "Only letters and numbers are allowed."
+                },                
+                placeholder:"123 Main St"
               })}
               {select({
                 name: names[1] + index,
                 label: t("organizer.individual.income.step6.label2"),
                 data: selectType,
+                required:true,
               })}
               {input({
                 name: names[2] + index,
                 label: t("organizer.individual.income.step6.label3"),
+                required:true,
+                placeholder:"28,000",
+                pattern: {
+                  value: /^[0-9]{1,7}$/,
+                  message: "Only numbers are allowed, with a minimum length of 1 and a maximum length of 7."
+                }                
               })}
               {input({
                 name: names[4] + index,
                 label: t("organizer.individual.income.step6.label5"),
+                required:true,
+                placeholder:"100%",
+                pattern: {
+                  value: /^(100|[0-9]{1,2})$/,
+                  message: "Enter a valid percentage between 0 and 100."
+                }
               })}
             </div>
           ),
@@ -273,10 +292,23 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
               {input({
                 name: names[6] + index,
                 label: t("organizer.individual.income.step6.label7"),
+                required:true,
+                pattern: {
+                  value: /^[0-9]{1,3}$/,
+                  message: "Only numbers are allowed, with a minimum length of 1 and a maximum length of 3."
+                } ,
+                placeholder:"365"               
               })}
               {input({
                 name: names[7] + index,
                 label: t("organizer.individual.income.step6.label8"),
+                required:true,
+                pattern: {
+                  value: /^[0-9]{1,3}$/,
+                  message: "Only numbers are allowed, with a minimum length of 1 and a maximum length of 3."
+                }     ,
+                placeholder:"365"               
+
               })}
             </div>
           ),

@@ -15,7 +15,7 @@ import {
   getCurrentType,
 } from "../../../../../helpers/format";
 import { disabledDatePast } from "../../../../../helpers/date";
-import { data as initialData, DATA_KEY } from "./index.constants";
+import { data as initialData, DATA_KEY, radioButtons } from "./index.constants";
 import { ORGANIZER_CATEGORY_ID } from "../../../../../constants/organizer";
 import { IRS_LINK } from "../../../../../constants/settings";
 import {
@@ -23,7 +23,7 @@ import {
   IOrganizerStepProps,
 } from "../../index.props";
 import { IQuestionContainer } from "./index.props";
-import { dataPicker, input } from "../../../../../components/Module";
+import { dataPicker, input,radio } from "../../../../../components/Module";
 import {
   getTaxpayerIndividualOrganizer,
   setIndividualOrganizer,
@@ -227,6 +227,18 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
         <span>{t("organizer.deductions.step3.label3")}</span>
       </div>
       <div>
+      <div className={styles.marginBottom}>
+        {questionContainer({
+          key: "doYou_pay_property_tax_directly",
+          question: t("organizer.deductions.step3.question7"),
+          children: radio({
+            name: "doYou_pay_property_tax_directly",
+            radioButtons: radioButtons,
+            required:true,
+            message:"Field is required."
+          }),
+        })}
+      </div>
         {questionContainer({
           key: "taxesPaid_RealEstatePrimaryResidence_Amount",
           question: t("organizer.deductions.step3.question1"),
