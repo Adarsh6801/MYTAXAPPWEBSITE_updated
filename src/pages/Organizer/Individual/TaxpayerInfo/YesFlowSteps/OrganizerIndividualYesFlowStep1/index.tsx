@@ -153,7 +153,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
     console.log(newData,'NEW DATA');
     console.log(name,'name');
     console.log(value,'value');
-    console.log(index,'index');
+    console.log(index,'indexxxxx');
     console.log(data,'dataaaa');
 
 
@@ -167,6 +167,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
       isFile: data[index].isFile,
       files: data[index].isFile ? value[name].fileList : null,
     };
+    console.log(newData,'newData');
+    
     setData([...newData]);
     setFiledName(name);
   };
@@ -215,21 +217,9 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           name: "hasFiledTaxReturnPreviously",
           radioButtons: radioButtons,
           required: true,
-          message: "Tax return for the previous tax year is required",
+          message:"Select Yes/No."
         }),
       })}
-
-      {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
-        questionContainer({
-          question: t("organizer.individual.yes_flow.step1.question_2"),
-          key: "hasDigitalCopyInPdfFormat",
-          required: true,
-          children: radio({
-            name: "hasDigitalCopyInPdfFormat",
-            radioButtons: radioButtons,
-          }),
-        })}
-
       {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
         questionContainer({
           question: t("organizer.individual.yes_flow.step1.question_7"),
@@ -238,10 +228,25 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
             name: 'previousTaxYear',
             placeholder:'Select Year',
             data: previousYears.map((year: number) => ({ label: year.toString(), value: year })),
-            required:true
+            required:true,
+            message:"Select Previous Tax Year."
           }),
           required:true,
         })}
+      {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
+        questionContainer({
+          question: t("organizer.individual.yes_flow.step1.question_2"),
+          key: "hasDigitalCopyInPdfFormat",
+          required: true,
+          children: radio({
+            name: "hasDigitalCopyInPdfFormat",
+            radioButtons: radioButtons,
+           required: true,
+          message:"Select Yes/No."
+          }),
+        })}
+
+
 
       {data[findIndexData("hasDigitalCopyInPdfFormat", data)].answer !== null
         ? data[findIndexData("hasDigitalCopyInPdfFormat", data)].answer
@@ -311,6 +316,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
               children: radio({
                 name: "canRequestPdfCopyForPreviousPreparer",
                 radioButtons: radioButtons,
+                          required: true,
+          message:"Select Yes/No."
               }),
             })
         : null}
@@ -323,6 +330,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           children: radio({
             name: "hasHardCopyOfTaxReturn",
             radioButtons: radioButtons,
+            required:true,
+            message:"Select Yes/No"
           }),
         })}
       {data[findIndexData("hasHardCopyOfTaxReturn", data)].answer !== null ? (
@@ -334,6 +343,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
             children: radio({
               name: "canScanTaxReturnIntoPdfFormat",
               radioButtons: radioButtons,
+                          required:true,
+            message:"Select Yes/No"
             }),
           })
         ) : (

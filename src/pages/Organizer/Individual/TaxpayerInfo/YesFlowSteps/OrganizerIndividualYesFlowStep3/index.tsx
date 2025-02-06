@@ -215,7 +215,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: any) => {
-    const { key, question, children } = dataQuestion;
+    const { key, question, children, required } = dataQuestion;
     const index: number = +findIndexData(key, data);
     return (
       <OrganizerQuestionCard
@@ -231,6 +231,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
           newData[index] = { ...data[index], message: comment };
           setData(newData);
         }}
+        required={required}
         className={getClassNames(styles.questionContainer)}
       >
         {children}
@@ -297,19 +298,48 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   required:true,
                   pattern: {
                     value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
-                    message: "Only letters, numbers, and '/' are allowed",
+                    message: "Only letters are allowed.",
+                  },
+                }),
+              })}
+              {questionContainer({
+                key: "spouseMiddleName",
+                children: input({
+                  name: "spouseMiddleName",
+                  label: t("organizer.individual.yes_flow.step3.middle_initial"),
+                  placeholder:"Donald J Trump",
+                  text: "(Must Match SS Admin)",
+                  required:false,
+                  pattern: {
+                    value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
+                    message: "Only letters are allowed.",
+                  },
+                }),
+              })}
+              {questionContainer({
+                key: "spouseLastName",
+                children: input({
+                  name: "spouseLastName",
+                  label: t("organizer.individual.yes_flow.step3.last_name"),
+                  placeholder:"Donald J Trump",
+                  text: "(Must Match SS Admin)",
+                  required:true,
+                  pattern: {
+                    value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
+                    message: "Only letters are allowed.",
                   },
                 }),
               })}
               <div className={styles.dataPickerContainer}>
                 {questionContainer({
                   key: "spouseBirthday",
+                  required:true,
                   children: dataPicker({
                     name: "spouseBirthday",
                     label: t("organizer.individual.yes_flow.step3.birthday"),
                     icon: <Calendar />,
                     required:true,
-                    
+                    disabledDate: disabledDateFuture,
                     defaultValue:
                       data[findIndexData("spouseBirthday", data)].answer,
                   }),
@@ -343,7 +373,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                                   // maxLengthMessage: 'Number is too long',
                                   pattern= {{
                                     value:  /^\d{3}-\d{2}-\d{4}$/, // Matches between 10 and 14 numeric digits
-                                    message: "Phone number must be 9 numeric digits",
+                                    message: "Social security no must be 9 numeric digits",
                                   }}
                                   maskFormat="000-00-0000"
                                   // defaultValue="
@@ -359,9 +389,10 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   name: "spouseOccupation",
                   label: t("organizer.individual.yes_flow.step3.occupation"),
                   pattern: {
-                    value: /^[A-Za-z0-9]+$/, // Allows letters, numbers, spaces, and '/'
+                    value: /^[A-Za-z0-9\s]+$/, // Allows letters, numbers, and spaces
                     message: "Invalid format! Only letters, numbers allowed",
-                  },
+                  }
+                  
                 }),
               })}
               {questionContainer({
@@ -409,6 +440,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     label: t("organizer.individual.yes_flow.step3.issued_date"),
                     icon: <Calendar />,
                     required:true,
+                    disabledDate: disabledDateFuture,
                     defaultValue:
                       data[
                         findIndexData("spouseDriversLicenseIssuedDate", data)
@@ -434,6 +466,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 question: t(
                   "organizer.individual.yes_flow.step3.images_drivers_license",
                 ),
+                required:true,
                 children: upload({
                   key: "spouseImagesOfDriversLicense",
                   data: data,
@@ -473,7 +506,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                       console.error("Failed to find file index or file list:", newData);
                     }
                   },
-                  
+                  maxCount:2
                 }),
               })}
             </div>

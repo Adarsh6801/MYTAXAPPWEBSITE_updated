@@ -419,6 +419,7 @@ export const ORGANIZER_CATEGORY_ID: IPROPERTIES_NUMBER = {
   homeMortgageINterest: 11,
   taxesPaid: 12,
   cashCharitableContributions: 13,
+  nonCashCharitableContributions: 37,
   healthCoverage: 14,
   medicalExpenses: 15,
   hSADistributions: 16,

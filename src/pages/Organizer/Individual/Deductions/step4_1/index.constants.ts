@@ -6,7 +6,7 @@ import {
   
   export const initialTaxPayerData = [
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "taxPayer_NonCashCharitableContributions_HasAny",
@@ -18,7 +18,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
@@ -30,7 +30,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
@@ -42,7 +42,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
@@ -54,7 +54,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
@@ -70,7 +70,7 @@ import {
   
   export const initialSpouseData = [
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "spouse_taxPayer_NonCashCharitableContributions_HasAny",
@@ -82,7 +82,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
@@ -94,7 +94,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
@@ -106,7 +106,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
@@ -118,7 +118,7 @@ import {
       files: null,
     },
     {
-      categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+      categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
       forSpouse: false,
       question:
         "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
