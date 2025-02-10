@@ -65,9 +65,8 @@ export interface IInput {
     message: string; // Error message if pattern fails
   };
   maskedInputPhone?: boolean;
-  maskFormat?:string;
+  maskFormat?: string;
 }
-
 
 export interface IInputMask {
   name: string;
@@ -93,7 +92,7 @@ export interface IInputMask {
     message: string; // Error message if pattern fails
   };
   maskedInputPhone?: boolean;
-  maskFormat:string;
+  maskFormat: string;
 }
 
 export interface IRadio {
@@ -118,8 +117,9 @@ export interface IUpload {
   onRemove: (index: number) => void;
   dispatch: Dispatch<any>;
   data: any;
-  required?:boolean;
-  allowedFileTypes?:string[];
+  required?: boolean;
+  allowedFileTypes?: string[];
+  minCount?: number;
 }
 
 export interface ISelect {
@@ -157,5 +157,5 @@ export interface IDataCheckbox {
   value: any;
   label?: string;
   style?: string;
-  required?: boolean; 
+  required?: boolean;
 }

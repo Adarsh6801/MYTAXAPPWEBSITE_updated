@@ -1,5 +1,13 @@
 import { Fragment } from "react";
-import { Form, Input, Tooltip, Upload, DatePicker, Checkbox ,message  } from "antd";
+import {
+  Form,
+  Input,
+  Tooltip,
+  Upload,
+  DatePicker,
+  Checkbox,
+  message,
+} from "antd";
 
 import RadioGroup from "../RadioGroup";
 import Select from "../Select";
@@ -13,7 +21,7 @@ import {
   IRadio,
   ISelect,
   IUpload,
-  IInputMask
+  IInputMask,
 } from "../../pages/Organizer/Individual/index.props";
 import { IQuestionContainer } from "./index.props";
 import { dummyRequest } from "../../helpers/file";
@@ -27,7 +35,6 @@ import { MaskedInput } from "antd-mask-input";
 import { UploadFile } from "antd/es/upload/interface";
 
 const PHONE_MASK = "(000) 000-0000[ 0000]"; // Example mask for US phone numbers
-
 
 export const input = (data: IInput) => {
   const {
@@ -52,19 +59,18 @@ export const input = (data: IInput) => {
     pattern,
     maskedInputPhone,
   } = data;
-  
+
   console.log(maskedInputPhone, "maskedInputPhone");
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     let value = e.target.value;
-    console.log(value, "vvvvvvvvvvvvvvvvvvvveeeeeee" ,e.unmaskedValue);
+    console.log(value, "vvvvvvvvvvvvvvvvvvvveeeeeee", e.unmaskedValue);
     console.log("hiiiiiiiiiiiiiiiiii");
 
     if (isNumericOnly) {
       value = value.replace(/[^0-9]/g, "");
     }
-    if(maskedInputPhone){
+    if (maskedInputPhone) {
       // value = e.unmaskedValue;
-      
     }
 
     e.target.value = value;
@@ -102,7 +108,7 @@ export const input = (data: IInput) => {
           label ? (
             <span>
               {label}
-              {required && <span style={{ color: 'red' }}>*</span>}
+              {required && <span style={{ color: "red" }}>*</span>}
             </span>
           ) : null
         }
@@ -115,7 +121,7 @@ export const input = (data: IInput) => {
             className={getClassNames(inputStyle)}
             value={defaultValue} // Ensure it's undefined if not needed
             onChange={handleChange}
-            placeholder={placeholder || "(xxx) xxx-xxxx"} 
+            placeholder={placeholder || "(xxx) xxx-xxxx"}
           />
         ) : (
           <Input
@@ -251,57 +257,70 @@ export const upload = (dataUpload: IUpload) => {
     buttonText = "Attach",
     multiple = true,
     maxCount = 20,
+    minCount = 0, // Added minCount property
     data,
     onClick,
     onRemove,
     dispatch,
     required = false,
-    allowedFileTypes = [], // Allow passing allowed file types
+    allowedFileTypes = [],
   } = dataUpload;
 
   const rules = [];
-  
-  // Required validation
-  if (required) {
-    rules.push({
-      validator: async (_: any, value: string | any[]) => {
-        if (!value || value.length === 0) {
-          return Promise.reject(new Error("File is required."));
-        }
-        return Promise.resolve();
-      },
-    });
-  }
 
+  // Required & Minimum Count validation
+  rules.push({
+    validator: async (_: any, value: string | any[]) => {
+      const fileList = data[findIndexData(key, data)]?.files || [];
 
+      if (required && (!fileList || fileList.length === 0)) {
+        return Promise.reject(new Error("File is required."));
+      }
 
+      if (fileList.length < minCount) {
+        return Promise.reject(
+          new Error(`Please upload at least ${minCount} file(s).`),
+        );
+      }
+
+      return Promise.resolve();
+    },
+  });
 
   const beforeUpload = (file: UploadFile) => {
-    // Check file type
-    if(!file.type || !file.size) return;
+    if (!file.type || !file.size) return;
 
-    const isAllowedType = allowedFileTypes.length > 0
-      ? allowedFileTypes.includes(file.type)
-      : ["image/png", "image/jpeg", "image/jpg", "application/pdf", "application/doc", "application/xlsx", "application/docx"].includes(file.type);
+    const isAllowedType =
+      allowedFileTypes.length > 0
+        ? allowedFileTypes.includes(file.type)
+        : [
+            "image/png",
+            "image/jpeg",
+            "image/jpg",
+            "application/pdf",
+            "application/doc",
+            "application/xlsx",
+            "application/docx",
+          ].includes(file.type);
 
     if (!isAllowedType) {
-      message.error(`Invalid file type. Allowed types: ${allowedFileTypes.join(", ")}`);
-      return Upload.LIST_IGNORE; // Skip file upload
+      message.error(
+        `Invalid file type. Allowed types: ${allowedFileTypes.join(", ")}`,
+      );
+      return Upload.LIST_IGNORE;
     }
 
-    // Check file size (for example, max size 5MB = 5 * 1024 * 1024 bytes)
-    const maxSize = 10 * 1024 * 1024; // Example size limit 5MB
+    const maxSize = 10 * 1024 * 1024; // 10MB limit
     if (file.size > maxSize) {
-      message.error("File size exceeds the limit of 5MB.");
-      return Upload.LIST_IGNORE; // Skip file upload
+      message.error("File size exceeds the limit of 10MB.");
+      return Upload.LIST_IGNORE;
     }
 
-    return true; // File is valid, allow upload
+    return true;
   };
 
-  // Convert allowed file types to a string format
   let allowedFileTypesString = "";
-  if (allowedFileTypes && allowedFileTypes.length > 0) {
+  if (allowedFileTypes.length > 0) {
     allowedFileTypesString = allowedFileTypes.join(",");
   }
 
@@ -309,7 +328,11 @@ export const upload = (dataUpload: IUpload) => {
     <div className={styles.uploadContainer}>
       <Form.Item name={key} label={label} valuePropName="file" rules={rules}>
         <Upload
-          accept={allowedFileTypesString.length > 0 ? allowedFileTypesString : "image/png,image/jpeg,image/jpg,application/pdf,application/doc,application/xlsx,application/docx"}
+          accept={
+            allowedFileTypesString.length > 0
+              ? allowedFileTypesString
+              : "image/png,image/jpeg,image/jpg,application/pdf,application/doc,application/xlsx,application/docx"
+          }
           customRequest={dummyRequest}
           showUploadList={false}
           maxCount={maxCount}
@@ -321,45 +344,51 @@ export const upload = (dataUpload: IUpload) => {
       </Form.Item>
       {data[findIndexData(key, data)]?.files &&
         data[findIndexData(key, data)]?.files.length > 0 &&
-        data[findIndexData(key, data)]?.files.map((item: any, index: number) => {
-          return (
-            <div key={index} className={styles.uploadFileContainer}>
-              <Tooltip
-                key={`conversation_file_${index}`}
-                title={`Click to download ${data[findIndexData(key, data)].files[index].name}`}
-              >
-                <Button
-                  type="text"
-                  icon={<Attach />}
-                  className={styles.attachedItemBtn}
-                  onClick={() => {
-                    data[findIndexData(key, data)].files[index]?.id && onClick(index);
-                  }}
-                />
-              </Tooltip>
-              <Tooltip key={`conversation_file_${index}`} title={"Remove"}>
-                <Button
-                  type="text"
-                  icon={<Delete />}
-                  className={styles.attachedItemBtn}
-                  onClick={async () => {
-                    try {
-                      await dispatch(deleteUploadFile(data[findIndexData(key, data)].files[index]?.id));
-                      onRemove(index);
-                    } catch (error) {
-                      // Handle error (e.g., setError)
-                    }
-                  }}
-                />
-              </Tooltip>
-            </div>
-          );
-        })}
+        data[findIndexData(key, data)]?.files.map(
+          (item: any, index: number) => {
+            return (
+              <div key={index} className={styles.uploadFileContainer}>
+                <Tooltip
+                  title={`Click to download ${
+                    data[findIndexData(key, data)].files[index].name
+                  }`}
+                >
+                  <Button
+                    type="text"
+                    icon={<Attach />}
+                    className={styles.attachedItemBtn}
+                    onClick={() => {
+                      data[findIndexData(key, data)].files[index]?.id &&
+                        onClick(index);
+                    }}
+                  />
+                </Tooltip>
+                <Tooltip title={"Remove"}>
+                  <Button
+                    type="text"
+                    icon={<Delete />}
+                    className={styles.attachedItemBtn}
+                    onClick={async () => {
+                      try {
+                        await dispatch(
+                          deleteUploadFile(
+                            data[findIndexData(key, data)].files[index]?.id,
+                          ),
+                        );
+                        onRemove(index);
+                      } catch (error) {
+                        console.error("Failed to remove file:", error);
+                      }
+                    }}
+                  />
+                </Tooltip>
+              </div>
+            );
+          },
+        )}
     </div>
   );
 };
-
-
 
 export const select = (dataSelect: ISelect) => {
   const {
@@ -401,13 +430,13 @@ export const select = (dataSelect: ISelect) => {
   }
 
   return (
-    <Form.Item 
-      name={name} 
+    <Form.Item
+      name={name}
       label={
         label ? (
           <span>
             {label}
-            {required && <span style={{ color: 'red' }}>*</span>}
+            {required && <span style={{ color: "red" }}>*</span>}
           </span>
         ) : null
       }
@@ -421,8 +450,6 @@ export const select = (dataSelect: ISelect) => {
     </Form.Item>
   );
 };
-
-
 
 export const dataPicker = (dataPicker: IDataPicker) => {
   const {
@@ -501,7 +528,6 @@ export const checkbox = (dataCheckbox: IDataCheckbox) => {
   );
 };
 
-
 export const questionContainer = (dataQuestion: IQuestionContainer) => {
   const { question, key, data, onAlert, onMessage, children } = dataQuestion;
   const index: number = findIndexData(key, data);
@@ -525,7 +551,7 @@ export const ssnInput = (data: IInput) => {
     name,
     label,
     text,
-    defaultValue = '',
+    defaultValue = "",
     placeholder,
     textStyle,
     formStyles,
@@ -544,7 +570,7 @@ export const ssnInput = (data: IInput) => {
     let value = e.target.value;
 
     if (isNumericOnly) {
-      value = value.replace(/[^0-9]/g, ''); // Allow only numbers
+      value = value.replace(/[^0-9]/g, ""); // Allow only numbers
     }
 
     // Format the value (e.g., as a phone number or SSN)
@@ -595,7 +621,9 @@ export const ssnInput = (data: IInput) => {
           onKeyPress={handleKeyPress}
         />
       </Form.Item>
-      {text && <p className={getClassNames(styles.promptText, textStyle)}>{text}</p>}
+      {text && (
+        <p className={getClassNames(styles.promptText, textStyle)}>{text}</p>
+      )}
     </Fragment>
   );
 };
@@ -603,7 +631,7 @@ export const ssnInput = (data: IInput) => {
 // function to support the ssnInput
 const formatPhoneNumber = (value: string) => {
   // Remove non-digit characters
-  let formattedValue = value.replace(/\D/g, '');
+  let formattedValue = value.replace(/\D/g, "");
 
   // Format as XXX-XXX-XXXX
   if (formattedValue.length <= 3) {
@@ -611,7 +639,10 @@ const formatPhoneNumber = (value: string) => {
   } else if (formattedValue.length <= 6) {
     formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(3)}`;
   } else {
-    formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(3, 6)}-${formattedValue.slice(6, 10)}`;
+    formattedValue = `${formattedValue.slice(0, 3)}-${formattedValue.slice(
+      3,
+      6,
+    )}-${formattedValue.slice(6, 10)}`;
   }
 
   return formattedValue;
@@ -622,7 +653,7 @@ export const phoneNumberInput = (data: IInput) => {
     name,
     label,
     text,
-    defaultValue = '',
+    defaultValue = "",
     placeholder,
     textStyle,
     formStyles,
@@ -638,13 +669,16 @@ export const phoneNumberInput = (data: IInput) => {
 
   // Function to format the phone number
   const formatPhoneNumber = (value: string) => {
-    value = value.replace(/[^\d]/g, '');  // Remove non-numeric characters
+    value = value.replace(/[^\d]/g, ""); // Remove non-numeric characters
     if (value.length <= 3) {
       value = `(${value}`;
     } else if (value.length <= 6) {
       value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
     } else {
-      value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+      value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(
+        6,
+        10,
+      )}`;
     }
     return value;
   };
@@ -653,9 +687,9 @@ export const phoneNumberInput = (data: IInput) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     if (isNumericOnly) {
-      value = value.replace(/[^0-9]/g, '');  // Allow only numbers
+      value = value.replace(/[^0-9]/g, ""); // Allow only numbers
     }
-    value = formatPhoneNumber(value);  // Format as phone number
+    value = formatPhoneNumber(value); // Format as phone number
     e.target.value = value;
 
     if (customOnChange) {
@@ -683,12 +717,12 @@ export const phoneNumberInput = (data: IInput) => {
       <Form.Item
         name={name}
         label={label}
-        className={formStyles}  // Use formStyles if needed
+        className={formStyles} // Use formStyles if needed
         rules={rules}
       >
         <Input
-          className={inputStyle}  // Use inputStyle if needed
-          placeholder={placeholder || "(XXX) XXX-XXXX"}  // Default placeholder format for phone numbers
+          className={inputStyle} // Use inputStyle if needed
+          placeholder={placeholder || "(XXX) XXX-XXXX"} // Default placeholder format for phone numbers
           value={defaultValue}
           onChange={handleChange}
         />
@@ -720,19 +754,18 @@ export const InputMask = (data: IInputMask) => {
     customOnChange,
     pattern,
     maskedInputPhone,
-    maskFormat
+    maskFormat,
   } = data;
-  
+
   console.log(maskedInputPhone, "maskedInputPhone");
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     let value = e.target.value;
-    console.log(value, "vvvvvvvvvvvvvvvvvvvveeeeeee" ,e.unmaskedValue);
+    console.log(value, "vvvvvvvvvvvvvvvvvvvveeeeeee", e.unmaskedValue);
     console.log("hiiiiiiiiiiiiiiiiii");
 
     if (isNumericOnly) {
       value = value.replace(/[^0-9]/g, "");
     }
-
 
     e.target.value = value;
 
@@ -769,23 +802,21 @@ export const InputMask = (data: IInputMask) => {
           label ? (
             <span>
               {label}
-              {required && <span style={{ color: 'red' }}>*</span>}
+              {required && <span style={{ color: "red" }}>*</span>}
             </span>
           ) : null
         }
         className={getClassNames(hasMargin && styles.marginBottom, formStyles)}
         rules={rules}
       >
-     
-          <MaskedInput
-            mask={maskFormat}
-            className={getClassNames(inputStyle)}
-            // value={'(815) 702-0282'} // Ensure it's undefined if not needed
-            onChange={handleChange}
-            placeholder={placeholder || "(xxx) xxx-xxxx"}
-            maskOptions={{overwrite: false ,}}
-            
-          />
+        <MaskedInput
+          mask={maskFormat}
+          className={getClassNames(inputStyle)}
+          // value={'(815) 702-0282'} // Ensure it's undefined if not needed
+          onChange={handleChange}
+          placeholder={placeholder || "(xxx) xxx-xxxx"}
+          maskOptions={{ overwrite: false }}
+        />
       </Form.Item>
       {text && (
         <p className={getClassNames(styles.promptText, textStyle)}>{text}</p>

@@ -38,7 +38,7 @@ import {
   upload,
   ssnInput,
   phoneNumberInput,
-  InputMask
+  InputMask,
 } from "../../../../../../components/Module";
 import { downloadFile } from "../../../../../../redux/conversationSlice";
 import {
@@ -100,16 +100,14 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
           : [];
 
       resultData.forEach((item: any) => {
-        if(item.question === 'spouseSocialSecurityNo'){
- 
-          
+        if (item.question === "spouseSocialSecurityNo") {
           const formattedNumber = formatPhoneNumber(item.answer);
-          console.log(formattedNumber); 
-          
+          console.log(formattedNumber);
+
           form.setFieldsValue({
             [item.question]: formattedNumber,
           });
-          return
+          return;
         }
         if (item.isFile) {
           form.setFieldsValue({
@@ -149,11 +147,11 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
 
     // Apply the regex pattern to format the number
     const match = cleaned.match(/^(\d{3})(\d{2})(\d{4})$/);
-  
+
     if (match) {
       return `${match[1]}-${match[2]}-${match[3]}`;
     }
-  
+
     return number; // Return the original number if it doesn't match the expected length
   }
   const restField = (name: string) => {
@@ -291,9 +289,9 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({
                   name: "spouseFirstName",
                   label: t("organizer.individual.yes_flow.step3.first_name"),
-                  placeholder:"Donald J Trump",
+                  placeholder: "Donald J Trump",
                   text: "(Must Match SS Admin)",
-                  required:true,
+                  required: true,
                   pattern: {
                     value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
                     message: "Only letters, numbers, and '/' are allowed",
@@ -307,14 +305,14 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     name: "spouseBirthday",
                     label: t("organizer.individual.yes_flow.step3.birthday"),
                     icon: <Calendar />,
-                    required:true,
-                    
+                    required: true,
+
                     defaultValue:
                       data[findIndexData("spouseBirthday", data)].answer,
                   }),
                 })}
                 <div className={styles.zipCode}>
-                                {/* {InputMask({
+                  {/* {InputMask({
                     name: "spouseSocialSecurityNo",
                     label: t(
                       "organizer.individual.yes_flow.step3.social_security_no",
@@ -328,25 +326,25 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     message:""
                   })} */}
                   <InputMask
-                                  name= "spouseSocialSecurityNo"
-                                  label={t(
-                                    "organizer.individual.yes_flow.step3.social_security_no",
-                                  )}
-                                  hasMargin={true}
-                                  placeholder ='(XXX) XXX-XXXX'
-                                  required={true}
-                                  // isNumericOnly : true,
-                                  // minLength : 10,
-                                  // maxLength : 14,
-                                  // minLengthMessage: "Number is too short",
-                                  // maxLengthMessage: 'Number is too long',
-                                  pattern= {{
-                                    value:  /^\d{3}-\d{2}-\d{4}$/, // Matches between 10 and 14 numeric digits
-                                    message: "Phone number must be 9 numeric digits",
-                                  }}
-                                  maskFormat="000-00-0000"
-                                  // defaultValue="
-                                />
+                    name="spouseSocialSecurityNo"
+                    label={t(
+                      "organizer.individual.yes_flow.step3.social_security_no",
+                    )}
+                    hasMargin={true}
+                    placeholder="(XXX) XXX-XXXX"
+                    required={true}
+                    // isNumericOnly : true,
+                    // minLength : 10,
+                    // maxLength : 14,
+                    // minLengthMessage: "Number is too short",
+                    // maxLengthMessage: 'Number is too long',
+                    pattern={{
+                      value: /^\d{3}-\d{2}-\d{4}$/, // Matches between 10 and 14 numeric digits
+                      message: "Phone number must be 9 numeric digits",
+                    }}
+                    maskFormat="000-00-0000"
+                    // defaultValue="
+                  />
                   <p className={styles.promptText}>
                     {t("organizer.individual.yes_flow.step3.irs")}
                   </p>
@@ -382,11 +380,12 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   label: t(
                     "organizer.individual.yes_flow.step3.drivers_license",
                   ),
-                  required:true,
-                  placeholder:"A5407613",
+                  required: true,
+                  placeholder: "A5407613",
                   pattern: {
                     value: /^[A-Za-z0-9]{8,14}$/, // Allows letters, numbers, spaces, and '/'
-                    message: "Invalid format! Please enter between 8 and 14 alphanumeric characters",
+                    message:
+                      "Invalid format! Please enter between 8 and 14 alphanumeric characters",
                   },
                 }),
               })}
@@ -396,8 +395,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   name: "spouseDriversLicenseState",
                   label: t("organizer.individual.yes_flow.step3.state"),
                   data: dataState,
-                  required:true,
-                  placeholder:"CA"
+                  required: true,
+                  placeholder: "CA",
                 }),
               })}
               <div className={styles.dataPickerContainer}>
@@ -407,7 +406,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     name: "spouseDriversLicenseIssuedDate",
                     label: t("organizer.individual.yes_flow.step3.issued_date"),
                     icon: <Calendar />,
-                    required:true,
+                    required: true,
                     defaultValue:
                       data[
                         findIndexData("spouseDriversLicenseIssuedDate", data)
@@ -420,7 +419,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     label: t("organizer.individual.yes_flow.step3.expires"),
                     icon: <Calendar />,
                     disabledDate: disabledDatePast,
-                    required:true,
+                    required: true,
                     defaultValue:
                       data[
                         findIndexData("spouseDriversLicenseExpiresDate", data)
@@ -436,8 +435,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 children: upload({
                   key: "spouseImagesOfDriversLicense",
                   data: data,
-                  required:true,
-                  allowedFileTypes:['application/pdf', 'image/jpeg'],
+                  required: true,
+                  allowedFileTypes: ["application/pdf", "image/jpeg"],
                   buttonText: t("organizer.individual.yes_flow.step3.attach"),
                   dispatch: dispatch,
                   onClick: (index = 0) => {
@@ -453,26 +452,33 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     );
                   },
                   onRemove: (index = 0) => {
-                    console.log("Data before removal:", data);  // Log the entire data object
+                    console.log("Data before removal:", data); // Log the entire data object
                     const newData = [...data];
-                    const fileIndex = findIndexData("spouseImagesOfDriversLicense", data);
-                  
+                    const fileIndex = findIndexData(
+                      "spouseImagesOfDriversLicense",
+                      data,
+                    );
+
                     // Ensure the fileIndex exists and is correct
                     if (fileIndex !== undefined && newData[fileIndex]?.files) {
                       const newFileList = [
                         ...newData[fileIndex].files.slice(0, index),
                         ...newData[fileIndex].files.slice(index + 1),
                       ];
-                  
-                      console.log("Updated file list:", newFileList);  // Log the updated list
+
+                      console.log("Updated file list:", newFileList); // Log the updated list
                       newData[fileIndex].files = newFileList;
-                  
+
                       setData([...newData]);
                     } else {
-                      console.error("Failed to find file index or file list:", newData);
+                      console.error(
+                        "Failed to find file index or file list:",
+                        newData,
+                      );
                     }
                   },
-                  
+                  maxCount: 2,
+                  minCount: 2,
                 }),
               })}
             </div>
