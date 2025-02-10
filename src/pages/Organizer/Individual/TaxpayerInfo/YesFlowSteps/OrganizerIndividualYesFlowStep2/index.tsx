@@ -181,10 +181,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
     const index: number = findIndexData(name, data);
-    let result =
-      name === "currentUnitNo"
-        ? moment(value[name] || undefined, DEFAULT_DATE_FORMAT)
-        : value[name];
+    let result = name === "currentUnitNo" ? value[name] : value[name];
     // result = name === 'currentStreet' ? 'currentStreet' : value[name]
     console.log(name, "NameTHIS");
     if (name === "currentHomePhoneNumber") {

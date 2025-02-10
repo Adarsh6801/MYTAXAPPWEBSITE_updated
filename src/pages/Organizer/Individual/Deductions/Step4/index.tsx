@@ -120,7 +120,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
           )
         ].answer
       ) {
-        goTo(29);
+        goTo(27);
       }
       nextStep();
     } catch (e) {

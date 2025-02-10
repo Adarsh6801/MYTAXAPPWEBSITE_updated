@@ -120,6 +120,7 @@ export const CATEGORY_ID_FILTER: ICategorizedFilter = {
     ORGANIZER_CATEGORY_ID.homeMortgageINterest,
     ORGANIZER_CATEGORY_ID.taxesPaid,
     ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     ORGANIZER_CATEGORY_ID.healthCoverage,
     ORGANIZER_CATEGORY_ID.medicalExpenses,
     ORGANIZER_CATEGORY_ID.hSADistributions,
@@ -248,6 +249,10 @@ export const CATEGORY_ID_TITLE = {
   },
   [ORGANIZER_CATEGORY_ID.cashCharitableContributions]: {
     title: "Cash Charitable Contributions",
+    icon: OrganizerHeart,
+  },
+  [ORGANIZER_CATEGORY_ID.nonCashCharitableContributions]: {
+    title: "Non Cash Charitable Contributions",
     icon: OrganizerHeart,
   },
   [ORGANIZER_CATEGORY_ID.healthCoverage]: {

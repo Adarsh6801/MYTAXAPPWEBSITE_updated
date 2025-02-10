@@ -156,7 +156,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
     console.log(newData, "NEW DATA");
     console.log(name, "name");
     console.log(value, "value");
-    console.log(index, "index");
+    console.log(index, "indexxxxx");
     console.log(data, "dataaaa");
 
     newData[index] = {
@@ -167,6 +167,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
       isFile: data[index].isFile,
       files: data[index].isFile ? value[name].fileList : null,
     };
+    console.log(newData, "newData");
+
     setData([...newData]);
     setFiledName(name);
   };
@@ -215,21 +217,9 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           name: "hasFiledTaxReturnPreviously",
           radioButtons: radioButtons,
           required: true,
-          message: "Tax return for the previous tax year is required",
+          message: "Select Yes/No.",
         }),
       })}
-
-      {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
-        questionContainer({
-          question: t("organizer.individual.yes_flow.step1.question_2"),
-          key: "hasDigitalCopyInPdfFormat",
-          required: true,
-          children: radio({
-            name: "hasDigitalCopyInPdfFormat",
-            radioButtons: radioButtons,
-          }),
-        })}
-
       {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
         questionContainer({
           question: t("organizer.individual.yes_flow.step1.question_7"),
@@ -242,8 +232,21 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
               value: year,
             })),
             required: true,
+            message: "Select Previous Tax Year.",
           }),
           required: true,
+        })}
+      {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
+        questionContainer({
+          question: t("organizer.individual.yes_flow.step1.question_2"),
+          key: "hasDigitalCopyInPdfFormat",
+          required: true,
+          children: radio({
+            name: "hasDigitalCopyInPdfFormat",
+            radioButtons: radioButtons,
+            required: true,
+            message: "Select Yes/No.",
+          }),
         })}
 
       {data[findIndexData("hasDigitalCopyInPdfFormat", data)].answer !== null
@@ -254,6 +257,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
               required: true,
               children: upload({
                 key: "previousTaxReturnFileUpload",
+
                 label: t(
                   "organizer.individual.yes_flow.step1.upload_file_label",
                 ),
@@ -272,17 +276,36 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
                 },
                 onRemove: (index = 0) => {
                   const newData = [...data];
+                  const indexToRemove = index;
+                  const dataIndex = findIndexData(
+                    "previousTaxReturnFileUpload",
+                    data,
+                  );
+
+                  // Get the file UID being removed
+                  const removedFileUid =
+                    data[dataIndex].answer.fileList[indexToRemove]?.uid;
+
+                  // Remove from files array
                   const newFileList = [
-                    ...data[
-                      findIndexData("previousTaxReturnFileUpload", data)
-                    ].files.slice(0, index),
-                    ...data[
-                      findIndexData("previousTaxReturnFileUpload", data)
-                    ].files.slice(index + 1),
+                    ...data[dataIndex].files.slice(0, indexToRemove),
+                    ...data[dataIndex].files.slice(indexToRemove + 1),
                   ];
-                  newData[
-                    findIndexData("previousTaxReturnFileUpload", data)
-                  ].files = newFileList;
+
+                  // Remove from answer.fileList array
+                  const newAnswerFileList = [
+                    ...data[dataIndex].answer.fileList.slice(0, indexToRemove),
+                    ...data[dataIndex].answer.fileList.slice(indexToRemove + 1),
+                  ];
+
+                  // Remove answer.file if it matches the removed file
+                  if (data[dataIndex].answer.file?.uid === removedFileUid) {
+                    newData[dataIndex].answer.file = null; // Or delete newData[dataIndex].answer.file;
+                  }
+
+                  // Update the data object
+                  newData[dataIndex].files = newFileList;
+                  newData[dataIndex].answer.fileList = newAnswerFileList;
 
                   setData([...newData]);
                 },
@@ -298,6 +321,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
               children: radio({
                 name: "canRequestPdfCopyForPreviousPreparer",
                 radioButtons: radioButtons,
+                required: true,
+                message: "Select Yes/No.",
               }),
             })
         : null}
@@ -310,6 +335,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           children: radio({
             name: "hasHardCopyOfTaxReturn",
             radioButtons: radioButtons,
+            required: true,
+            message: "Select Yes/No",
           }),
         })}
       {data[findIndexData("hasHardCopyOfTaxReturn", data)].answer !== null ? (
@@ -321,6 +348,8 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
             children: radio({
               name: "canScanTaxReturnIntoPdfFormat",
               radioButtons: radioButtons,
+              required: true,
+              message: "Select Yes/No",
             }),
           })
         ) : (

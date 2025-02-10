@@ -131,6 +131,7 @@ export const HOURS_MODAL: IHoursModal = {
 export const namesSpouseFields: IPROPERTIES_STRING = {
   businessName: "spouseBusinessName",
   employerIDNumber: "spouseBusiness_EmployerIDNumber",
+  productOrService: "spouseproductOrService",
   selfEmployedHealthInsuranceCost:
     "spouseBusiness_SelfEmployedHealthInsuranceCost",
   grossIncome: "spouseBusiness_GrossIncome",
@@ -174,6 +175,7 @@ export const namesSpouseFields: IPROPERTIES_STRING = {
 export const namesTaxPayerFields: IPROPERTIES_STRING = {
   businessName: "taxPayerBusinessName",
   employerIDNumber: "taxPayerBusiness_EmployerIDNumber",
+  productOrService: "taxPayerBusiness_productOrService",
   selfEmployedHealthInsuranceCost:
     "taxPayerBusiness_SelfEmployedHealthInsuranceCost",
   grossIncome: "taxPayerBusiness_GrossIncome",
@@ -417,6 +419,7 @@ export const ORGANIZER_CATEGORY_ID: IPROPERTIES_NUMBER = {
   homeMortgageINterest: 11,
   taxesPaid: 12,
   cashCharitableContributions: 13,
+  nonCashCharitableContributions: 37,
   healthCoverage: 14,
   medicalExpenses: 15,
   hSADistributions: 16,

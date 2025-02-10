@@ -53,7 +53,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { id: quoteId } = useParams();
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [data, setData] = useState<IOrganizerStepProps[]>(
     addQuoteIdOrganizer(dataTaxpayerQuestion, Number(quoteId)),
   );

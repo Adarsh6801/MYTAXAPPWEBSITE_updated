@@ -90,7 +90,7 @@ export const input = (data: IInput) => {
   if (required) {
     rules.push({
       required: true,
-      message: message || `${label || name} is required.`,
+      message: message || `Enter ${label || name}.`,
     });
   }
   if (pattern?.value) {
@@ -155,7 +155,7 @@ export const radio = (data: IRadio) => {
   if (required) {
     rules.push({
       required: true,
-      message: message || `${name || name} is required.`,
+      message: message || `Enter ${name}`,
     });
   }
 
@@ -326,7 +326,19 @@ export const upload = (dataUpload: IUpload) => {
 
   return (
     <div className={styles.uploadContainer}>
-      <Form.Item name={key} label={label} valuePropName="file" rules={rules}>
+      <Form.Item
+        name={key}
+        label={
+          label ? (
+            <span>
+              {label}
+              {required && <span style={{ color: "red" }}>*</span>}
+            </span>
+          ) : null
+        }
+        valuePropName="file"
+        rules={rules}
+      >
         <Upload
           accept={
             allowedFileTypesString.length > 0
@@ -409,7 +421,7 @@ export const select = (dataSelect: ISelect) => {
   if (required) {
     rules.push({
       required: true,
-      message: message || `${label || name} is required.`,
+      message: message || `Enter ${label || name}`,
     });
   }
   if (minLength) {
@@ -470,7 +482,7 @@ export const dataPicker = (dataPicker: IDataPicker) => {
   if (required) {
     rules.push({
       required: true,
-      message: message || `${label || name} is required.`,
+      message: message || `Enter ${label || name}`,
     });
   }
   if (minLength) {
@@ -491,7 +503,18 @@ export const dataPicker = (dataPicker: IDataPicker) => {
   }
 
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item
+      name={name}
+      label={
+        label ? (
+          <span>
+            {label}
+            {required && <span style={{ color: "red" }}>*</span>}
+          </span>
+        ) : null
+      }
+      rules={rules}
+    >
       <DatePicker
         suffixIcon={icon}
         format={DEFAULT_DATE_FORMAT}
@@ -510,7 +533,7 @@ export const checkbox = (dataCheckbox: IDataCheckbox) => {
   if (required) {
     rules.push({
       required: true,
-      message: `${label || name} is required.`, // Ensuring it's a string
+      message: `Enter ${label || name}`, // Ensuring it's a string
     });
   }
 
@@ -631,6 +654,7 @@ export const ssnInput = (data: IInput) => {
 // function to support the ssnInput
 const formatPhoneNumber = (value: string) => {
   // Remove non-digit characters
+  if (!value) return "";
   let formattedValue = value.replace(/\D/g, "");
 
   // Format as XXX-XXX-XXXX
@@ -669,6 +693,7 @@ export const phoneNumberInput = (data: IInput) => {
 
   // Function to format the phone number
   const formatPhoneNumber = (value: string) => {
+    if (!value) return "";
     value = value.replace(/[^\d]/g, ""); // Remove non-numeric characters
     if (value.length <= 3) {
       value = `(${value}`;

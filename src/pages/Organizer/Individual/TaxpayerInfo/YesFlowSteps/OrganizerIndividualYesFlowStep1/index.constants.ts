@@ -19,6 +19,16 @@ export const dataTaxpayerQuestion = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.priorYearReturnCopy,
     forSpouse: false,
+    question: "previousTaxYear",
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.priorYearReturnCopy,
+    forSpouse: false,
     question: "hasDigitalCopyInPdfFormat",
     answer: null,
     message: "",
@@ -66,16 +76,6 @@ export const dataTaxpayerQuestion = [
     isFile: false,
     files: null,
   },
-  {
-    categoryId: ORGANIZER_CATEGORY_ID.priorYearReturnCopy,
-    forSpouse: false,
-    question: "previousTaxYear",
-    answer: null,
-    message: "",
-    reminder: false,
-    isFile: false,
-    files: null,
-  },
 ];
 
 export const radioButtons: IRadioGroupItem[] = [
@@ -91,10 +91,10 @@ export const radioButtons: IRadioGroupItem[] = [
 
 export const DATA_KEY = [
   "hasFiledTaxReturnPreviously",
+  "previousTaxYear",
   "hasDigitalCopyInPdfFormat",
   "previousTaxReturnFileUpload",
   "canRequestPdfCopyForPreviousPreparer",
   "hasHardCopyOfTaxReturn",
   "canScanTaxReturnIntoPdfFormat",
-  "previousTaxYear",
 ];

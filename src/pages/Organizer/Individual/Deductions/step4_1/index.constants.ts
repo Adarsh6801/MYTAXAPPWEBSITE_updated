@@ -6,7 +6,7 @@ import i18n from "../../../../../i18n";
 
 export const initialTaxPayerData = [
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question: "taxPayer_NonCashCharitableContributions_HasAny",
     answerTypeId: QUESTION_TYPE_ANSWER.boolean,
@@ -17,7 +17,7 @@ export const initialTaxPayerData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
@@ -29,7 +29,7 @@ export const initialTaxPayerData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
@@ -41,7 +41,7 @@ export const initialTaxPayerData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
@@ -53,7 +53,7 @@ export const initialTaxPayerData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
@@ -68,7 +68,7 @@ export const initialTaxPayerData = [
 
 export const initialSpouseData = [
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question: "spouse_taxPayer_NonCashCharitableContributions_HasAny",
     answerTypeId: QUESTION_TYPE_ANSWER.boolean,
@@ -79,7 +79,7 @@ export const initialSpouseData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
@@ -91,7 +91,7 @@ export const initialSpouseData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
@@ -103,7 +103,7 @@ export const initialSpouseData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
@@ -115,7 +115,7 @@ export const initialSpouseData = [
     files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.cashCharitableContributions,
+    categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
       "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
