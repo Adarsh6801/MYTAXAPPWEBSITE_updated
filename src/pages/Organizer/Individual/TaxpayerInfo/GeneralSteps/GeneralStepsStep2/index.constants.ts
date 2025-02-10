@@ -30,7 +30,7 @@ export const dataTaxpayerQuestion = [
     isFile: false,
     file: null,
   },
- /*  {
+  /*  {
     categoryId: ORGANIZER_CATEGORY_ID.dependents,
     forSpouse: false,
     question: "dependantFirstName",

@@ -6,8 +6,10 @@ export const isEmail = (email?: string) => {
   return emailRegex.test(email);
 };
 
-
-export const validateRequiredField = (value: string, fieldName?: string): string | undefined => {
+export const validateRequiredField = (
+  value: string,
+  fieldName?: string,
+): string | undefined => {
   if (!value || value.trim() === "") {
     return fieldName ? `${fieldName} is required.` : "This field is required.";
   }

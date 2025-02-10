@@ -24,7 +24,7 @@ import {
   findIndexData,
   getCurrentType,
 } from "../../../../../../helpers/format";
-import { radio, upload,select } from "../../../../../../components/Module";
+import { radio, upload, select } from "../../../../../../components/Module";
 import {
   dataTaxpayerQuestion,
   DATA_KEY,
@@ -38,7 +38,10 @@ const noop = () => {};
 const currentYear: number = new Date().getFullYear();
 
 // Generate an array of previous years (exclude the current year)
-const previousYears: number[] = Array.from({ length: currentYear - 2000 }, (_, index: number): number => currentYear - index - 1);
+const previousYears: number[] = Array.from(
+  { length: currentYear - 2000 },
+  (_, index: number): number => currentYear - index - 1,
+);
 
 const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
   const { onStepSubmit = noop, goTo = noop } = props;
@@ -150,15 +153,12 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
     const [name] = Object.keys(value);
     const index: number = +findIndexData(name, data);
     const newData = [...data];
-    console.log(newData,'NEW DATA');
-    console.log(name,'name');
-    console.log(value,'value');
-    console.log(index,'index');
-    console.log(data,'dataaaa');
+    console.log(newData, "NEW DATA");
+    console.log(name, "name");
+    console.log(value, "value");
+    console.log(index, "index");
+    console.log(data, "dataaaa");
 
-
-
-    
     newData[index] = {
       ...data[index],
       answer: value[name],
@@ -172,10 +172,10 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children,required } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
-    console.log(required,'required on the question');
-    
+    console.log(required, "required on the question");
+
     return (
       <OrganizerQuestionCard
         question={question}
@@ -210,7 +210,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
       {questionContainer({
         question: t("organizer.individual.yes_flow.step1.question_1"),
         key: "hasFiledTaxReturnPreviously",
-        required:true,
+        required: true,
         children: radio({
           name: "hasFiledTaxReturnPreviously",
           radioButtons: radioButtons,
@@ -235,12 +235,15 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           question: t("organizer.individual.yes_flow.step1.question_7"),
           key: "previousTaxYear",
           children: select({
-            name: 'previousTaxYear',
-            placeholder:'Select Year',
-            data: previousYears.map((year: number) => ({ label: year.toString(), value: year })),
-            required:true
+            name: "previousTaxYear",
+            placeholder: "Select Year",
+            data: previousYears.map((year: number) => ({
+              label: year.toString(),
+              value: year,
+            })),
+            required: true,
           }),
-          required:true,
+          required: true,
         })}
 
       {data[findIndexData("hasDigitalCopyInPdfFormat", data)].answer !== null
@@ -248,7 +251,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           ? questionContainer({
               question: t("organizer.individual.yes_flow.step1.question_3"),
               key: "previousTaxReturnFileUpload",
-              required:true,
+              required: true,
               children: upload({
                 key: "previousTaxReturnFileUpload",
                 label: t(
@@ -283,9 +286,9 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
 
                   setData([...newData]);
                 },
-                allowedFileTypes:["application/pdf"],
-                required:true,
-                maxCount:3
+                allowedFileTypes: ["application/pdf"],
+                required: true,
+                maxCount: 3,
               }),
             })
           : questionContainer({
@@ -377,7 +380,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
                 setData([...newData]);
               },
             }),
-            required:true,
+            required: true,
           })
         ) : (
           <p className={styles.textInfo}>

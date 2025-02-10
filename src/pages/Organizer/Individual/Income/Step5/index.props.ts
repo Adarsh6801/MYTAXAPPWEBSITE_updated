@@ -13,7 +13,6 @@ export interface IInputsName {
   };
   required?: boolean; // Add this property
   placeholder?: string;
-
 }
 
 export interface IQuestionContainer {

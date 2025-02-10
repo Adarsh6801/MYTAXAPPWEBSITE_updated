@@ -26,9 +26,9 @@ const OrganizerQuestionCard = (props: IOrganizerQuestionContainer) => {
     childrenClassName,
     subClass,
     questionClassName,
-    required
+    required,
   } = props;
-console.log(required,'requiredrequiredrequiredrequiredrequiredrequired');
+  console.log(required, "requiredrequiredrequiredrequiredrequiredrequired");
 
   const { t } = useTranslation();
   const [tooltipStr, setTooltipStr] = useState(data?.message);
@@ -97,6 +97,5 @@ console.log(required,'requiredrequiredrequiredrequiredrequiredrequired');
     </div>
   );
 };
-
 
 export default OrganizerQuestionCard;

@@ -161,90 +161,98 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           {count}
         </p>
 
-        
         {Object.keys(names).map((key, index) => {
-  // Define validation properties separately
-  let required = false;
-  let pattern = null;
-  let message = "";
-  let placeholder = "";
+          // Define validation properties separately
+          let required = false;
+          let pattern = null;
+          let message = "";
+          let placeholder = "";
 
-  // Assign validation rules based on field type
-  if (["businessName", "productOrService", "employerIDNumber", "selfEmployedHealthInsuranceCost", "grossIncome"].includes(key)) {
-    required = true;
-  }
-  console.log(names,'NAMESSS')
-  switch (key) {
-    case "businessName":
-      pattern = /^[a-zA-Z0-9\s-]+$/;
-      message = "Invalid business name format";
-      placeholder = "Enter your business name";
-      break;
-    case "productOrService":
-      pattern = /^[A-Za-z]+$/;
-      message = "Invalid product or service format";
-      placeholder = "Enter your product or service";
-      break;
-    case "employerIDNumber":
-      pattern = /^\d{10}$/;
-      message = "Employer ID must be exactly 9 digits";
-      placeholder = "XX-XXXXXXX";
-      break;
-    case "selfEmployedHealthInsuranceCost":
-      pattern = /^[0-9\s-]{1,9}$/;
-      message = "Enter a valid amount (e.g., 100.50)";
-      placeholder = "3,500";
-      break;
-    case "grossIncome":
-      pattern = /^[0-9\s-]{1,9}$/;
-      message = "Enter a valid income amount (e.g., 5000.75)";
-      placeholder = "15,0000";
-      break;
-    case "returnsAllowances":
-      placeholder = "4,500";
-      break;
-    case "beginningInventory":
-      placeholder = "15,0000";
-      break;
-    case "additionsInventory":
-      placeholder = "25,000";
-      break;
-      
-    case "endingInventory":
-      placeholder = "18,0000";
-      break;
-      
-    case "advertising":
-      placeholder = "18,0000";
-      break;
-      
-    case "businessTelephone":
-      placeholder = "XXX-XXX-XXXX";
-      break;
-    default:
-      placeholder = "18,0000";
-  }
-console.log(names[key],'names[key]');
+          // Assign validation rules based on field type
+          if (
+            [
+              "businessName",
+              "productOrService",
+              "employerIDNumber",
+              "selfEmployedHealthInsuranceCost",
+              "grossIncome",
+            ].includes(key)
+          ) {
+            required = true;
+          }
+          console.log(names, "NAMESSS");
+          switch (key) {
+            case "businessName":
+              pattern = /^[a-zA-Z0-9\s-]+$/;
+              message = "Invalid business name format";
+              placeholder = "Enter your business name";
+              break;
+            case "productOrService":
+              pattern = /^[A-Za-z]+$/;
+              message = "Invalid product or service format";
+              placeholder = "Enter your product or service";
+              break;
+            case "employerIDNumber":
+              pattern = /^\d{10}$/;
+              message = "Employer ID must be exactly 9 digits";
+              placeholder = "XX-XXXXXXX";
+              break;
+            case "selfEmployedHealthInsuranceCost":
+              pattern = /^[0-9\s-]{1,9}$/;
+              message = "Enter a valid amount (e.g., 100.50)";
+              placeholder = "3,500";
+              break;
+            case "grossIncome":
+              pattern = /^[0-9\s-]{1,9}$/;
+              message = "Enter a valid income amount (e.g., 5000.75)";
+              placeholder = "15,0000";
+              break;
+            case "returnsAllowances":
+              placeholder = "4,500";
+              break;
+            case "beginningInventory":
+              placeholder = "15,0000";
+              break;
+            case "additionsInventory":
+              placeholder = "25,000";
+              break;
 
-  return (
-    <div key={index}>
-      {questionContainer({
-        key: names[key],
-        children: input({
-          name: names[key],
-          label: t(`organizer.individual.income.step3.question${index + 1}`),
-          formStyles: styles.marginBottom,
-          required: required,
-          pattern: pattern ? { value: pattern, message: message } : undefined,
-          placeholder: placeholder
-        }),
-      })}
-    </div>
-  );
-})}
+            case "endingInventory":
+              placeholder = "18,0000";
+              break;
 
+            case "advertising":
+              placeholder = "18,0000";
+              break;
 
+            case "businessTelephone":
+              placeholder = "XXX-XXX-XXXX";
+              break;
+            default:
+              placeholder = "18,0000";
+          }
+          console.log(names[key], "names[key]");
 
+          return (
+            <div key={index}>
+              {questionContainer({
+                key: names[key],
+                children: input({
+                  name: names[key],
+                  label: t(
+                    `organizer.individual.income.step3.question${index + 1}`,
+                  ),
+                  formStyles: styles.marginBottom,
+                  required: required,
+                  pattern: pattern
+                    ? { value: pattern, message: message }
+                    : undefined,
+                  placeholder: placeholder,
+                }),
+              })}
+            </div>
+          );
+        })}
       </div>
     );
   };
@@ -455,7 +463,7 @@ console.log(names[key],'names[key]');
               {_.times(countSpouse, (index: number) => {
                 const namesSpouse = {
                   businessName: `spouseBusinessName${index + 1}`,
-              productOrService: `spouseproductOrService${index + 1}`,
+                  productOrService: `spouseproductOrService${index + 1}`,
                   employerIDNumber: `spouseBusiness_EmployerIDNumber${
                     index + 1
                   }`,

@@ -167,7 +167,6 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
   const formInfo = (names: DataOfKey[], title: string) => {
     const [street, unitNoAs, zipCode, state, city, homePhoneNumber] = names;
 
-  
     return (
       <div>
         <p>{title}</p>
@@ -179,7 +178,7 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
               name: street,
               required: true, // Enable validation
               message: t("organizer.individual.no_flow.step4.street_required"), // Custom message
-              placeholder : "123 Main St",
+              placeholder: "123 Main St",
               pattern: {
                 value: /^[A-Za-z0-9\s\/]+$/, // Allows letters, numbers, spaces, and '/'
                 message: "Only letters, numbers, and '/' are allowed",
@@ -191,14 +190,14 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
             {questionContainer({
               question: t("organizer.individual.no_flow.step4.apt_unit_no"),
               key: unitNoAs,
-             /*  children: dataPicker({
+              /*  children: dataPicker({
                 name: unitNoAs,
                 icon: <Calendar />,
                 defaultValue: data[findIndexData(unitNoAs, data)].answer,
               }), */
               children: input({
                 name: unitNoAs,
-                placeholder : " A205",
+                placeholder: " A205",
                 pattern: {
                   value: /^[A-Za-z0-9\s\/]+$/, // Allows letters, numbers, spaces, and '/'
                   message: "Only letters, numbers, and '/' are allowed",
@@ -212,10 +211,10 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({
                   name: zipCode,
                   textStyle: styles.input,
-                  placeholder : '91555',
+                  placeholder: "91555",
                   isNumericOnly: true,
                   required: true,
-                  message : 'Zipcode Is Required',
+                  message: "Zipcode Is Required",
                   // minLength : 5,
                   // maxLength : 5,
                   // minLengthMessage: "Minimum 5 characters required",
@@ -232,12 +231,11 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
             question: t("organizer.individual.no_flow.step4.state"),
             key: state,
             children: select({
-              placeholder : 'CA',
+              placeholder: "CA",
               name: state,
               data: dataState,
               required: true,
-              message : 'State Is Required'
-              
+              message: "State Is Required",
             }),
           })}
           {questionContainer({
@@ -245,9 +243,9 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
             key: city,
             children: input({
               name: city,
-              placeholder : ' Los Angeles ',
+              placeholder: " Los Angeles ",
               required: true,
-              message : 'City Is Required',
+              message: "City Is Required",
               pattern: {
                 value: /^[A-Za-z\s]+$/,
                 message: "Only letters are allowed",
@@ -261,15 +259,16 @@ const OrganizerIndividualNoFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
               name: homePhoneNumber,
               text: t("organizer.individual.no_flow.step4.description"),
               hasMargin: true,
-              placeholder : '(XXX) XXX-XXXX',
-              isNumericOnly : true,
+              placeholder: "(XXX) XXX-XXXX",
+              isNumericOnly: true,
               // minLength : 10,
               // maxLength : 14,
               // minLengthMessage: "too short",
               // maxLengthMessage: 'too long',
               pattern: {
                 value: /^[0-9]{10,14}$/, // Matches between 10 and 14 numeric digits
-                message: "Phone number must be between 10 and 14 numeric digits",
+                message:
+                  "Phone number must be between 10 and 14 numeric digits",
               },
             }),
           })}

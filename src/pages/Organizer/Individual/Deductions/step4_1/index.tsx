@@ -341,10 +341,7 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
         })}
         <Divider />
         {data[
-          findIndexData(
-            "taxPayer_NonCashCharitableContributions_HasAny",
-            data,
-          )
+          findIndexData("taxPayer_NonCashCharitableContributions_HasAny", data)
         ]?.answer &&
           questionContainer({
             key: "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
@@ -414,10 +411,7 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
           })}
         <Divider />
         {data[
-          findIndexData(
-            "taxPayer_NonCashCharitableContributions_HasAny",
-            data,
-          )
+          findIndexData("taxPayer_NonCashCharitableContributions_HasAny", data)
         ]?.answer &&
           questionContainer({
             key: "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
@@ -607,160 +601,160 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
                   label: t("organizer.deductions.step4.label3"),
                 },
               })} */}
-                {questionContainer({
-          key: "spouse_taxPayer_NonCashCharitableContributions_HasAny",
-          question: t("organizer.deductions.step4_1.question1"),
-          children: radio({
-            name: "spouse_taxPayer_NonCashCharitableContributions_HasAny",
-            radioButtons: radioButtons,
-          }),
-        })}
-        <Divider />
-        {data[
-          findIndexData(
-            "spouse_taxPayer_NonCashCharitableContributions_HasAny",
-            data,
-          )
-        ]?.answer &&
-          questionContainer({
-            key: "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
-            question: t("organizer.deductions.step4_1.question2"),
-            children: (
-              <>
-                {radio({
-                  name: "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
-                  radioButtons: radioButtons,
-                })}
-                {data[
-                  findIndexData(
-                    "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
-                    data,
-                  )
-                ]?.answer &&
-                  upload({
-                    key: "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
-                    data: data,
-                    dispatch: dispatch,
-                    onClick: (index = 0) => {
-                      dispatch(
-                        downloadFile(
-                          data[
+            {questionContainer({
+              key: "spouse_taxPayer_NonCashCharitableContributions_HasAny",
+              question: t("organizer.deductions.step4_1.question1"),
+              children: radio({
+                name: "spouse_taxPayer_NonCashCharitableContributions_HasAny",
+                radioButtons: radioButtons,
+              }),
+            })}
+            <Divider />
+            {data[
+              findIndexData(
+                "spouse_taxPayer_NonCashCharitableContributions_HasAny",
+                data,
+              )
+            ]?.answer &&
+              questionContainer({
+                key: "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
+                question: t("organizer.deductions.step4_1.question2"),
+                children: (
+                  <>
+                    {radio({
+                      name: "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
+                      radioButtons: radioButtons,
+                    })}
+                    {data[
+                      findIndexData(
+                        "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
+                        data,
+                      )
+                    ]?.answer &&
+                      upload({
+                        key: "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
+                        data: data,
+                        dispatch: dispatch,
+                        onClick: (index = 0) => {
+                          dispatch(
+                            downloadFile(
+                              data[
+                                findIndexData(
+                                  "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
+                                  data,
+                                )
+                              ].files[index].id,
+                              data[
+                                findIndexData(
+                                  "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
+                                  data,
+                                )
+                              ].files[index].name,
+                            ),
+                          );
+                        },
+                        onRemove: (index = 0) => {
+                          const newData = [...data];
+                          const newFileList = [
+                            ...data[
+                              findIndexData(
+                                "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
+                                data,
+                              )
+                            ].files.slice(0, index),
+                            ...data[
+                              findIndexData(
+                                "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
+                                data,
+                              )
+                            ].files.slice(index + 1),
+                          ];
+                          newData[
                             findIndexData(
                               "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
                               data,
                             )
-                          ].files[index].id,
-                          data[
-                            findIndexData(
-                              "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
-                              data,
-                            )
-                          ].files[index].name,
-                        ),
-                      );
-                    },
-                    onRemove: (index = 0) => {
-                      const newData = [...data];
-                      const newFileList = [
-                        ...data[
-                          findIndexData(
-                            "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
-                            data,
-                          )
-                        ].files.slice(0, index),
-                        ...data[
-                          findIndexData(
-                            "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
-                            data,
-                          )
-                        ].files.slice(index + 1),
-                      ];
-                      newData[
-                        findIndexData(
-                          "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
-                          data,
-                        )
-                      ].files = newFileList;
+                          ].files = newFileList;
 
-                      setData([...newData]);
-                    },
-                  })}
-              </>
-            ),
-          })}
-        <Divider />
-        {data[
-          findIndexData(
-            "spouse_taxPayer_NonCashCharitableContributions_HasAny",
-            data,
-          )
-        ]?.answer &&
-          questionContainer({
-            key: "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
-            question: t("organizer.deductions.step4_1.question3"),
-            children: (
-              <>
-                {radio({
-                  name: "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
-                  radioButtons: radioButtons,
-                })}
-                {data[
-                  findIndexData(
-                    "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
-                    data,
-                  )
-                ]?.answer &&
-                  upload({
-                    key: "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
-                    data: data,
-                    dispatch: dispatch,
-                    onClick: (index = 0) => {
-                      dispatch(
-                        downloadFile(
-                          data[
+                          setData([...newData]);
+                        },
+                      })}
+                  </>
+                ),
+              })}
+            <Divider />
+            {data[
+              findIndexData(
+                "spouse_taxPayer_NonCashCharitableContributions_HasAny",
+                data,
+              )
+            ]?.answer &&
+              questionContainer({
+                key: "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
+                question: t("organizer.deductions.step4_1.question3"),
+                children: (
+                  <>
+                    {radio({
+                      name: "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
+                      radioButtons: radioButtons,
+                    })}
+                    {data[
+                      findIndexData(
+                        "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
+                        data,
+                      )
+                    ]?.answer &&
+                      upload({
+                        key: "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+                        data: data,
+                        dispatch: dispatch,
+                        onClick: (index = 0) => {
+                          dispatch(
+                            downloadFile(
+                              data[
+                                findIndexData(
+                                  "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+                                  data,
+                                )
+                              ].files[index].id,
+                              data[
+                                findIndexData(
+                                  "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+                                  data,
+                                )
+                              ].files[index].name,
+                            ),
+                          );
+                        },
+                        onRemove: (index = 0) => {
+                          const newData = [...data];
+                          const newFileList = [
+                            ...data[
+                              findIndexData(
+                                "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+                                data,
+                              )
+                            ].files.slice(0, index),
+                            ...data[
+                              findIndexData(
+                                "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+                                data,
+                              )
+                            ].files.slice(index + 1),
+                          ];
+                          newData[
                             findIndexData(
                               "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
                               data,
                             )
-                          ].files[index].id,
-                          data[
-                            findIndexData(
-                              "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
-                              data,
-                            )
-                          ].files[index].name,
-                        ),
-                      );
-                    },
-                    onRemove: (index = 0) => {
-                      const newData = [...data];
-                      const newFileList = [
-                        ...data[
-                          findIndexData(
-                            "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
-                            data,
-                          )
-                        ].files.slice(0, index),
-                        ...data[
-                          findIndexData(
-                            "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
-                            data,
-                          )
-                        ].files.slice(index + 1),
-                      ];
-                      newData[
-                        findIndexData(
-                          "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
-                          data,
-                        )
-                      ].files = newFileList;
+                          ].files = newFileList;
 
-                      setData([...newData]);
-                    },
-                  })}
-              </>
-            ),
-          })}
+                          setData([...newData]);
+                        },
+                      })}
+                  </>
+                ),
+              })}
           </>
         )}
       </div>

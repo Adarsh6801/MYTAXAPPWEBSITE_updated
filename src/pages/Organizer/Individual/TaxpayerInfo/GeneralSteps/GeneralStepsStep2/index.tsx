@@ -88,7 +88,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
       });
-      console.log(stepData,'stepDatastepData');
+      console.log(stepData, "stepDatastepData");
 
       const resultData: any[] =
         stepData.length > 0
@@ -106,12 +106,12 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
           });
         }
       });
-      console.log(resultData,'resultDataaa');
-      
+      console.log(resultData, "resultDataaa");
+
       resultData.length >= DATA_KEY.length && setData(resultData);
       resultData.length >= DATA_KEY.length &&
         setCount(getDynamicDataCount("dependantFullName", resultData));
-        console.log(form.getFieldsValue(),"resultData");
+      console.log(form.getFieldsValue(), "resultData");
     }
   }, [dataOrganizer]);
 
@@ -323,7 +323,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
     );
     setData(newData);
     setCount(count + 1);
-    console.log(form.getFieldsValue(),"resultData");
+    console.log(form.getFieldsValue(), "resultData");
   };
 
   const remove = () => {
@@ -333,11 +333,12 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const formInfo = (index: number) => {
-
-
-    const customOnChange = (e: React.ChangeEvent<HTMLInputElement> , index: number) => {
+    const customOnChange = (
+      e: React.ChangeEvent<HTMLInputElement>,
+      index: number,
+    ) => {
       let value = e.target.value;
-      value = value.replace(/\D/g, '');
+      value = value.replace(/\D/g, "");
       if (value.length > 9) {
         value = value.slice(0, 9);
       }
@@ -355,7 +356,6 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
       });
     };
 
-
     return (
       <div className={styles.formInfoContainer} key={index}>
         {questionContainer({
@@ -363,15 +363,15 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
           children: input({
             name: `dependantFullName${index + 1}`,
             label: t("organizer.individual.general_steps.step2.fullName"),
-            required : true,
-            placeholder:"Donald J Trump",
-            pattern:{
-              value : /^[a-zA-Z\s]*$/,
-              message : 'Only Alphabets and Spaces are Allowed'
-            }
+            required: true,
+            placeholder: "Donald J Trump",
+            pattern: {
+              value: /^[a-zA-Z\s]*$/,
+              message: "Only Alphabets and Spaces are Allowed",
+            },
           }),
 
-        /*   key: `dependantFirstName${index + 1}`,
+          /*   key: `dependantFirstName${index + 1}`,
           children: input({
             name: `dependantFirstName${index + 1}`,
             label: t("organizer.individual.no_flow.step2.first_name"),
@@ -379,8 +379,6 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             required : true,
             message : 'First Name is Required'
           }), */
-
-
         })}
         {/* {questionContainer({
           key: `dependantMName${index + 1}`,
@@ -402,7 +400,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             message : 'Last Name is Required'
           }),
         })} */}
-         {/* <div className={styles.inputContainer}>
+        {/* <div className={styles.inputContainer}>
           
           {input({
             name: `dependantMName${index + 1}`,
@@ -428,8 +426,8 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               defaultValue:
                 data[findIndexData(`dependantBirthday${index + 1}`, data)]
                   .answer,
-              required : true,
-              message : 'Birthdate is Required'
+              required: true,
+              message: "Birthdate is Required",
             }),
           })}
           <div className={styles.socialSecurityNo}>
@@ -443,15 +441,15 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               ),
               formStyles: styles.marginBottom,
               textStyle: styles.promptText,
-              customOnChange: (e) => customOnChange(e, index),
+              customOnChange: e => customOnChange(e, index),
               placeholder: SOCIAL_SECURITY,
               isNumericOnly: true,
-              required : true,
+              required: true,
               // pattern:{
               // value :/^\d{3}-\d{2}-\d{5}$/,
               // message : 'Social Security Number is Invalid'
               // },
-              message : 'Social Security Number is Required'
+              message: "Social Security Number is Required",
             })}
           </div>
         </div>
@@ -461,8 +459,8 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             name: `dependantRelation${index + 1}`,
             label: t("organizer.individual.general_steps.step2.relation"),
             data: dataRelation,
-            required : true,
-            message : "Relation Is Required"
+            required: true,
+            message: "Relation Is Required",
           }),
         })}
         {questionContainer({
@@ -470,14 +468,14 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
           children: input({
             name: `dependantMonthsInHome${index + 1}`,
             label: t("organizer.individual.general_steps.step2.months_home"),
-            placeholder : '09',
-            isNumericOnly : true,
-            minLength : 2,
-            minLengthMessage : 'Minimim 2 characters Required',
-            maxLength : 2,
-            maxLengthMessage : 'Maximum 2 characters only allowed',
-            required : true,
-            message : 'Months in Home is Required'
+            placeholder: "09",
+            isNumericOnly: true,
+            minLength: 2,
+            minLengthMessage: "Minimim 2 characters Required",
+            maxLength: 2,
+            maxLengthMessage: "Maximum 2 characters only allowed",
+            required: true,
+            message: "Months in Home is Required",
           }),
         })}
         {questionContainer({
@@ -509,14 +507,14 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
           children: input({
             name: `dependantIncome${index + 1}`,
             label: t("organizer.individual.general_steps.step2.income"),
-            placeholder : '3500',
-            isNumericOnly : true,
-            minLength : 1,
-            minLengthMessage : 'Minimim 1 characters Required',
-            maxLength : 10,
-            maxLengthMessage : 'Maximum 10 characters only allowed',
-            required : true,
-            message : 'Income Is Required , If Not Mention As 0'
+            placeholder: "3500",
+            isNumericOnly: true,
+            minLength: 1,
+            minLengthMessage: "Minimim 1 characters Required",
+            maxLength: 10,
+            maxLengthMessage: "Maximum 10 characters only allowed",
+            required: true,
+            message: "Income Is Required , If Not Mention As 0",
           }),
         })}
       </div>
@@ -576,11 +574,11 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               name: "hasDependants",
               radioButtons: radioButtons,
               value: data[findIndexData("hasDependants", data)].answer,
-              required:true
+              required: true,
             })}
           </div>
         </OrganizerQuestionCard>
-        {data[0].answer  && (
+        {data[0].answer && (
           <div className={styles.marginTop}>
             {_.times(count, (index: number) => (
               <div key={index}>

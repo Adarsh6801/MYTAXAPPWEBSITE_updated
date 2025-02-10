@@ -96,5 +96,5 @@ export const DATA_KEY = [
   "canRequestPdfCopyForPreviousPreparer",
   "hasHardCopyOfTaxReturn",
   "canScanTaxReturnIntoPdfFormat",
-  "previousTaxYear"
+  "previousTaxYear",
 ];

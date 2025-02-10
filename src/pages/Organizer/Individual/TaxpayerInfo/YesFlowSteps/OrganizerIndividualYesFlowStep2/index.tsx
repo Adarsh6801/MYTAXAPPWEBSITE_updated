@@ -17,7 +17,7 @@ import {
   input,
   dataPicker,
   radio,
-  InputMask 
+  InputMask,
 } from "../../../../../../components/Module";
 import {
   getClassNames,
@@ -60,7 +60,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   );
 
   useEffect(() => {
-    console.log('dataOrganizer....')
+    console.log("dataOrganizer....");
     if (dataOrganizer) {
       const stepData = dataOrganizer.filter((el: any, i: number) => {
         return (
@@ -84,16 +84,14 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
           : [];
 
       resultData.forEach((item: any) => {
-        if(item.question === 'currentHomePhoneNumber'){
- 
-          
+        if (item.question === "currentHomePhoneNumber") {
           const formattedNumber = formatPhoneNumber(item.answer);
-          console.log(formattedNumber);  // Output: (121) 212-1212 1212
-          
+          console.log(formattedNumber); // Output: (121) 212-1212 1212
+
           form.setFieldsValue({
             [item.question]: formattedNumber,
           });
-          return
+          return;
         }
         if (item.isFile) {
           form.setFieldsValue({
@@ -107,27 +105,26 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
       });
       resultData.length >= DATA_KEY.length && setData(resultData);
 
-
-      console.log('resultData',form.getFieldValue('currentHomePhoneNumber'))
+      console.log("resultData", form.getFieldValue("currentHomePhoneNumber"));
     }
   }, [dataOrganizer]);
   function formatPhoneNumber(number: string): string {
-    if(number){
-
+    if (number) {
       // Remove non-digit characters
       const cleaned = number.replace(/\D/g, "");
-    
+
       // Apply the regex pattern to format the number
       const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})(\d{0,4})$/);
-    
+
       if (match) {
-        return `(${match[1]}) ${match[2]}-${match[3]}${match[4] ? ` ${match[4]}` : ""}`;
+        return `(${match[1]}) ${match[2]}-${match[3]}${
+          match[4] ? ` ${match[4]}` : ""
+        }`;
       }
-    
-      return number;  // Return the original number if it doesn't match the expected length
-    }
-    else{
-      return ""
+
+      return number; // Return the original number if it doesn't match the expected length
+    } else {
+      return "";
     }
   }
   useEffect(() => {
@@ -184,12 +181,15 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
     const index: number = findIndexData(name, data);
-    let result = name === "currentUnitNo" ? moment(value[name] || undefined, DEFAULT_DATE_FORMAT) : value[name];
+    let result =
+      name === "currentUnitNo"
+        ? moment(value[name] || undefined, DEFAULT_DATE_FORMAT)
+        : value[name];
     // result = name === 'currentStreet' ? 'currentStreet' : value[name]
-    console.log(name,'NameTHIS');
-    if(name==='currentHomePhoneNumber'){
-      result = value.currentHomePhoneNumber.replace(/\D/g, '');  // \D matches anything that's not a digit
-console.log(result,'numbersOnly');
+    console.log(name, "NameTHIS");
+    if (name === "currentHomePhoneNumber") {
+      result = value.currentHomePhoneNumber.replace(/\D/g, ""); // \D matches anything that's not a digit
+      console.log(result, "numbersOnly");
     }
     const newData = [...data];
 
@@ -201,7 +201,7 @@ console.log(result,'numbersOnly');
       isFile: data[index].isFile,
       files: data[index].isFile ? result.target.files : null,
     };
-    console.log('newData',value)
+    console.log("newData", value);
     // form.setFieldsValue({[name]:result})
     setData([...newData]);
     setFiledName(name);
@@ -258,8 +258,8 @@ console.log(result,'numbersOnly');
                 name: "currentStreet",
                 label: t("organizer.individual.yes_flow.step2.street"),
                 required: true, // Enable validation
-                message: 'Street Is Required', // Custom message
-                placeholder : "123 Main St",
+                message: "Street Is Required", // Custom message
+                placeholder: "123 Main St",
                 pattern: {
                   value: /^[A-Za-z0-9\s\/]+$/, // Allows letters, numbers, spaces, and '/'
                   message: "Only letters, numbers, and '/' are allowed",
@@ -267,7 +267,6 @@ console.log(result,'numbersOnly');
               }),
             })}
             <div className={styles.dataPickerContainer}>
-              
               {questionContainer({
                 key: "currentUnitNo",
                 /* children: dataPicker({
@@ -280,9 +279,9 @@ console.log(result,'numbersOnly');
                 }), */
 
                 children: input({
-                  name: 'currentUnitNo',
+                  name: "currentUnitNo",
                   label: t("organizer.individual.yes_flow.step2.apt_unit_no"),
-                  placeholder : "A205",
+                  placeholder: "A205",
                   pattern: {
                     value: /^[A-Za-z0-9\s\/]+$/, // Allows letters, numbers, spaces, and '/'
                     message: "Only letters, numbers, and '/' are allowed",
@@ -294,23 +293,23 @@ console.log(result,'numbersOnly');
               >
                 {questionContainer({
                   key: "currentZipCode",
-                  children:input({
-                  name: "currentZipCode",
-                  label: t("organizer.individual.yes_flow.step2.zip_code"),
-                  inputStyle: styles.input,
-                  placeholder : '91555',
-                  isNumericOnly: true,
-                  required: true,
-                  message : 'Zipcode Is Required',
-                  // minLength : 5,
-                  // maxLength : 5,
-                  // minLengthMessage: "Minimum 5 characters required",
-                  // maxLengthMessage: 'maximum 5 charaters allowed',
-                  pattern: {
-                    value: /^[0-9]{5}$/, // Matches exactly 5 numeric digits
-                    message: "Zipcode must be exactly 5 numeric digits",
-                  },
-                }),
+                  children: input({
+                    name: "currentZipCode",
+                    label: t("organizer.individual.yes_flow.step2.zip_code"),
+                    inputStyle: styles.input,
+                    placeholder: "91555",
+                    isNumericOnly: true,
+                    required: true,
+                    message: "Zipcode Is Required",
+                    // minLength : 5,
+                    // maxLength : 5,
+                    // minLengthMessage: "Minimum 5 characters required",
+                    // maxLengthMessage: 'maximum 5 charaters allowed',
+                    pattern: {
+                      value: /^[0-9]{5}$/, // Matches exactly 5 numeric digits
+                      message: "Zipcode must be exactly 5 numeric digits",
+                    },
+                  }),
                 })}
               </div>
             </div>
@@ -321,8 +320,8 @@ console.log(result,'numbersOnly');
                 label: t("organizer.individual.yes_flow.step2.state"),
                 data: dataState,
                 required: true,
-                message : 'State Is Required',
-                placeholder  :'CA'
+                message: "State Is Required",
+                placeholder: "CA",
               }),
             })}
             {questionContainer({
@@ -330,16 +329,16 @@ console.log(result,'numbersOnly');
               children: input({
                 name: "currentCity",
                 label: t("organizer.individual.yes_flow.step2.city"),
-                placeholder : ' Los Angeles ',
+                placeholder: " Los Angeles ",
                 required: true,
-                message : 'City Is Required',
+                message: "City Is Required",
                 pattern: {
                   value: /^[A-Za-z\s]+$/,
                   message: "Only letters are allowed",
                 },
               }),
             })}
-            
+
             {questionContainer({
               key: "currentHomePhoneNumber",
               // children: inputMask({
@@ -361,26 +360,29 @@ console.log(result,'numbersOnly');
               //   },
               //   defaultValue:"8157020281"
               // }),
-              children:<InputMask
-                name= "currentHomePhoneNumber"
-                label={t(
-                  "organizer.individual.yes_flow.step2.alternate_home_phone_number",
-                )}
-                text={t("organizer.individual.no_flow.step4.description")}
-                hasMargin={true}
-                placeholder ='(XXX) XXX-XXXX'
-                // isNumericOnly : true,
-                // minLength : 10,
-                // maxLength : 14,
-                // minLengthMessage: "Number is too short",
-                // maxLengthMessage: 'Number is too long',
-                pattern= {{
-                  value: /^\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?$/, // Matches between 10 and 14 numeric digits
-                  message: "Phone number must be between 10 and 14 numeric digits",
-                }}
-                maskFormat="(000) 000-0000[ 0000]"
-                // defaultValue="
-              />
+              children: (
+                <InputMask
+                  name="currentHomePhoneNumber"
+                  label={t(
+                    "organizer.individual.yes_flow.step2.alternate_home_phone_number",
+                  )}
+                  text={t("organizer.individual.no_flow.step4.description")}
+                  hasMargin={true}
+                  placeholder="(XXX) XXX-XXXX"
+                  // isNumericOnly : true,
+                  // minLength : 10,
+                  // maxLength : 14,
+                  // minLengthMessage: "Number is too short",
+                  // maxLengthMessage: 'Number is too long',
+                  pattern={{
+                    value: /^\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?$/, // Matches between 10 and 14 numeric digits
+                    message:
+                      "Phone number must be between 10 and 14 numeric digits",
+                  }}
+                  maskFormat="(000) 000-0000[ 0000]"
+                  // defaultValue="
+                />
+              ),
             })}
           </div>
         </div>

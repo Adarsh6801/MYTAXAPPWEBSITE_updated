@@ -35,7 +35,7 @@ import {
   input,
   radio,
   select,
-  upload
+  upload,
 } from "../../../../../../components/Module";
 import { IQuestionContainer } from "./index.props";
 import {
@@ -131,8 +131,10 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const add = () => {
-    console.log('hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
-    
+    console.log(
+      "hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+    );
+
     const newData = [...data];
     newData.push(
       ...[
@@ -297,7 +299,6 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
     setData(newData);
     setCount(count + 1);
   };
-  
 
   const inputMany = (questions: string[]) => {
     const [question1, question2, question3] = questions;
@@ -335,8 +336,6 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
     setData([...newData]);
   };
 
-
-
   const remove = () => {
     const removeStart: number = findIndexData(`studentName${count}`, data);
 
@@ -346,7 +345,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, style = false, children,required } = dataQuestion;
+    const { question, key, style = false, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
@@ -375,12 +374,12 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
 
   const formInfo = (index: number) => {
     const dataIndex = findIndexData(`studentName${index}`, data);
-    
+
     // Check if data at this index exists
     if (!data[dataIndex]) {
       return null; // or you could return some fallback UI or log a message
     }
-  
+
     return (
       <>
         <Divider />
@@ -398,19 +397,19 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
               {input({
                 name: `studentName${index}`,
                 label: t("organizer.individual.general_steps.step2.fullName"),
-                required:true
+                required: true,
               })}
               {select({
                 name: `studentStatus${index}`,
                 label: "Student Status",
                 data: dataStudentStatus,
                 styleSelect: styles.radioContentContainer,
-                required:true
+                required: true,
               })}
             </>
           ),
         })}
-  
+
         <Divider />
         {questionContainer({
           key: `isStudentFullTime${index}`,
@@ -422,8 +421,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 <p>{t("organizer.individual.general_steps.step5.question5")}</p>
                 {checkbox({
                   name: `isStudentFullTime${index}`,
-                  value:
-                    data[dataIndex]?.answer,
+                  value: data[dataIndex]?.answer,
                 })}
               </div>
               <div className={styles.checkbox}>
@@ -501,7 +499,6 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
       </>
     );
   };
-  
 
   return (
     <div>
@@ -532,66 +529,67 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: `hasEducationExpensesForYouOrDependents`,
           question: t("organizer.individual.general_steps.step5.question1"),
-          required:true,
+          required: true,
           children: radio({
             name: "hasEducationExpensesForYouOrDependents",
             radioButtons: radioButtons,
-            required:true
+            required: true,
           }),
         })}
         <Divider />
-        {data[findIndexData("hasEducationExpensesForYouOrDependents", data)].answer && questionContainer({
-          key: `hasForm1098TFromTheEducationInstitution`,
-          question: t("organizer.individual.general_steps.step5.question2"),
-          children: radio({
-            name: "hasForm1098TFromTheEducationInstitution",
-            radioButtons: radioButtons,
-          }),
-        })}
-              { data[findIndexData("hasForm1098TFromTheEducationInstitution", data)].answer
-                  && questionContainer({
-                      question: t("organizer.individual.general_steps.step5.question_2"),
-                      key: "1098_upload_file",
-                      required:true,
-                      children: upload({
-                        key: "1098_upload_file",
+        {data[findIndexData("hasEducationExpensesForYouOrDependents", data)]
+          .answer &&
+          questionContainer({
+            key: `hasForm1098TFromTheEducationInstitution`,
+            question: t("organizer.individual.general_steps.step5.question2"),
+            children: radio({
+              name: "hasForm1098TFromTheEducationInstitution",
+              radioButtons: radioButtons,
+            }),
+          })}
+        {data[findIndexData("hasForm1098TFromTheEducationInstitution", data)]
+          .answer &&
+          questionContainer({
+            question: t("organizer.individual.general_steps.step5.question_2"),
+            key: "1098_upload_file",
+            required: true,
+            children: upload({
+              key: "1098_upload_file",
 
-                        buttonText: t("organizer.individual.yes_flow.step1.attach"),
-                        data,
-                        dispatch: dispatch,
-                        onClick: (index = 0) => {
-                          dispatch(
-                            downloadFile(
-                              data[findIndexData("1098_upload_file", data)]
-                                .files[index].id,
-                              data[findIndexData("1098_upload_file", data)]
-                                .files[index].name,
-                            ),
-                          );
-                        },
-                        onRemove: (index = 0) => {
-                          const newData = [...data];
-                          const newFileList = [
-                            ...data[
-                              findIndexData("1098_upload_file", data)
-                            ].files.slice(0, index),
-                            ...data[
-                              findIndexData("1098_upload_file", data)
-                            ].files.slice(index + 1),
-                          ];
-                          newData[
-                            findIndexData("1098_upload_file", data)
-                          ].files = newFileList;
-        
-                          setData([...newData]);
-                        },
-                        allowedFileTypes:["application/pdf"],
-                        required:false,
-                        maxCount:3
-                      }),
-                    })
-                 
-                }
+              buttonText: t("organizer.individual.yes_flow.step1.attach"),
+              data,
+              dispatch: dispatch,
+              onClick: (index = 0) => {
+                dispatch(
+                  downloadFile(
+                    data[findIndexData("1098_upload_file", data)].files[index]
+                      .id,
+                    data[findIndexData("1098_upload_file", data)].files[index]
+                      .name,
+                  ),
+                );
+              },
+              onRemove: (index = 0) => {
+                const newData = [...data];
+                const newFileList = [
+                  ...data[findIndexData("1098_upload_file", data)].files.slice(
+                    0,
+                    index,
+                  ),
+                  ...data[findIndexData("1098_upload_file", data)].files.slice(
+                    index + 1,
+                  ),
+                ];
+                newData[findIndexData("1098_upload_file", data)].files =
+                  newFileList;
+
+                setData([...newData]);
+              },
+              allowedFileTypes: ["application/pdf"],
+              required: false,
+              maxCount: 3,
+            }),
+          })}
         <Divider />
         {questionContainer({
           key: "studentsCountToPay",
@@ -599,35 +597,36 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
           children: input({
             name: "studentsCountToPay",
             label: t("organizer.individual.general_steps.step5.question16"),
-            placeholder : '02',
-            isNumericOnly : true,
-            minLength : 1,
-            minLengthMessage : 'Minimim 1 characters Required',
-            maxLength : 2,
-            maxLengthMessage : 'Maximum 2 characters only allowed',
-            required : true,
-            message : 'Number of students Home is Required',
-            pattern:{
-              value:/^[12]$/,
-              message:'Please enter a number with 1 or 2 digits.'
-            }
+            placeholder: "02",
+            isNumericOnly: true,
+            minLength: 1,
+            minLengthMessage: "Minimim 1 characters Required",
+            maxLength: 2,
+            maxLengthMessage: "Maximum 2 characters only allowed",
+            required: true,
+            message: "Number of students Home is Required",
+            pattern: {
+              value: /^[12]$/,
+              message: "Please enter a number with 1 or 2 digits.",
+            },
           }),
         })}
-{_.times(count, (index: number) => (
-  <div key={index}>
-    {formInfo(index + 1)}
-    {count === index + 1 && count > 1 && (
-      <Button
-        text={t("organizer.individual.general_steps.step2.remove_dependent")}
-        type="link"
-        onClick={() => {
-          remove();
-        }}
-      />
-    )}
-  </div>
-))}
-
+        {_.times(count, (index: number) => (
+          <div key={index}>
+            {formInfo(index + 1)}
+            {count === index + 1 && count > 1 && (
+              <Button
+                text={t(
+                  "organizer.individual.general_steps.step2.remove_dependent",
+                )}
+                type="link"
+                onClick={() => {
+                  remove();
+                }}
+              />
+            )}
+          </div>
+        ))}
 
         <Button type="link" text={"+ Add Student"} onClick={add} />
         <CircularDirection

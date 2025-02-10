@@ -938,8 +938,8 @@
         "label3": "Do not include interest and penalties",
         "add_vehicle": "+ Add vehicle",
         "remove_vehicle": "Remove vehicle",
-        "yes":"Yes",
-        "no":"No"
+        "yes": "Yes",
+        "no": "No"
       },
       "step4": {
         "step_title": "Cash Charitable contributions",
@@ -1739,7 +1739,7 @@
           "question16": "Number of Students",
           "label1": "Student #<0>{{count}}</0>",
           "label2": "For Tuition Credit",
-          
+
           "label3": "For Job Related Continuing Education",
           "label4": "For Education Plans"
         },

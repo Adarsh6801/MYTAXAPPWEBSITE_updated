@@ -74,8 +74,7 @@ import styles from "./index.module.css";
 const OrganizerIndividual = () => {
   const { t } = useTranslation();
   const [state, setState] = useState<any>({} as any);
-  const [previousTaxYear, setpreviousTaxYear] = useState<any>('');
-
+  const [previousTaxYear, setpreviousTaxYear] = useState<any>("");
 
   const isLoading = useSelector(
     (state: any) => state.individualOrganizer.loading,
@@ -87,22 +86,23 @@ const OrganizerIndividual = () => {
   const dataOrganizer = useSelector(
     (state: any) => state.individualOrganizer.data,
   );
-// let previousTaxYear;
-    useEffect(() => {
-      if (dataOrganizer) {
-        console.log(dataOrganizer,'Data Organization');
-        const questionKey = "previousTaxYear"; // The question you want to match
+  // let previousTaxYear;
+  useEffect(() => {
+    if (dataOrganizer) {
+      console.log(dataOrganizer, "Data Organization");
+      const questionKey = "previousTaxYear"; // The question you want to match
 
-// Find the object with the matching question
-const foundItem = dataOrganizer.find((item:any) => item.question == questionKey);
-console.log(foundItem,'Found Item');
+      // Find the object with the matching question
+      const foundItem = dataOrganizer.find(
+        (item: any) => item.question == questionKey,
+      );
+      console.log(foundItem, "Found Item");
 
-// Get the answer if found, otherwise default to an empty string
-setpreviousTaxYear(foundItem ? foundItem.answer : "")
- console.log(previousTaxYear,'Previous Tax Year');
- 
-      }
-    }, [dataOrganizer]);
+      // Get the answer if found, otherwise default to an empty string
+      setpreviousTaxYear(foundItem ? foundItem.answer : "");
+      console.log(previousTaxYear, "Previous Tax Year");
+    }
+  }, [dataOrganizer]);
 
   return (
     <>
@@ -143,7 +143,10 @@ setpreviousTaxYear(foundItem ? foundItem.answer : "")
             ),
             groupName: "Taxpayer info",
             stepIcon: <OrganizerFillingStatus />,
-            stepTitle: t("organizer.individual.yes_flow.step3.step_title") + " " + previousTaxYear ,
+            stepTitle:
+              t("organizer.individual.yes_flow.step3.step_title") +
+              " " +
+              previousTaxYear,
           },
           {
             // 3

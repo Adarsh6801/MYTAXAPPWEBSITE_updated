@@ -52,7 +52,6 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
     (state: any) => state.individualOrganizer.data,
   );
 
-
   useEffect(() => {
     init();
   }, []);
@@ -94,18 +93,19 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
             [item.question]: item.files,
           });
         } else {
-          if(item.question == 'taxPayerSocialSecurityNo'){
-            const formattedSSN = item.answer.replace(/(\d{3})(\d{2})(\d{4})/, "$1-$2-$3");
+          if (item.question == "taxPayerSocialSecurityNo") {
+            const formattedSSN = item.answer.replace(
+              /(\d{3})(\d{2})(\d{4})/,
+              "$1-$2-$3",
+            );
             form.setFieldsValue({
               [item.question]: formattedSSN,
             });
-          }
-          else {
+          } else {
             form.setFieldsValue({
               [item.question]: item.answer,
             });
           }
-          
         }
       });
       resultData.length >= DATA_KEY.length && setData(resultData);
@@ -186,7 +186,6 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const formInfo = (names: DataOfKey[], title: string) => {
-
     const [
       firstName,
       middleInitial,
@@ -198,11 +197,9 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
       legallyBlind,
     ] = names;
 
-    
-
     const customOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       let value = e.target.value;
-      value = value.replace(/\D/g, '');
+      value = value.replace(/\D/g, "");
       if (value.length > 9) {
         value = value.slice(0, 9);
       }
@@ -228,8 +225,8 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
             name: firstName,
             label: t("organizer.individual.no_flow.step2.first_name"),
             text: t("organizer.individual.no_flow.step2.must_match_ss_admin"),
-            placeholder : 'Donald',
-            required : true,
+            placeholder: "Donald",
+            required: true,
             pattern: {
               value: /^[A-Za-z\s]+$/, // Allows letters, numbers, spaces, and '/'
               message: "Only letters are allowed",
@@ -240,7 +237,7 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
           {input({
             name: middleInitial,
             label: t("organizer.individual.no_flow.step2.middle_initial"),
-            placeholder : 'J',
+            placeholder: "J",
             pattern: {
               value: /^[A-Za-z0-9\s\/]+$/, // Allows letters, numbers, spaces, and '/'
               message: "Only letters, numbers, and '/' are allowed",
@@ -251,9 +248,9 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
           {input({
             name: lastName,
             label: t("organizer.individual.no_flow.step2.last_name"),
-            placeholder : 'Trump',
-            required : true,
-            message : 'Last Name is Required'
+            placeholder: "Trump",
+            required: true,
+            message: "Last Name is Required",
           })}
         </div>
         <div className={styles.dataPickerContainer}>
@@ -290,7 +287,7 @@ const OrganizerIndividualNoFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
           children: input({
             name: mobileNumber,
             label: t("organizer.individual.no_flow.step2.mobile_number"),
-            placeholder :  '(XXX) XXX-XXXX '
+            placeholder: "(XXX) XXX-XXXX ",
           }),
         })}
         <Form.Item

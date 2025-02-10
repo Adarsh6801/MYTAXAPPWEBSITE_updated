@@ -219,12 +219,12 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
           {questionContainer({
             key: "didTaxPayerEarnIncomeAsASelfEmployedOrSMLLC",
             question: t("organizer.individual.income.step2.question1"),
-            required:true,
+            required: true,
             children: radio({
               name: "didTaxPayerEarnIncomeAsASelfEmployedOrSMLLC",
               radioButtons: dataRadio,
-              required:true,
-              message:"The field is required",
+              required: true,
+              message: "The field is required",
               value:
                 data[
                   findIndexData(
@@ -240,14 +240,13 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
             questionContainer({
               key: "didTaxPayerReceive_1099NEC_Misc_KForms",
               question: t("organizer.individual.income.step2.question2"),
-            required:true,
-            
+              required: true,
+
               children: radio({
                 name: "didTaxPayerReceive_1099NEC_Misc_KForms",
                 radioButtons: dataRadio,
-              required:true,
-              message:"The field is required",
-
+                required: true,
+                message: "The field is required",
               }),
             })}
           {data[
@@ -258,7 +257,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
             questionContainer({
               key: "taxPayerSelfEmployedDocument",
               question: t("organizer.individual.income.step2.question3"),
-            required:true,
+              required: true,
               children: upload({
                 key: "taxPayerSelfEmployedDocument",
                 data: data,
@@ -290,8 +289,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
 
                   setData([...newData]);
                 },
-              required:true,
-
+                required: true,
               }),
             })}
           {data[
@@ -300,12 +298,12 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
             questionContainer({
               key: "didTaxPayerReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
               question: t("organizer.individual.income.step2.question4"),
-            required:true,
+              required: true,
               children: radio({
                 name: "didTaxPayerReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
                 radioButtons: dataRadio,
-              required:true,
-              message:"The field is required",
+                required: true,
+                message: "The field is required",
                 value:
                   data[
                     findIndexData(
@@ -333,8 +331,8 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 children: radio({
                   name: "didSpouseEarnIncomeAsASelfEmployedOrSMLLC",
                   radioButtons: dataRadio,
-                  required:true,
-              message:"The field is required",
+                  required: true,
+                  message: "The field is required",
 
                   value:
                     data[
@@ -354,8 +352,8 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                   children: radio({
                     name: "didSpouseReceive_1099NEC_Misc_KForms",
                     radioButtons: dataRadio,
-                  required:true,
-              message:"The field is required",
+                    required: true,
+                    message: "The field is required",
 
                     value:
                       data[
@@ -411,7 +409,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
 
                       setData([...newData]);
                     },
-                  required:true,
+                    required: true,
                   }),
                 })}
               {data[
@@ -423,8 +421,8 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                   children: radio({
                     name: "didSpouseReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
                     radioButtons: dataRadio,
-                  required:true,
-              message:"The field is required",
+                    required: true,
+                    message: "The field is required",
 
                     value:
                       data[

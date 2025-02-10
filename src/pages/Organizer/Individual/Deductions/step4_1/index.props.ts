@@ -1,6 +1,5 @@
 export interface IQuestionContainer {
-    question?: string;
-    key: string;
-    children: React.ReactNode;
-  }
-  
+  question?: string;
+  key: string;
+  children: React.ReactNode;
+}
