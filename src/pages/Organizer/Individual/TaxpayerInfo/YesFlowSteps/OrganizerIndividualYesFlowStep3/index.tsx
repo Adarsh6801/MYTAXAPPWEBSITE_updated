@@ -109,6 +109,15 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
           });
           return;
         }
+        if (item.question === "spouseMobileNumber") {
+          const formattedNumber = formatPhoneNumber(item.answer);
+          console.log(formattedNumber);
+
+          form.setFieldsValue({
+            [item.question]: formattedNumber,
+          });
+          return;
+        }
         if (item.isFile) {
           form.setFieldsValue({
             [item.question]: item.files,

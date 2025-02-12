@@ -358,27 +358,17 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
               //   defaultValue:"8157020281"
               // }),
               children: (
-                <InputMask
-                  name="currentHomePhoneNumber"
-                  label={t(
-                    "organizer.individual.yes_flow.step2.alternate_home_phone_number",
-                  )}
-                  text={t("organizer.individual.no_flow.step4.description")}
-                  hasMargin={true}
-                  placeholder="(XXX) XXX-XXXX"
-                  // isNumericOnly : true,
-                  // minLength : 10,
-                  // maxLength : 14,
-                  // minLengthMessage: "Number is too short",
-                  // maxLengthMessage: 'Number is too long',
-                  pattern={{
-                    value: /^\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?$/, // Matches between 10 and 14 numeric digits
-                    message:
-                      "Phone number must be between 10 and 14 numeric digits",
-                  }}
-                  maskFormat="(000) 000-0000[ 0000]"
-                  // defaultValue="
-                />
+<InputMask
+  name="currentHomePhoneNumber"
+  label="Alternate Home Phone Number"
+  placeholder="(XXX) XXX-XXXX"
+  pattern={{
+    value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)?$/,
+    message: "Phone number must be between 10 and 14 numeric digits",
+  }}
+  maskFormat="(000) 000-0000[ 0000]"
+/>
+
               ),
             })}
           </div>

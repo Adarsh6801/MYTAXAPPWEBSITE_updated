@@ -11,7 +11,7 @@ export interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
   editing: boolean;
   dataIndex: string;
   title: any;
-  inputType: "name" | "datePaid" | "state";
+  inputType: "name" | "datePaid" | "state" | "attachement";
   record: Item;
   index: number;
   children: React.ReactNode;

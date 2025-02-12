@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Trans, useTranslation } from "react-i18next";
-import { Table, Input, Form, DatePicker } from "antd";
+import { Table, Input, Form, DatePicker, Upload, Button } from "antd";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import _ from "lodash";
@@ -34,7 +34,7 @@ import {
   radioButtons,
 } from "./index.constants";
 import { DEFAULT_DATE_FORMAT } from "../../../../../../constants/format";
-
+// import { ReactComponent as Attach } from "./../../../../../assets/svgs/attach.svg";
 import { ReactComponent as Calendar } from "../../../../../../assets/svgs/calendar.svg";
 import styles from "./index.module.css";
 
@@ -77,6 +77,17 @@ const EditableCell: React.FC<EditableCellProps> = ({
         format={DEFAULT_DATE_FORMAT}
       />
     );
+  }
+
+  if(inputType=='attachement'){
+    console.log('attachement success');
+    
+    inputNode=        <Upload
+          accept={ "image/png,image/jpeg,image/jpg,application/pdf,application/doc,application/xlsx,application/docx"}
+          showUploadList={false}
+        >
+          <Button type="ghost" />
+        </Upload>
   }
   interface ValidationRule {
     required?: boolean;
