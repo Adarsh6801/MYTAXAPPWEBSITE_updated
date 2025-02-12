@@ -124,7 +124,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
     if (
       !!data[
         findIndexData(
-          "didTaxPayerReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
+          "didTaxPayerEarnIncomeAsASelfEmployedOrSMLLC",
           data,
         )
       ].answer
@@ -132,7 +132,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
       goTo(18);
       return;
     } else {
-      goTo(19);
+      goTo(21);
       return;
     }
   };
@@ -328,6 +328,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
               {questionContainer({
                 key: "didSpouseEarnIncomeAsASelfEmployedOrSMLLC",
                 question: t("organizer.individual.income.step2.question1"),
+                required:true,
                 children: radio({
                   name: "didSpouseEarnIncomeAsASelfEmployedOrSMLLC",
                   radioButtons: dataRadio,
@@ -349,6 +350,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 questionContainer({
                   key: "didSpouseReceive_1099NEC_Misc_KForms",
                   question: t("organizer.individual.income.step2.question2"),
+                required:true,
                   children: radio({
                     name: "didSpouseReceive_1099NEC_Misc_KForms",
                     radioButtons: dataRadio,
@@ -376,6 +378,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 questionContainer({
                   key: "spouseSelfEmployedDocument",
                   question: t("organizer.individual.income.step2.question3"),
+                required:true,
                   children: upload({
                     key: "spouseSelfEmployedDocument",
                     data: data,
@@ -418,6 +421,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 questionContainer({
                   key: "didSpouseReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
                   question: t("organizer.individual.income.step2.question4"),
+                required:true,
                   children: radio({
                     name: "didSpouseReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
                     radioButtons: dataRadio,
