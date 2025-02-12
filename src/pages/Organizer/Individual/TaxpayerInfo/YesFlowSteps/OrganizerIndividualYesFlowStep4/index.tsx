@@ -344,6 +344,15 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
             />
           }
         </p>
+        <p className={styles.text}>
+          {
+            <Trans
+              i18nKey="organizer.individual.yes_flow.step4.description2"
+              values={{ note: "⚠ Important: -" }}
+              components={[<span className={styles.notesTitle}>text</span>]}
+            />
+          }
+        </p>
         {questionContainer({
           key: "didPayAnyEstimatedTaxesDuringTheYear",
           question: t("organizer.individual.yes_flow.step4.radio_question"),

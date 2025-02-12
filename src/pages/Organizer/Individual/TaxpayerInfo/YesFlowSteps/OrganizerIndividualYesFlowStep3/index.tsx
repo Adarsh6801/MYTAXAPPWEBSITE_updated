@@ -300,7 +300,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   },
                 }),
               })}
-              {questionContainer({
+              {/* {questionContainer({
                 key: "spouseMiddleName",
                 children: input({
                   name: "spouseMiddleName",
@@ -329,7 +329,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     message: "Only letters are allowed.",
                   },
                 }),
-              })}
+              })} */}
               <div className={styles.dataPickerContainer}>
                 {questionContainer({
                   key: "spouseBirthday",

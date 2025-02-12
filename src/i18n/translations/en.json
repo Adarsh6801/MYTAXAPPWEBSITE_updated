@@ -1641,6 +1641,8 @@
         "step4": {
           "step_title": "Estimated Taxes Paid",
           "description": "<0>{{note}}</0> In order to receive credit for your estimated tax payments which you may have paid please provide accurate payment amount and date information.  Incomplete or incorrect amounts will result in correspondence from the IRS or State taxing agencies.",
+          "description2": "<0>{{note}}</0> Providing incorrect or missing amounts may lead to IRS/state tax notices. Double-check your records before submitting.",
+
           "radio_question": "Did you pay any estimated taxes during the year?",
           "question1": "First Quarter (April, 15, 2022)",
           "question2": "Second Quarter (June, 15, 2022)",

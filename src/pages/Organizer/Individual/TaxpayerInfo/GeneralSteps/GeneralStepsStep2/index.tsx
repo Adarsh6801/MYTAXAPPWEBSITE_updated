@@ -445,10 +445,10 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               placeholder: SOCIAL_SECURITY,
               isNumericOnly: true,
               required: true,
-              // pattern:{
-              // value :/^\d{3}-\d{2}-\d{5}$/,
-              // message : 'Social Security Number is Invalid'
-              // },
+              pattern:{
+              value :/^\d{3}-\d{2}-\d{4}$/,
+              message : 'Social Security Number is Invalid'
+              },
               message: "Social Security Number is Required",
             })}
           </div>
@@ -510,10 +510,14 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             placeholder: "3500",
             isNumericOnly: true,
             minLength: 1,
-            minLengthMessage: "Minimim 1 characters Required",
+            minLengthMessage: "Maximum 10 characters only allowed",
             maxLength: 10,
             maxLengthMessage: "Maximum 10 characters only allowed",
             required: true,
+            pattern:{
+              value:/^\d{1,10}$/,
+              message:'Maximum 10 characters and Maximum 10 characters only allowed'
+            },
             message: "Income Is Required , If Not Mention As 0",
           }),
         })}
