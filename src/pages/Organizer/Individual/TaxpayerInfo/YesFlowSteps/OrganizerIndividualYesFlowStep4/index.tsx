@@ -50,7 +50,9 @@ const EditableCell: React.FC<EditableCellProps> = ({
   children,
   ...restProps
 }) => {
-  let inputNode = <Input defaultValue={record.federal.toString()} />;
+  let inputNode = (
+    <Input defaultValue={record.federal.toString()} type={"number"} />
+  );
 
   if (inputType === "state") {
     inputNode = (
@@ -62,7 +64,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
     inputNode = (
       <DatePicker
         suffixIcon={<Calendar />}
-        placeholder="Date"
+        placeholder="MM/DD/YYYY"
         defaultValue={
           record.datePaid === ""
             ? undefined
@@ -88,19 +90,21 @@ const EditableCell: React.FC<EditableCellProps> = ({
     { required: true, message: `${title} is required!` },
   ];
 
-  if (inputType === "state" || inputType === "name") {
+  if (inputType != "datePaid") {
+    console.log(inputType, "inputType");
+
     rules.push({
-      pattern: /^\d+$/,
-      message: `${title} must be numeric!`,
+      pattern: /^\d{11}$/,
+      message: `${title} must be numeric and 11 numbers!`,
     });
     rules.push({
       min: 1,
       message: `${title} must be at least 1 character!`,
     });
-    rules.push({
-      max: 11,
-      message: `${title} must be at most 11 characters!`,
-    });
+    // rules.push({
+    //   max: 11,
+    //   message: `${title} must be at most 11 characters!`,
+    // });
   }
 
   if (inputType === "datePaid") {
@@ -232,6 +236,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         federal: "",
         state: "",
         datePaid: "",
+        attachement: "",
       },
       {
         key: "2",
@@ -240,6 +245,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         federal: "",
         state: "",
         datePaid: "",
+        attachement: "",
       },
       {
         key: "3",
@@ -248,6 +254,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         federal: "",
         state: "",
         datePaid: "",
+        attachement: "",
       },
       {
         key: "4",
@@ -256,6 +263,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         federal: "",
         state: "",
         datePaid: "",
+        attachement: "",
       },
     ]);
 

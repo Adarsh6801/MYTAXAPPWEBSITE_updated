@@ -35,6 +35,7 @@ export const dataTabel = [
     federal: "",
     state: "",
     datePaid: "",
+    attachement: "",
   },
   {
     key: "2",
@@ -43,6 +44,7 @@ export const dataTabel = [
     federal: "",
     state: "",
     datePaid: "",
+    attachement: "",
   },
   {
     key: "3",
@@ -51,6 +53,7 @@ export const dataTabel = [
     federal: "",
     state: "",
     datePaid: "",
+    attachement: "",
   },
   {
     key: "4",
@@ -59,6 +62,7 @@ export const dataTabel = [
     federal: "",
     state: "",
     datePaid: "",
+    attachement: "",
   },
 ];
 

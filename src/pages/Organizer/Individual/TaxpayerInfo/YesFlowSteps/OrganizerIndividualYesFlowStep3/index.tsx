@@ -389,8 +389,9 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   name: "spouseOccupation",
                   label: t("organizer.individual.yes_flow.step3.occupation"),
                   pattern: {
-                    value: /^[A-Za-z0-9\s]+$/, // Allows letters, numbers, and spaces
-                    message: "Invalid format! Only letters, numbers allowed",
+                    value: /^[A-Za-z0-9\s]{1,18}$/, // Allows letters, numbers, and spaces
+                    message:
+                      "Invalid format! Only letters, numbers allowed character limit 18",
                   },
                 }),
               })}
@@ -474,6 +475,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   allowedFileTypes: ["application/pdf", "image/jpeg"],
                   buttonText: t("organizer.individual.yes_flow.step3.attach"),
                   dispatch: dispatch,
+                  minCount: 2,
                   onClick: (index = 0) => {
                     dispatch(
                       downloadFile(
