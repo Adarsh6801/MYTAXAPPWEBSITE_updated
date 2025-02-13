@@ -417,7 +417,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     placeholder="(XXX) XXX-XXXX"
                     required={true}
                     pattern={{
-                      value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)?$/,
+                      value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)$/,
                       message: "Phone number must be between 10 and 14 numeric digits",
                     }}
                     maskFormat="(000) 000-0000[ 0000]"

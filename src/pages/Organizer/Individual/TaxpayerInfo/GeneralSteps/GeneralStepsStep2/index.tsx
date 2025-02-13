@@ -19,7 +19,7 @@ import {
   IOrganizerStepProps,
   ITaxPayerInfoStepsProps,
 } from "../../../index.props";
-
+import { disabledDateFuture } from "../../../../../../helpers/date";
 import {
   dataTaxpayerQuestion,
   radioButtons,
@@ -427,6 +427,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
                 data[findIndexData(`dependantBirthday${index + 1}`, data)]
                   .answer,
               required: true,
+              disabledDate:disabledDateFuture,
               message: "Birthdate is Required",
             }),
           })}
