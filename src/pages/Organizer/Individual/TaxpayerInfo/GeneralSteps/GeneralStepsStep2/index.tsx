@@ -428,7 +428,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
                   .answer,
               required: true,
               disabledDate:disabledDateFuture,
-              message: "Birthdate is Required",
+              message: "Enter Birthday",
             }),
           })}
           <div className={styles.socialSecurityNo}>
@@ -450,7 +450,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               value :/^\d{3}-\d{2}-\d{4}$/,
               message : 'Social Security Number is Invalid'
               },
-              message: "Social Security Number is Required",
+              message: "Enter Social Security Number",
             })}
           </div>
         </div>
@@ -461,7 +461,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             label: t("organizer.individual.general_steps.step2.relation"),
             data: dataRelation,
             required: true,
-            message: "Relation Is Required",
+            message: "Enter Relation",
           }),
         })}
         {questionContainer({
@@ -476,7 +476,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             maxLength: 2,
             maxLengthMessage: "Maximum 2 characters only allowed",
             required: true,
-            message: "Months in Home is Required",
+            message: "Enter Months in Home",
           }),
         })}
         {questionContainer({
@@ -519,7 +519,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               value:/^\d{1,10}$/,
               message:'Minimum one character and maximum 10 characters only allowed'
             },
-            message: "Income Is Required , If Not Mention As 0",
+            message: "Enter Income , If Not Mention As 0",
           }),
         })}
       </div>

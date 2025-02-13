@@ -832,6 +832,7 @@ if (pattern?.value) {
   mask={maskFormat}
   className={getClassNames(inputStyle)}
   onChange={handleChange}
+  required={required}
   placeholder={placeholder || "(XXX) XXX-XXXX"} // ✅ Ensures proper placeholder
   maskOptions={{
     overwrite: false,

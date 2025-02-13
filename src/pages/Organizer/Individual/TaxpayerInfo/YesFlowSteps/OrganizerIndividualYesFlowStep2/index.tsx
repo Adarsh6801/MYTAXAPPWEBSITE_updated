@@ -205,7 +205,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: any) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = +findIndexData(key, data);
     return (
       <OrganizerQuestionCard
@@ -222,6 +222,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
           setData(newData);
         }}
         className={styles.questionContainer}
+        required={required}
       >
         {children}
       </OrganizerQuestionCard>
@@ -239,9 +240,12 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
       {questionContainer({
         key: "hasMovedFromTheAddressOnThePriorYear",
         question: t("organizer.individual.yes_flow.step2.question_1"),
+        required:true,
         children: radio({
           name: "hasMovedFromTheAddressOnThePriorYear",
           radioButtons: radioButtons,
+        required:true,
+
         }),
       })}
       {data[findIndexData("hasMovedFromTheAddressOnThePriorYear", data)]
@@ -255,7 +259,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
                 name: "currentStreet",
                 label: t("organizer.individual.yes_flow.step2.street"),
                 required: true, // Enable validation
-                message: "Street Is Required", // Custom message
+                message: "Enter Street", // Custom message
                 placeholder: "123 Main St",
                 pattern: {
                   value: /^[A-Za-z0-9\s\/]+$/, // Allows letters, numbers, spaces, and '/'
@@ -297,7 +301,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
                     placeholder: "91555",
                     isNumericOnly: true,
                     required: true,
-                    message: "Zipcode Is Required",
+                    message: "Enter Zipcode",
                     // minLength : 5,
                     // maxLength : 5,
                     // minLengthMessage: "Minimum 5 characters required",
@@ -317,7 +321,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
                 label: t("organizer.individual.yes_flow.step2.state"),
                 data: dataState,
                 required: true,
-                message: "State Is Required",
+                message: "Enter State",
                 placeholder: "CA",
               }),
             })}
@@ -328,7 +332,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
                 label: t("organizer.individual.yes_flow.step2.city"),
                 placeholder: " Los Angeles ",
                 required: true,
-                message: "City Is Required",
+                message: "Enter City",
                 pattern: {
                   value: /^[A-Za-z\s]+$/,
                   message: "Only letters are allowed",

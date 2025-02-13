@@ -270,7 +270,12 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     "haveMarriageStatusChangedSinceLastFiledReturn",
                     data,
                   )
-                ]?.answer
+                ]?.answer?data[
+                  findIndexData(
+                    "haveMarriageStatusChangedSinceLastFiledReturn",
+                    data,
+                  )
+                ]?.answer:0
               }
               onChange={e => {
                 form.resetFields(["spouseFirstName"]);
@@ -377,6 +382,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     required={true}
                     // isNumericOnly : true,
                     // minLength : 10,
+                    message="Enter Social Security No"
                     // maxLength : 14,
                     // minLengthMessage: "Number is too short",
                     // maxLengthMessage: 'Number is too long',
@@ -416,8 +422,9 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     label={t("organizer.individual.yes_flow.step3.mobile_number")}
                     placeholder="(XXX) XXX-XXXX"
                     required={true}
+                    message="Enter Mobile Number"
                     pattern={{
-                      value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)$/,
+                      value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)?$/,
                       message: "Phone number must be between 10 and 14 numeric digits",
                     }}
                     maskFormat="(000) 000-0000[ 0000]"

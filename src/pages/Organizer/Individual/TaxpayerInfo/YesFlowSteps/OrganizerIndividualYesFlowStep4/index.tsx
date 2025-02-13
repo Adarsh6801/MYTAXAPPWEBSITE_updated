@@ -98,7 +98,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   }
 
   const rules: ValidationRule[] = [
-    { required: true, message: `${title} is required!` },
+    { required: true, message: `Enter ${title}` },
   ];
 
   if (inputType != "datePaid") {

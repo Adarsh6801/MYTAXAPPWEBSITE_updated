@@ -312,6 +312,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
                 allowedFileTypes: ["application/pdf"],
                 required: true,
                 maxCount: 3,
+                minCount:1
               }),
             })
           : questionContainer({
@@ -409,6 +410,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
 
                 setData([...newData]);
               },
+              minCount:1
             }),
             required: true,
           })

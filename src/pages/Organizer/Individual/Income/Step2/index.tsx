@@ -225,7 +225,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
               name: "didTaxPayerEarnIncomeAsASelfEmployedOrSMLLC",
               radioButtons: dataRadio,
               required: true,
-              message: "The field is required",
+              message: "Select Yes/No",
               value:
                 data[
                   findIndexData(
@@ -247,7 +247,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 name: "didTaxPayerReceive_1099NEC_Misc_KForms",
                 radioButtons: dataRadio,
                 required: true,
-                message: "The field is required",
+                message: "Select Yes/No",
               }),
             })}
           {data[
@@ -305,7 +305,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 name: "didTaxPayerReceiveAdditionalIncomeYouDidNotReceive_1099NEC",
                 radioButtons: dataRadio,
                 required: true,
-                message: "The field is required",
+                message: "Select Yes/No",
                 value:
                   data[
                     findIndexData(
@@ -335,7 +335,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                   name: "didSpouseEarnIncomeAsASelfEmployedOrSMLLC",
                   radioButtons: dataRadio,
                   required: true,
-                  message: "The field is required",
+                  message: "Select Yes/No",
 
                   value:
                     data[
@@ -357,7 +357,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                     name: "didSpouseReceive_1099NEC_Misc_KForms",
                     radioButtons: dataRadio,
                     required: true,
-                    message: "The field is required",
+                    message: "Select Yes/No",
 
                     value:
                       data[
