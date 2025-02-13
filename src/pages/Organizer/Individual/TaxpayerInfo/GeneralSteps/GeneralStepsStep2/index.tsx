@@ -516,7 +516,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             required: true,
             pattern:{
               value:/^\d{1,10}$/,
-              message:'Maximum 10 characters and Maximum 10 characters only allowed'
+              message:'Minimum one character and maximum 10 characters only allowed'
             },
             message: "Income Is Required , If Not Mention As 0",
           }),

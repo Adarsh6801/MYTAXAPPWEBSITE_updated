@@ -182,12 +182,13 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children,required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -290,6 +291,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                   setData([...newData]);
                 },
                 required: true,
+                minCount:1
               }),
             })}
           {data[

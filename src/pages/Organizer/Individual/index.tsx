@@ -391,18 +391,18 @@ const OrganizerIndividual = () => {
             stepIcon: <OrganizerHeart />,
             stepTitle: t("organizer.deductions.step4.step_title"),
           },
-          {
-            // 26
-            component: (
-              <OrganizerDeductionsStep4_1
-                state={state}
-                onStepSubmit={onStepSubmit}
-              />
-            ),
-            groupName: "Deductions",
-            stepIcon: <OrganizerHeart />,
-            stepTitle: t("organizer.deductions.step4_1.step_title"),
-          },
+          // {
+          //   // 26
+          //   component: (
+          //     <OrganizerDeductionsStep4_1
+          //       state={state}
+          //       onStepSubmit={onStepSubmit}
+          //     />
+          //   ),
+          //   groupName: "Deductions",
+          //   stepIcon: <OrganizerHeart />,
+          //   stepTitle: t("organizer.deductions.step4_1.step_title"),
+          // },
           {
             // 27
             component: (

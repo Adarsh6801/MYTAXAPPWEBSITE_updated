@@ -251,6 +251,7 @@ export const upload = (dataUpload: IUpload) => {
     buttonText = "Attach",
     multiple = true,
     maxCount = 20,
+    minCount = 0, 
     data,
     onClick,
     onRemove,
@@ -265,9 +266,16 @@ export const upload = (dataUpload: IUpload) => {
   if (required) {
     rules.push({
       validator: async (_: any, value: string | any[]) => {
+        const fileList = data[findIndexData(key, data)]?.files || []; 
         if (!value || value.length === 0) {
           return Promise.reject(new Error("File is required."));
         }
+        
+      if (fileList.length < minCount) {
+        return Promise.reject(
+          new Error(`Please upload at least ${minCount} file(s).`),
+        );
+      }
         return Promise.resolve();
       },
     });
@@ -783,19 +791,26 @@ export const InputMask = (data: IInputMask) => {
   }
   
   // Apply pattern validation only if a value exists
-  if (pattern?.value) {
-    rules.push({
-      validator: (_rule: any, value: string) => {
-        if (!value?.trim()) {
-          return Promise.resolve(); // Skip validation if input is empty
-        }
-        if (pattern.value.test(value)) {
-          return Promise.resolve();
-        }
-        return Promise.reject(new Error(pattern.message));
-      },
-    });
-  }
+// Apply pattern validation only if a value exists
+if (pattern?.value) {
+  rules.push({
+    validator: (_rule: any, value: string) => {
+      console.log("Validating value:", value); // ✅ Debugging
+      if (!value || value.trim() == '(XXX) XXX-XXXX') {
+        console.log("Empty input, skipping validation");
+        return Promise.resolve(); // ✅ Allow empty values without error
+      }
+      if (pattern.value.test(value)) {
+        console.log("Valid phone number format");
+        return Promise.resolve();
+      }
+      console.log("Invalid phone number format");
+      return Promise.reject(new Error(pattern.message));
+    },
+  });
+}
+
+
   
   return (
     <Fragment key={key}>
@@ -813,15 +828,17 @@ export const InputMask = (data: IInputMask) => {
         rules={rules}
       >
      
-          <MaskedInput
-            mask={maskFormat}
-            className={getClassNames(inputStyle)}
-            // value={'(815) 702-0282'} // Ensure it's undefined if not needed
-            onChange={handleChange}
-            placeholder={placeholder || "(xxx) xxx-xxxx"}
-            maskOptions={{overwrite: false ,}}
-            
-          />
+     <MaskedInput
+  mask={maskFormat}
+  className={getClassNames(inputStyle)}
+  onChange={handleChange}
+  placeholder={placeholder || "(XXX) XXX-XXXX"} // ✅ Ensures proper placeholder
+  maskOptions={{
+    overwrite: false,
+    placeholderChar: "X", // ✅ Removes underscores (_) and uses spaces instead
+     // ✅ Ensures the placeholder is always visible
+  }}
+/>
       </Form.Item>
       {text && (
         <p className={getClassNames(styles.promptText, textStyle)}>{text}</p>

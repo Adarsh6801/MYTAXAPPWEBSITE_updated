@@ -378,6 +378,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
             key: "previousTaxReturnFileUpload",
             children: upload({
               key: "previousTaxReturnFileUpload",
+              required:true,
               label: t("organizer.individual.yes_flow.step1.upload_file_label"),
               buttonText: t("organizer.individual.yes_flow.step1.attach"),
               data,

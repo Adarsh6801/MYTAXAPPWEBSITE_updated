@@ -105,7 +105,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
     console.log(inputType, "inputType");
 
     rules.push({
-      pattern: /^\d{11}$/,
+      pattern: /^\d{1,11}$/,
       message: `${title} must be numeric and 11 numbers!`,
     });
     rules.push({

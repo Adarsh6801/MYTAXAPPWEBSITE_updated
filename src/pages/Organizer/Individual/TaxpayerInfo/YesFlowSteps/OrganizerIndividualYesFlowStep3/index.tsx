@@ -406,10 +406,23 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
               })}
               {questionContainer({
                 key: "spouseMobileNumber",
-                children: phoneNumberInput({
-                  name: "spouseMobileNumber",
-                  label: t("organizer.individual.yes_flow.step3.mobile_number"),
-                }),
+                // children: phoneNumberInput({
+                //   name: "spouseMobileNumber",
+                //   label: t("organizer.individual.yes_flow.step3.mobile_number"),
+                // }),
+                children: (
+                  <InputMask
+                    name="spouseMobileNumber"
+                    label={t("organizer.individual.yes_flow.step3.mobile_number")}
+                    placeholder="(XXX) XXX-XXXX"
+                    required={true}
+                    pattern={{
+                      value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)?$/,
+                      message: "Phone number must be between 10 and 14 numeric digits",
+                    }}
+                    maskFormat="(000) 000-0000[ 0000]"
+                  />
+                ),
               })}
               {checkbox({
                 name: "isSpouseLegallyBlind",

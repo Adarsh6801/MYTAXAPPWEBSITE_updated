@@ -105,7 +105,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
       });
       resultData.length >= DATA_KEY.length && setData(resultData);
 
-      console.log("resultData", form.getFieldValue("currentHomePhoneNumber"));
+      console.log("resultData", form.getFieldValue("currentUnitNo"));
     }
   }, [dataOrganizer]);
   function formatPhoneNumber(number: string): string {
@@ -181,7 +181,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
     const index: number = findIndexData(name, data);
-    let result = name === "currentUnitNo" ? value[name] : value[name];
+    let result =  value[name];
     // result = name === 'currentStreet' ? 'currentStreet' : value[name]
     console.log(name, "NameTHIS");
     if (name === "currentHomePhoneNumber") {
@@ -362,6 +362,7 @@ const OrganizerIndividualYesFlowStep2 = (props: ITaxPayerInfoStepsProps) => {
   name="currentHomePhoneNumber"
   label="Alternate Home Phone Number"
   placeholder="(XXX) XXX-XXXX"
+  required={false}
   pattern={{
     value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)?$/,
     message: "Phone number must be between 10 and 14 numeric digits",
