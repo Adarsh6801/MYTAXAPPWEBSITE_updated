@@ -320,12 +320,13 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: any) => {
-    const { key, question, children } = dataQuestion;
+    const { key, question, children,required } = dataQuestion;
     const index: number = +findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         data={data[index]}
         question={question}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -367,9 +368,12 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: "didPayAnyEstimatedTaxesDuringTheYear",
           question: t("organizer.individual.yes_flow.step4.radio_question"),
+          required:true,
           children: radio({
             name: "didPayAnyEstimatedTaxesDuringTheYear",
             radioButtons: radioButtons,
+            required:true,
+            message:"Select Yes/No",
             value:
               data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]
                 ?.answer === "true",

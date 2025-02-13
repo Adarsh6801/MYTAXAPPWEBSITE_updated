@@ -149,7 +149,7 @@ export const radio = (data: IRadio) => {
   if (required) {
     rules.push({
       required: true,
-      message: message || `Enter ${ name}`,
+      message: message || `Select Yes/No`,
     });
   }
 

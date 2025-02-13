@@ -579,6 +579,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               radioButtons: radioButtons,
               value: data[findIndexData("hasDependants", data)].answer,
               required: true,
+              message:'Select Yes/No'
             })}
           </div>
         </OrganizerQuestionCard>
