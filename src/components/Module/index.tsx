@@ -792,7 +792,14 @@ export const InputMask = (data: IInputMask) => {
   
   // Apply pattern validation only if a value exists
 // Apply pattern validation only if a value exists
-if (pattern?.value) {
+if (pattern?.value && required) {
+  rules.push({
+    pattern: pattern?.value,
+    message: pattern?.message,
+  });
+}
+
+if (pattern?.value && !required) {
   rules.push({
     validator: (_rule: any, value: string) => {
       console.log("Validating value:", value); // ✅ Debugging
