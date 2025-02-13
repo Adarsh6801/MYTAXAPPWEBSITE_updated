@@ -1644,10 +1644,11 @@
           "description2": "<0>{{note}}</0> Providing incorrect or missing amounts may lead to IRS/state tax notices. Double-check your records before submitting.",
 
           "radio_question": "Did you pay any estimated taxes during the year?",
-          "question1": "First Quarter (April, 15, 2022)",
-          "question2": "Second Quarter (June, 15, 2022)",
-          "question3": "Third Quarter (Sept , 15, 2022)",
-          "question4": "Fourth Quarter (Jan , 15, 2023)",
+
+          "question1": "First Quarter",
+          "question2": "Second Quarter",
+          "question3": "Third Quarter",
+          "question4": "Fourth Quarter",
           "payment_due_date": "Payment & Due Date",
           "federal": "Federal",
           "state": "State",
@@ -1796,3 +1797,5 @@
     "submit": "Save Changes"
   }
 }
+
+

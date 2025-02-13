@@ -148,7 +148,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
   const dataOrganizer = useSelector(
     (state: any) => state.individualOrganizer.data,
   );
-
+  const [previousTaxYear, setpreviousTaxYear] = useState<any>("");
   const [data, setData] = useState<IOrganizerStepProps[]>(
     addQuoteIdOrganizer(dataTaxpayerQuestion, Number(quoteId)),
   );
@@ -156,9 +156,26 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
   useEffect(() => {
     init();
   }, []);
-
   useEffect(() => {
     if (dataOrganizer) {
+      console.log(dataOrganizer, "Data Organization");
+      const questionKey = "previousTaxYear"; // The question you want to match
+
+      // Find the object with the matching question
+      const foundItem = dataOrganizer.find(
+        (item: any) => item.question == questionKey,
+      );
+      console.log(foundItem, "Found Item");
+
+      // Get the answer if found, otherwise default to an empty string
+      setpreviousTaxYear(foundItem ? foundItem.answer : "");
+      console.log(previousTaxYear, "Previous Tax Year");
+    }
+  }, [dataOrganizer]);
+  useEffect(() => {
+    if (dataOrganizer) {
+      console.log();
+      
       const stepData = dataOrganizer.filter((el: any, i: number) => {
         return (
           !!DATA_KEY.find(item => {
@@ -221,7 +238,48 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
       }),
     );
   };
-
+  useEffect(() => {
+    console.log(data, 'DATAAAAAAAA');
+  
+    if (dataOrganizer && dataTabel) {
+      console.log(dataOrganizer, 'dataOrganizer__________');
+      console.log(dataOrganizer, "Data Organization");
+  
+      const questionKey = "previousTaxYear"; // The question you want to match
+  
+      // Find the object with the matching question
+      const foundItem = dataOrganizer.find(
+        (item: any) => item.question === questionKey
+      );
+      console.log(foundItem, "Found Item");
+  
+      // Get the answer if found, otherwise default to an empty string
+      const prevTaxYear = foundItem ? foundItem.answer : "";
+  
+      // Ensure that prevTaxYear is not empty before proceeding
+      if (!prevTaxYear) return;
+  
+      setpreviousTaxYear(prevTaxYear); // This is asynchronous!
+  
+      const nextYear = (parseInt(prevTaxYear, 10) + 1).toString();
+  
+      const updatedData = (dataTabel || []).map((item, index) => {
+        const dates = [
+          `April 15, ${prevTaxYear}`,
+          `June 15, ${prevTaxYear}`,
+          `Sept 15, ${prevTaxYear}`,
+          `Jan 15, ${nextYear}`,
+        ];
+        return {
+          ...item,
+          name: `${item.name} (${dates[index] || ""})`, // Avoid out-of-bounds errors
+        };
+      });
+  
+      setOriginData(updatedData);
+    }
+  }, [dataOrganizer, dataTabel]); // Dependency array ensures correct re-renders
+  
   const mergedColumns = columns.map(col => {
     if (!col.editable) {
       return col;
@@ -239,7 +297,9 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
   });
 
   const restField = () => {
-    setOriginData([
+    const nextYear = (parseInt(previousTaxYear, 10) + 1).toString();
+  
+    const updatedData = [
       {
         key: "1",
         name: t("organizer.individual.yes_flow.step4.question1"),
@@ -276,7 +336,19 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         datePaid: "",
         attachement: "",
       },
-    ]);
+    ].map((item, index) => {
+      const dates = [
+        `April 15, ${previousTaxYear}`,
+        `June 15, ${previousTaxYear}`,
+        `Sept 15, ${previousTaxYear}`,
+        `Jan 15, ${nextYear}`,
+      ];
+      return {
+        ...item,
+        name: `${item.name} (${dates[index] || ""})`, // Avoid out-of-bounds errors
+      };
+    });
+    setOriginData(updatedData);
 
     form.resetFields(["estimatedTaxesPaidTableInfo"]);
   };
