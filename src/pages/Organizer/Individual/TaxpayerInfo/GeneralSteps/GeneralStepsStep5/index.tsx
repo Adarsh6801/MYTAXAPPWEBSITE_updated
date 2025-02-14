@@ -306,15 +306,29 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
       <>
         <div className={styles.checkbox}>
           <p>{t("organizer.individual.general_steps.step5.question9")}</p>
-          {input({ name: question1 })}
+          {input({ name: question1,                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500" })}
         </div>
         <div className={styles.checkbox}>
           <p>{t("organizer.individual.general_steps.step5.question10")}</p>
-          {input({ name: question2 })}
+          {input({ name: question2,                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500" })}
         </div>
         <div className={styles.checkbox}>
           <p>{t("organizer.individual.general_steps.step5.question11")}</p>
-          {input({ name: question3 })}
+          {input({ name: question3,
+                              pattern:{
+                                value:/^\d{0,6}$/,
+                                message:"Please enter a number (maximum 6 digits)."
+                              },
+                              placeholder:"4,500"
+           })}
         </div>
       </>
     );
@@ -428,18 +442,33 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 <p>{t("organizer.individual.general_steps.step5.question6")}</p>
                 {input({
                   name: `student_PostSecondaryTuitionFirstFourYears${index}`,
+                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500"
                 })}
               </div>
               <div className={styles.checkbox}>
                 <p>{t("organizer.individual.general_steps.step5.question7")}</p>
                 {input({
                   name: `student_PostSecondaryTuitionAfterFourYears${index}`,
+                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500"
                 })}
               </div>
               <div className={styles.checkbox}>
                 <p>{t("organizer.individual.general_steps.step5.question8")}</p>
                 {input({
                   name: `student_EnrollmentFeesAndCourseMaterials${index}`,
+                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500"
                 })}
               </div>
             </>
@@ -451,7 +480,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
           question: t("organizer.individual.general_steps.step5.label3"),
           style: true,
           children: inputMany([
-            `student_JobRelatedTuitionAndFees${index}`,
+            ` ${index}`,
             `student_JobRelatedSeminarFees${index}`,
             `student_JobRelatedBooksAndSupplies${index}`,
           ]),
@@ -469,6 +498,11 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 </p>
                 {input({
                   name: `student_EducationPlans_TuitionK12thGrade${index}`,
+                                    pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500"
                 })}
               </div>
               <div className={styles.checkbox}>
@@ -477,6 +511,11 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 </p>
                 {input({
                   name: `student_EducationPlans_TuitionPostSecondary${index}`,
+                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500"
                 })}
               </div>
               <div className={styles.checkbox}>
@@ -485,13 +524,23 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 </p>
                 {input({
                   name: `student_EducationPlans_BooksAndSupplies${index}`,
+                  pattern:{
+                    value:/^\d{0,6}$/,
+                    message:"Please enter a number (maximum 6 digits)."
+                  },
+                  placeholder:"4,500"
                 })}
               </div>
               <div className={styles.checkbox}>
                 <p>
                   {t("organizer.individual.general_steps.step5.question15")}
                 </p>
-                {input({ name: `student_EducationPlans_RoomAndBoard${index}` })}
+                {input({ name: `student_EducationPlans_RoomAndBoard${index}`,
+                                  pattern:{
+                                    value:/^\d{0,6}$/,
+                                    message:"Please enter a number (maximum 6 digits)."
+                                  },
+                                  placeholder:"4,500" })}
               </div>
             </>
           ),
@@ -542,9 +591,11 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
           questionContainer({
             key: `hasForm1098TFromTheEducationInstitution`,
             question: t("organizer.individual.general_steps.step5.question2"),
+            required:true,
             children: radio({
               name: "hasForm1098TFromTheEducationInstitution",
               radioButtons: radioButtons,
+              required:true
             }),
           })}
         {data[findIndexData("hasForm1098TFromTheEducationInstitution", data)]
@@ -586,7 +637,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 setData([...newData]);
               },
               allowedFileTypes: ["application/pdf"],
-              required: false,
+              required: true,
               maxCount: 3,
             }),
           })}
@@ -604,7 +655,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
             maxLength: 2,
             maxLengthMessage: "Maximum 2 characters only allowed",
             required: true,
-            message: "Number of students Home is Required",
+            message: "Enter Number of Students",
             pattern: {
               value: /^[12]$/,
               message: "Please enter a number with 1 or 2 digits.",

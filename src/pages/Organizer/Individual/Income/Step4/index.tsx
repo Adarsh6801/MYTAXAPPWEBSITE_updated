@@ -211,7 +211,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: "Tax Payer ID is required",
+                message: "Enter Tax Payer ID",
               },
               {
                 pattern: /^\d{6}$/,
@@ -236,7 +236,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: "Self Employed Business is required",
+                message: "Enter Self Employed Business",
               },
               {
                 pattern: /^\d{6}$/,
@@ -287,12 +287,13 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
   ];
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children, subClass } = dataQuestion;
+    const { question, key, children, subClass, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -401,9 +402,11 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             {questionContainer({
               key: "taxPayer_HaveVehicleExpensesFromBusinessOrRealEstate",
               question: t("organizer.individual.income.step4.question1"),
+              required:true,
               children: radio({
                 name: "taxPayer_HaveVehicleExpensesFromBusinessOrRealEstate",
                 radioButtons: radioButtons,
+                required:true
               }),
             })}
             {data[
@@ -522,6 +525,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                 <Divider />
                 {questionContainer({
                   key: "taxPayer_TotalMilesDrivenThisYear",
+                  required:true,
                   question: (
                     <p>
                       <Trans
@@ -538,6 +542,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   children: input({
                     name: "taxPayer_TotalMilesDrivenThisYear",
                     required: true,
+                    message:"Enter Total Miles Driven This Year",
                     pattern: {
                       value: /^\d{6}$/,
                       message: "6 number allowed",

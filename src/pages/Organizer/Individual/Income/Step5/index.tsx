@@ -140,13 +140,14 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children, subClass } = dataQuestion;
+    const { question, key, children, subClass, required } = dataQuestion;
     const index: number = findIndexData(key, data);
 
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -213,9 +214,12 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
           {questionContainer({
             key: "taxPayer_HaveHomeOfficeExpenses",
             question: t("organizer.individual.income.step5.question1"),
+            required:true,
             children: radio({
               name: "taxPayer_HaveHomeOfficeExpenses",
               radioButtons: radioButtons,
+            required:true,
+
             }),
           })}
           {(taxPayerAccountType[0].answer ||
@@ -384,9 +388,13 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
             {questionContainer({
               key: "spouse_HaveHomeOfficeExpenses",
               question: t("organizer.individual.income.step5.question1"),
+            required:true,
+
               children: radio({
                 name: "spouse_HaveHomeOfficeExpenses",
                 radioButtons: radioButtons,
+            required:true,
+
               }),
             })}
             {spouseAccountType[0].answer && (

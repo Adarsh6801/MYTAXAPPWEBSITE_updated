@@ -129,12 +129,13 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children, subClass } = dataQuestion;
+    const { question, key, children, subClass, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -376,7 +377,13 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                     />
                   </div>
                 ),
-                children: input({ name: item }),
+                children: input({ name: item,
+                  pattern:{
+                    value:/^\d{0,7}$/,
+                    message:"Please enter a number (maximum 7 digits)."
+                  },
+                  placeholder:"2,500" 
+                 }),
               });
             }
             if (staticKeys[13] === item) {
@@ -395,7 +402,13 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                     />
                   </div>
                 ),
-                children: input({ name: item }),
+                children: input({ name: item,
+                  pattern:{
+                    value:/^\d{0,7}$/,
+                    message:"Please enter a number (maximum 7 digits)."
+                  },
+                  placeholder:"2,500" 
+                 }),
               });
             }
             if (staticKeys[14] === item) {
@@ -414,16 +427,42 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                     />
                   </div>
                 ),
-                children: input({ name: item }),
+                children: input({ name: item,
+                  pattern:{
+                    value:/^\d{0,7}$/,
+                    message:"Please enter a number (maximum 7 digits)."
+                  },
+                  placeholder:"2,500" 
+                 }),
               });
             }
-
+            if (staticKeys[16] === item) {
+              return questionContainer({
+                key: item,
+                question: t(
+                  `organizer.individual.income.step6.question${index + 4}`,
+                ),
+                children: input({ name: item ,
+                  pattern:{
+                    value:/^\d{0,3}$/,
+                    message:"Please enter a number (maximum 7 digits)."
+                  },
+                  placeholder:"365" 
+                }),
+              });
+            }
             return questionContainer({
               key: item,
               question: t(
                 `organizer.individual.income.step6.question${index + 4}`,
               ),
-              children: input({ name: item }),
+              children: input({ name: item ,
+                pattern:{
+                  value:/^\d{0,7}$/,
+                  message:"Please enter a number (maximum 7 digits)."
+                },
+                placeholder:"2,500" 
+              }),
             });
           })}
         </div>
@@ -452,9 +491,11 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: "taxPayerRealEstate_OwnAnyMoreRealEstate",
           question: t("organizer.individual.income.step6.question1"),
+          required:true,
           children: radio({
             name: "taxPayerRealEstate_OwnAnyMoreRealEstate",
             radioButtons: radioButtons,
+          required:true,
           }),
         })}
         {(taxPayerAccountType[17].answer ||
@@ -488,9 +529,11 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
             {questionContainer({
               key: "spouseRealEstate_OwnAnyMoreRealEstate",
               question: t("organizer.individual.income.step6.question1"),
+              required:true,
               children: radio({
                 name: "spouseRealEstate_OwnAnyMoreRealEstate",
                 radioButtons: radioButtons,
+              required:true,
               }),
             })}
             {spouseAccountType[17].answer && (

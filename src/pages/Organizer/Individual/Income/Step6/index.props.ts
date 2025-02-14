@@ -20,4 +20,5 @@ export interface IQuestionContainer {
   key: string;
   children: React.ReactNode;
   subClass?: string;
+  required?: boolean;
 }
