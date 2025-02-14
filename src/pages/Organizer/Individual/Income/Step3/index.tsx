@@ -209,41 +209,41 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               break;
             case "returnsAllowances":
               placeholder = "4,500";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
               break;
             case "beginningInventory":
               placeholder = "15,0000";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
               break;
             case "additionsInventory":
               placeholder = "25,000";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
               break;
 
             case "endingInventory":
               placeholder = "18,0000";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
               break;
 
             case "advertising":
               placeholder = "18,0000";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
               break;
 
             case "businessTelephone":
               placeholder = "XXX-XXX-XXXX";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
               break;
             default:
               placeholder = "18,0000";
-              pattern = /^\d{0,6}$/;
-              message = "Please enter a number (maximum 6 digits)";
+              pattern = /^\d{0,9}$/;
+              message = "Please enter a number (maximum 9 digits)";
           }
           console.log(names[key], "names[key]");
 
