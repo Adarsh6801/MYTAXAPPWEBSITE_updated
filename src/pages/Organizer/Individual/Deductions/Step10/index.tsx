@@ -131,12 +131,13 @@ const Step10 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -161,16 +162,19 @@ const Step10 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: accountPayer.key,
           question: t("organizer.deductions.step10.question1"),
+          required:true,
           children: (
-            <>{radio({ name: accountPayer.key, radioButtons: radioButtons })}</>
+            <>{radio({ name: accountPayer.key, radioButtons: radioButtons,required:true, })}</>
           ),
         })}
         {data[findIndexData(accountPayer.key, data)].answer &&
           questionContainer({
             key: largestBalance.key,
             question: t("organizer.deductions.step10.question2"),
+            required:true,
             children: upload({
               key: largestBalance.key,
+            required:true,
               data: data,
               dispatch: dispatch,
               onClick: (index = 0) => {

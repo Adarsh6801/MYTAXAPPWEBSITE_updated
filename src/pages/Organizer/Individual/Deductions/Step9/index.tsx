@@ -107,12 +107,13 @@ const Step9 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -136,15 +137,18 @@ const Step9 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: keys.healthSavingsAccount.key,
           question: t("organizer.deductions.step9.question1"),
+          required:true,
           children: radio({
             name: keys.healthSavingsAccount.key,
             radioButtons: radioButtons,
+          required:true,
           }),
         })}
 
         {data[findIndexData(keys.healthSavingsAccount.key, data)]?.answer &&
           questionContainer({
             key: keys.upload1098E.key,
+            required:true,
             children: upload({
               key: keys.upload1098E.key,
               label: t("organizer.deductions.step9.label1"),
@@ -175,20 +179,24 @@ const Step9 = (props: ITaxPayerInfoStepsProps) => {
 
                 setData([...newData]);
               },
+              required: true,
             }),
           })}
         <Divider />
         {questionContainer({
           key: keys.educationExpenses.key,
           question: t("organizer.deductions.step9.question2"),
+          required:true,
           children: radio({
             name: keys.educationExpenses.key,
             radioButtons: radioButtons,
+            required:true
           }),
         })}
         {data[findIndexData(keys.educationExpenses.key)]?.answer &&
           questionContainer({
             key: keys.upload1098T.key,
+            required:true,
             children: upload({
               key: keys.upload1098T.key,
               label: t("organizer.deductions.step9.label2"),
@@ -219,6 +227,7 @@ const Step9 = (props: ITaxPayerInfoStepsProps) => {
 
                 setData([...newData]);
               },
+              required:true
             }),
           })}
       </div>

@@ -37,7 +37,10 @@ const Step3 = (props: IIndividualStepsProps) => {
 
   return (
     <div className={styles.mainContainer}>
-      <h1 className={styles.title}>{t("individual.step3.question")}</h1>
+    <h1 className={styles.title}>
+  {t("individual.step3.question")}
+  <span style={{ color: "red" }}> *</span>
+</h1>
       <Form
         onFinish={onFinish}
         initialValues={initialValues}
@@ -45,15 +48,11 @@ const Step3 = (props: IIndividualStepsProps) => {
       >
         <Form.Item
           name="isOwnHome"
-          rules={[
-            {
-              required: true,
-              message: t("validations.required"),
-            },
-          ]}
+          rules={[{ required: true, message: t("validations.required") }]}
         >
           <RadioGroup
             data={radioButtons}
+            
             contentClassName={styles.radioContentContainer}
           />
         </Form.Item>

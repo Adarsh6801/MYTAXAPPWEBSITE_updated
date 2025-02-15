@@ -215,12 +215,13 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -323,7 +324,9 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: homeMortgage.key,
           question: t("organizer.deductions.step2.question1"),
+          required: true,
           children: radio({
+            required:true,
             name: homeMortgage.key,
             radioButtons: radioButtons,
           }),
@@ -332,12 +335,14 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
           questionContainer({
             key: youReceiveForm1098.key,
             question: t("organizer.deductions.step2.question2"),
+            required:true,
             children: (
               <>
                 <>
                   {radio({
                     name: youReceiveForm1098.key,
                     radioButtons: radioButtons,
+                    required:true
                   })}
                 </>
                 <>
@@ -374,6 +379,8 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
 
                         setData([...newData]);
                       },
+                      required:true,
+                      minCount:1
                     })}
                 </>
               </>
