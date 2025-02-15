@@ -459,7 +459,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
               children: input({ name: item ,
                 pattern:{
                   value:/^\d{0,7}$/,
-                  message:"Please enter a number (maximum 7 digits)."
+                  message:"Please enter a number (maximum 3 digits)."
                 },
                 placeholder:"2,500" 
               }),

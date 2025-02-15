@@ -174,7 +174,6 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               "businessName",
               "productOrService",
               "employerIDNumber",
-              "selfEmployedHealthInsuranceCost",
               "grossIncome",
             ].includes(key)
           ) {
@@ -184,27 +183,27 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           switch (key) {
             case "businessName":
               pattern = /^[a-zA-Z0-9\s-]+$/;
-              message = "Invalid business name format";
+              message = "Only alphabets and number allowed";
               placeholder = "Enter your business name";
               break;
             case "productOrService":
-              pattern = /^[A-Za-z]+$/;
-              message = "Invalid product or service format";
+              pattern = /^[A-Za-z\s]+$/;
+              message = "Only Alphabets Are Allowed";
               placeholder = "Enter your product or service";
               break;
             case "employerIDNumber":
               pattern = /^\d{10}$/;
-              message = "Employer ID must be exactly 9 digits";
+              message = "Only 10 numbers are allowed";
               placeholder = "XX-XXXXXXX";
               break;
             case "selfEmployedHealthInsuranceCost":
               pattern = /^[0-9\s-]{1,9}$/;
-              message = "Enter a valid amount (e.g., 100.50)";
+              message = "Enter a valid amount (e.g., 100)";
               placeholder = "3,500";
               break;
             case "grossIncome":
               pattern = /^[0-9\s-]{1,9}$/;
-              message = "Enter a valid income amount (e.g., 5000.75)";
+              message = "Enter a valid income amount (e.g., 5000)";
               placeholder = "15,0000";
               break;
             case "returnsAllowances":

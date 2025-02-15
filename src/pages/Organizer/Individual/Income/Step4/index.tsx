@@ -425,7 +425,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                       key: "taxPayer_VehicleMake",
                       value: "Make",
                       pattern: {
-                        value: /^[A-Za-z]+$/,
+                        value: /^[A-Za-z\s]+$/,
                         message: "Only letters are allowed",
                       },
                       required: true,
@@ -435,7 +435,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                       key: "taxPayer_VehicleModel",
                       value: "Model",
                       pattern: {
-                        value: /^[A-Za-z]+$/,
+                        value: /^[A-Za-z\s]+$/,
                         message: "Only letters are allowed",
                       },
                       required: true,
