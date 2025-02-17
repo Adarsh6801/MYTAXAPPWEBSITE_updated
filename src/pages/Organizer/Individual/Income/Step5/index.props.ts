@@ -7,6 +7,7 @@ export interface IQuestionProperties {
 export interface IInputsName {
   key: string;
   value: string;
+  message?: string;
   pattern?: {
     value: RegExp; // Regular expression for validation
     message: string; // Error message if pattern fails

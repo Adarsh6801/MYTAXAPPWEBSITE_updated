@@ -247,7 +247,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 required: true,
                 pattern: {
                   value: /^[a-zA-Z0-9]+$/,
-                  message: "Only letters and numbers are allowed.",
+                  message: "Only numbers and letters.",
                 },
                 placeholder: "123 Main St",
               })}
@@ -265,7 +265,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 pattern: {
                   value: /^[0-9]{1,7}$/,
                   message:
-                    "Only numbers are allowed, with a minimum length of 1 and a maximum length of 7.",
+                    "Total rents received during the year max 7 digits.",
                 },
               })}
               {input({
@@ -285,6 +285,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
           key: names[5] + index,
           question: t("organizer.individual.income.step6.question3"),
           subClass: styles.questionSubClass,
+          required:true,
           children: (
             <div>
               {checkbox({
@@ -362,29 +363,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
           </p>
           {staticKeys.map((item, index) => {
             if (staticKeys[12] === item) {
-              return questionContainer({
-                key: item,
-                question: (
-                  <div>
-                    <Trans
-                      i18nKey="organizer.individual.income.step6.question16"
-                      values={{
-                        info: "Do not include amounts <br />  withheld from employees",
-                      }}
-                      components={[
-                        <span className={styles.additionalInfo}>text</span>,
-                      ]}
-                    />
-                  </div>
-                ),
-                children: input({ name: item,
-                  pattern:{
-                    value:/^\d{0,7}$/,
-                    message:"Please enter a number (maximum 7 digits)."
-                  },
-                  placeholder:"2,500" 
-                 }),
-              });
+              return 
             }
             if (staticKeys[13] === item) {
               return questionContainer({
@@ -405,7 +384,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({ name: item,
                   pattern:{
                     value:/^\d{0,7}$/,
-                    message:"Please enter a number (maximum 7 digits)."
+                    message:" Total paid during the year max 7 digits."
                   },
                   placeholder:"2,500" 
                  }),
@@ -430,7 +409,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({ name: item,
                   pattern:{
                     value:/^\d{0,7}$/,
-                    message:"Please enter a number (maximum 7 digits)."
+                    message:" Total paid during the year max 7 digits."
                   },
                   placeholder:"2,500" 
                  }),
@@ -445,7 +424,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({ name: item ,
                   pattern:{
                     value:/^\d{0,3}$/,
-                    message:"Please enter a number (maximum 7 digits)."
+                    message:"Please enter a number (maximum 3 digits)."
                   },
                   placeholder:"365" 
                 }),
@@ -459,7 +438,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
               children: input({ name: item ,
                 pattern:{
                   value:/^\d{0,7}$/,
-                  message:"Please enter a number (maximum 3 digits)."
+                  message:" Total paid during the year max 7 digits."
                 },
                 placeholder:"2,500" 
               }),

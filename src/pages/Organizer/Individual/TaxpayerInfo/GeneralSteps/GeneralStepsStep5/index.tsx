@@ -412,6 +412,10 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 name: `studentName${index}`,
                 label: t("organizer.individual.general_steps.step2.fullName"),
                 required: true,
+                pattern:{
+                  value:/^[a-zA-Z\s.]*$/,
+                  message:"Only letters are allowed."
+                }
               })}
               {select({
                 name: `studentStatus${index}`,
@@ -599,6 +603,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
             }),
           })}
         {data[findIndexData("hasForm1098TFromTheEducationInstitution", data)]
+          .answer && data[findIndexData("hasEducationExpensesForYouOrDependents", data)]
           .answer &&
           questionContainer({
             question: t("organizer.individual.general_steps.step5.question_2"),
@@ -642,7 +647,8 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
             }),
           })}
         <Divider />
-        {questionContainer({
+        {data[findIndexData("hasEducationExpensesForYouOrDependents", data)]
+          .answer && questionContainer({
           key: "studentsCountToPay",
           question: t("organizer.individual.general_steps.step5.question3"),
           children: input({
@@ -662,7 +668,8 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
             },
           }),
         })}
-        {_.times(count, (index: number) => (
+        {data[findIndexData("hasEducationExpensesForYouOrDependents", data)]
+          .answer && _.times(count, (index: number) => (
           <div key={index}>
             {formInfo(index + 1)}
             {count === index + 1 && count > 1 && (
@@ -679,7 +686,10 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
           </div>
         ))}
 
-        <Button type="link" text={"+ Add Student"} onClick={add} />
+{data[findIndexData("hasEducationExpensesForYouOrDependents", data)]?.answer && (
+  <Button type="link" text={"+ Add Student"} onClick={add} />
+)}
+
         <CircularDirection
           rightButton={{
             htmlType: "submit",

@@ -29,7 +29,7 @@ import {
   getCurrentType,
   getDynamicDataCount,
 } from "../../../../../helpers/format";
-import { input } from "../../../../../components/Module";
+import { input, InputMask } from "../../../../../components/Module";
 import { QUESTION_TYPE_ANSWER } from "../../../../../constants/organizer";
 import { IQuestionContainer } from "./index.props";
 
@@ -160,30 +160,22 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           {t("organizer.individual.income.step3.title")}
           {count}
         </p>
-
+  
         {Object.keys(names).map((key, index) => {
-          // Define validation properties separately
           let required = false;
           let pattern = null;
           let message = "";
           let placeholder = "";
-
-          // Assign validation rules based on field type
-          if (
-            [
-              "businessName",
-              "productOrService",
-              "employerIDNumber",
-              "grossIncome",
-            ].includes(key)
-          ) {
+          let inputComponent = null;
+  
+          if (["businessName", "productOrService", "employerIDNumber", "grossIncome"].includes(key)) {
             required = true;
           }
-          console.log(names, "NAMESSS");
+  
           switch (key) {
             case "businessName":
               pattern = /^[a-zA-Z0-9\s-]+$/;
-              message = "Only alphabets and number allowed";
+              message = "Only alphabets and numbers allowed";
               placeholder = "Enter your business name";
               break;
             case "productOrService":
@@ -192,76 +184,46 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               placeholder = "Enter your product or service";
               break;
             case "employerIDNumber":
-              pattern = /^\d{10}$/;
-              message = "Only 10 numbers are allowed";
+              pattern = /^\d{2}-\d{7}$/;
+              message = "Only format XX-XXXXXXX is allowed";
               placeholder = "XX-XXXXXXX";
-              break;
-            case "selfEmployedHealthInsuranceCost":
-              pattern = /^[0-9\s-]{1,9}$/;
-              message = "Enter a valid amount (e.g., 100)";
-              placeholder = "3,500";
+              inputComponent = (
+                <InputMask
+                  name={names[key]}
+                  label={t(`organizer.individual.income.step3.question${index + 1}`)}
+                  placeholder={placeholder}
+                  required={required}
+                  pattern={{ value: pattern, message: message }}
+                  maskFormat="00-0000000"
+                />
+              );
               break;
             case "grossIncome":
               pattern = /^[0-9\s-]{1,9}$/;
               message = "Enter a valid income amount (e.g., 5000)";
               placeholder = "15,0000";
               break;
-            case "returnsAllowances":
-              placeholder = "4,500";
-              pattern = /^\d{0,9}$/;
-              message = "Please enter a number (maximum 9 digits)";
-              break;
-            case "beginningInventory":
-              placeholder = "15,0000";
-              pattern = /^\d{0,9}$/;
-              message = "Please enter a number (maximum 9 digits)";
-              break;
-            case "additionsInventory":
-              placeholder = "25,000";
-              pattern = /^\d{0,9}$/;
-              message = "Please enter a number (maximum 9 digits)";
-              break;
-
-            case "endingInventory":
-              placeholder = "18,0000";
-              pattern = /^\d{0,9}$/;
-              message = "Please enter a number (maximum 9 digits)";
-              break;
-
-            case "advertising":
-              placeholder = "18,0000";
-              pattern = /^\d{0,9}$/;
-              message = "Please enter a number (maximum 9 digits)";
-              break;
-
-            case "businessTelephone":
-              placeholder = "XXX-XXX-XXXX";
-              pattern = /^\d{0,9}$/;
-              message = "Please enter a number (maximum 9 digits)";
-              break;
             default:
               placeholder = "18,0000";
               pattern = /^\d{0,9}$/;
               message = "Please enter a number (maximum 9 digits)";
           }
-          console.log(names[key], "names[key]");
-
+  
           return (
             <div key={index}>
               {questionContainer({
                 key: names[key],
-                children: input({
-                  name: names[key],
-                  label: t(
-                    `organizer.individual.income.step3.question${index + 1}`,
-                  ),
-                  formStyles: styles.marginBottom,
-                  required: required,
-                  pattern: pattern
-                    ? { value: pattern, message: message }
-                    : undefined,
-                  placeholder: placeholder,
-                }),
+                children:
+                  key === "employerIDNumber"
+                    ? inputComponent
+                    : input({
+                        name: names[key],
+                        label: t(`organizer.individual.income.step3.question${index + 1}`),
+                        formStyles: styles.marginBottom,
+                        required: required,
+                        pattern: pattern ? { value: pattern, message: message } : undefined,
+                        placeholder: placeholder,
+                      }),
               })}
             </div>
           );
@@ -269,6 +231,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
       </div>
     );
   };
+  
 
   const add = (names: any) => {
     const newQuestions = Object.values(names).map(el => {

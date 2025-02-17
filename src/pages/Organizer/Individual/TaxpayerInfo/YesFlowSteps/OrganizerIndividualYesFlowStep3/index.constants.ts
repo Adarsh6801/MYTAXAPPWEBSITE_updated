@@ -109,6 +109,16 @@ export const dataTaxpayerQuestion = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.filingStatusChanges,
     forSpouse: false,
+    question: "isSpouseHasDriversLicense",
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.filingStatusChanges,
+    forSpouse: false,
     question: "spouseDriversLicense",
     answer: null,
     message: "",
@@ -179,6 +189,7 @@ export const DATA_KEY = [
   "spouseOccupation",
   "spouseMobileNumber",
   "isSpouseLegallyBlind",
+  // "isSpouseHasDriversLicense",
   "spouseDriversLicense",
   "spouseDriversLicenseState",
   "spouseDriversLicenseIssuedDate",
@@ -213,3 +224,16 @@ export const dataState = states.map(state => ({
   label: state.name,
   value: state.name,
 }));
+
+
+
+export const radioButton: any[] = [
+  {
+    label: i18n.t("organizer.individual.yes_flow.step1.yes"),
+    value: true,
+  },
+  {
+    label: i18n.t("organizer.individual.yes_flow.step1.no"),
+    value: false,
+  },
+];

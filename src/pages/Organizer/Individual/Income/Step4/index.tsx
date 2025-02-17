@@ -29,6 +29,7 @@ import {
   businessMiles,
   vehicle,
   radioButtons,
+  dataRadio,
   DATA_KEY,
 } from "./index.constants";
 import { checkbox, input, radio } from "../../../../../components/Module";
@@ -449,16 +450,16 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                         message: "Enter valid year",
                       },
                       required: true,
-                      placeholder: "2,023",
+                      placeholder: "2023",
                     },
                   ]),
                   subClass: styles.questionSubClass,
                 })}
                 <Divider />
-                {questionContainer({
+                {/* {questionContainer({
                   key: "taxPayer_VehicleAvailableForPersonalUse",
                   question: t("organizer.individual.income.step4.question3"),
-                  children: checkbox({
+                  children: radio({
                     name: "taxPayer_VehicleAvailableForPersonalUse",
                     label: t("organizer.individual.income.step4.label4"),
                     value:
@@ -469,13 +470,31 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                         )
                       ].answer,
                   }),
+                })} */}
+                                                {questionContainer({
+                  key: "taxPayer_VehicleAvailableForPersonalUse",
+                  question: t("organizer.individual.income.step4.question3"),
+                  required:true,
+                  children: radio({
+                    name: "taxPayer_VehicleAvailableForPersonalUse",
+                    radioButtons: dataRadio,
+                    required: true,
+                    message: "Select Yes/No",
+                    value:
+                      data[
+                        findIndexData(
+                          "taxPayer_VehicleAvailableForPersonalUse",
+                          data,
+                        )
+                      ]?.answer,
+                  }),
                 })}
                 <Divider />
 
-                {questionContainer({
+                {/* {questionContainer({
                   key: "taxPayer_AnotherVehicleAvailableForPersonalUse",
                   question: t("organizer.individual.income.step4.question4"),
-                  children: checkbox({
+                  children: radio({
                     name: "taxPayer_AnotherVehicleAvailableForPersonalUse",
                     value:
                       data[
@@ -485,13 +504,31 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                         )
                       ].answer,
                   }),
+                })} */}
+                                {questionContainer({
+                  key: "taxPayer_AnotherVehicleAvailableForPersonalUse",
+                  question: t("organizer.individual.income.step4.question4"),
+                  required:true,
+                  children: radio({
+                    name: "taxPayer_AnotherVehicleAvailableForPersonalUse",
+                    radioButtons: dataRadio,
+                    required: true,
+                    message: "Select Yes/No",
+                    value:
+                      data[
+                        findIndexData(
+                          "taxPayer_AnotherVehicleAvailableForPersonalUse",
+                          data,
+                        )
+                      ]?.answer,
+                  }),
                 })}
 
                 <Divider />
-                {questionContainer({
+                {/* {questionContainer({
                   key: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
                   question: t("organizer.individual.income.step4.question5"),
-                  children: checkbox({
+                  children: radio({
                     name: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
                     value:
                       data[
@@ -500,6 +537,24 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                           data,
                         )
                       ].answer,
+                  }),
+                })} */}
+                                                {questionContainer({
+                  key: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
+                  question: t("organizer.individual.income.step4.question5"),
+                  required:true,
+                  children: radio({
+                    name: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
+                    radioButtons: dataRadio,
+                    required: true,
+                    message: "Select Yes/No",
+                    value:
+                      data[
+                        findIndexData(
+                          "taxPayer_HaveWrittenEvidenceToSupportDeduction",
+                          data,
+                        )
+                      ]?.answer,
                   }),
                 })}
                 <Divider />

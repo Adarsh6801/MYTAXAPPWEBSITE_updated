@@ -223,6 +223,8 @@ export const taxPayer = [
   },
 ];
 
+
+
 export const spouse = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.vehicleOperatingExpenses,
@@ -549,4 +551,14 @@ export const DATA_KEY = [
   "spouseVehiclExpense_LoanInterest",
   "spouseVehiclExpense_Taxes",
   "spouseVehiclExpense_WashAndWax",
+];
+export const dataRadio = [
+  {
+    label: i18n.t("organizer.individual.income.step2.yes"),
+    value: true,
+  },
+  {
+    label: i18n.t("organizer.individual.income.step2.no"),
+    value: false,
+  },
 ];

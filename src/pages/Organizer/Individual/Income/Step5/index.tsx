@@ -185,6 +185,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
             pattern: item.pattern,
             required: item.required,
             placeholder: item.placeholder,
+            message: item.message
           }),
         )}
       </>
@@ -255,6 +256,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                   name: "taxPayerHomeOffice_DateOfUseBegan",
                   icon: <Calendar />,
                   required: true,
+                  message:"Enter Date of use began",
                   disabledDate: disabledDateFuture,
                   defaultValue:
                     data[
@@ -303,7 +305,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
               <Divider />
               {questionContainer({
                 key: "taxPayerHomeOfficeExpenses_TotalMaintenance",
-                question: t("organizer.individual.income.step5.question3"),
+                question: t("organizer.individual.income.step5.question6"),
                 subClass: styles.questionSubClass,
                 children: manyInput([
                   {
@@ -315,6 +317,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "12,500",
+                    message:" Enter Annual Insurance, 0 for none"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalInsurance",
@@ -325,6 +328,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "2,500",
+                    message:"Enter Annual Insurance, 0 for none"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalMaintenance",
@@ -335,6 +339,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "2,500",
+                    message:"Enter Annual Maintenance, 0 for none"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalUtilities",
@@ -345,6 +350,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "2,500",
+                    message:"Enter Annual Utilities, 0 for none."
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalRepairs",
@@ -355,6 +361,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "2,500",
+                    message:"Enter Annual Repairs, 0 for none"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalManagment",
@@ -365,6 +372,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "2,500",
+                    message:"Enter Annual HOA dues, 0 for none"
                   },
                 ]),
               })}
@@ -451,7 +459,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                 <Divider />
                 {questionContainer({
                   key: "taxPayerHomeOfficeExpenses_TotalMaintenance",
-                  question: t("organizer.individual.income.step5.question3"),
+                  question: t("organizer.individual.income.step5.question6"),
                   subClass: styles.questionSubClass,
                   children: manyInput([
                     {

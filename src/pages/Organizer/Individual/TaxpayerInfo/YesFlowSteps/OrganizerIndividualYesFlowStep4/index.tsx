@@ -97,9 +97,18 @@ const EditableCell: React.FC<EditableCellProps> = ({
     max?: number;
   }
 
-  const rules: ValidationRule[] = [
-    { required: true, message: `Enter ${title}` },
-  ];
+  const rules: ValidationRule[] = [ ];
+  if(title=='Federal'){
+    rules.push({ required: true, message: `Enter Federal Estimate Payment` })
+  }
+  else if(title=='State'){
+    rules.push({ required: true, message: `Enter State Estimate Payment` })
+  }else if (title=="Date Paid"){
+    rules.push({ required: true, message: `Enter ${title}` })
+
+  }else{
+    rules.push({ required: true, message: `Enter ${title}` })
+  }
 
   if (inputType != "datePaid") {
     console.log(inputType, "inputType");

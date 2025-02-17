@@ -28,6 +28,7 @@ import {
   dataTaxpayerQuestion,
   DATA_KEY,
   radioButtons,
+  radioButton,
   dataState,
 } from "./index.constants";
 import {
@@ -36,6 +37,7 @@ import {
   input,
   select,
   upload,
+  radio,
   ssnInput,
   phoneNumberInput,
   InputMask,
@@ -305,11 +307,11 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({
                   name: "spouseFirstName",
                   label: t("organizer.individual.yes_flow.step3.first_name"),
-                  placeholder: "Donald J Trump",
+                  placeholder: "Jane A  Smith",
                   text: "(Must Match SS Admin)",
                   required: true,
                   pattern: {
-                    value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
+                    value: /^[a-zA-Z\s.]*$/, // Allows letters, numbers, spaces, and '/'
                     message: "Only letters are allowed.",
                   },
                 }),
@@ -436,6 +438,17 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 label: t("organizer.individual.yes_flow.step3.legally_blind"),
                 value: data[findIndexData("isSpouseLegallyBlind", data)].answer,
               })}
+                                  {questionContainer({
+                      key: "isSpouseHasDriversLicense",
+                      question: t("organizer.individual.yes_flow.step3.has_driving_license"),
+                      // required:true,
+                      children: radio({
+                        name: "isSpouseHasDriversLicense",
+                        radioButtons: radioButton,
+                      // required:true,
+              
+                      }),
+                    })}
               {questionContainer({
                 key: "spouseDriversLicense",
                 children: input({
@@ -491,6 +504,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   })}
                 </div>
               </div>
+
               {questionContainer({
                 key: "spouseImagesOfDriversLicense",
                 question: t(
@@ -504,7 +518,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   allowedFileTypes: ["application/pdf", "image/jpeg"],
                   buttonText: t("organizer.individual.yes_flow.step3.attach"),
                   dispatch: dispatch,
-                  minCount: 2,
+                  minCount: 1,
                   onClick: (index = 0) => {
                     dispatch(
                       downloadFile(

@@ -364,9 +364,9 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
             name: `dependantFullName${index + 1}`,
             label: t("organizer.individual.general_steps.step2.fullName"),
             required: true,
-            placeholder: "Donald J Trump",
+            placeholder: "John A. Smith",
             pattern: {
-              value: /^[a-zA-Z\s]*$/,
+              value: /^[a-zA-Z\s.]*$/,
               message: "Only Alphabets and Spaces are Allowed",
             },
           }),
@@ -519,7 +519,7 @@ const GeneralStepsStep2 = (props: ITaxPayerInfoStepsProps) => {
               value:/^\d{1,10}$/,
               message:'Minimum one character and maximum 10 characters only allowed'
             },
-            message: "Enter Income , If Not Mention As 0",
+            message: "Enter Income , If no income enter 0",
           }),
         })}
       </div>
