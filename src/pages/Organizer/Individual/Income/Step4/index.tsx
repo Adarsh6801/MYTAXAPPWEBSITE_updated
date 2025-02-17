@@ -212,11 +212,11 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: "Enter Tax Payer ID",
+                message: "Enter total Rental-related miles driven during the year",
               },
               {
-                pattern: /^\d{6}$/,
-                message: "Tax Payer ID must be exactly 6 digits",
+                pattern: /^\d{1,6}$/,
+                message: "6 digits only allowed",
               },
             ]}
           >
@@ -237,11 +237,11 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: "Enter Self Employed Business",
+                message: "Enter total Self Employed-related miles driven during the year.",
               },
               {
-                pattern: /^\d{6}$/,
-                message: "Self Employed Business must be exactly 6 digits",
+                pattern: /^\d{1,6}$/,
+                message: "6 digits only allowed",
               },
             ]}
           >
