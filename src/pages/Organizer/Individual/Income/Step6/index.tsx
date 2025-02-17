@@ -424,7 +424,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({ name: item ,
                   pattern:{
                     value:/^\d{0,3}$/,
-                    message:"Please enter a number (maximum 3 digits)."
+                    message:"Average number of days rented during the year max 3 digits."
                   },
                   placeholder:"365" 
                 }),

@@ -597,9 +597,9 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   children: input({
                     name: "taxPayer_TotalMilesDrivenThisYear",
                     required: true,
-                    message:"Enter Total Miles Driven This Year",
+                    message:"Enter total miles driven during the year.",
                     pattern: {
-                      value: /^\d{6}$/,
+                      value: /^\d{1,6}$/,
                       message: "6 number allowed",
                     },
                     placeholder: "12,500",
