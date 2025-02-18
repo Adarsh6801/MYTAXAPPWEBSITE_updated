@@ -51,12 +51,12 @@ const EditableCell: React.FC<EditableCellProps> = ({
   ...restProps
 }) => {
   let inputNode = (
-    <Input defaultValue={record.federal.toString()} type={"number"} />
+    <Input defaultValue={record.federal.toString()} type={"number"} placeholder="3,500"/>
   );
 
   if (inputType === "state") {
     inputNode = (
-      <Input defaultValue={record.state.toString()} type={"number"} />
+      <Input defaultValue={record.state.toString()} type={"number"} placeholder="3,500"/>
     );
   }
 
