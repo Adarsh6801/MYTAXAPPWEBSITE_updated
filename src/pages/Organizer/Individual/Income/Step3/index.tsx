@@ -185,7 +185,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               break;
             case "employerIDNumber":
               pattern = /^\d{2}-\d{7}$/;
-              message = "Only format XX-XXXXXXX is allowed";
+              message = "9 digits only allowed";
               placeholder = "XX-XXXXXXX";
               inputComponent = (
                 <InputMask

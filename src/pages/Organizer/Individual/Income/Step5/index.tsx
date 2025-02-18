@@ -317,7 +317,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
                       message: "Only numbers are allowed maximum length 7",
                     },
                     placeholder: "12,500",
-                    message:" Enter Annual Insurance, 0 for none"
+                    message:" Enter Annual Rent, 0 for none"
                   },
                   {
                     key: "taxPayerHomeOfficeExpenses_TotalInsurance",

@@ -412,6 +412,7 @@ const GeneralStepsStep5 = (props: ITaxPayerInfoStepsProps) => {
                 name: `studentName${index}`,
                 label: t("organizer.individual.general_steps.step2.fullName"),
                 required: true,
+                placeholder:"John A Smith",
                 pattern:{
                   value:/^[a-zA-Z\s.]*$/,
                   message:"Only letters are allowed."

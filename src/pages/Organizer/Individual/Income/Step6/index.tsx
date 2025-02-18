@@ -246,7 +246,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 label: t("organizer.individual.income.step6.label1"),
                 required: true,
                 pattern: {
-                  value: /^[a-zA-Z0-9]+$/,
+                  value: /^[a-zA-Z0-9 ]+$/,
                   message: "Only numbers and letters.",
                 },
                 placeholder: "123 Main St",

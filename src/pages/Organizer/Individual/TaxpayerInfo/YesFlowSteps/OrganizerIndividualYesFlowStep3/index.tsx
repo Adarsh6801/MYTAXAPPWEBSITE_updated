@@ -307,7 +307,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 children: input({
                   name: "spouseFirstName",
                   label: t("organizer.individual.yes_flow.step3.first_name"),
-                  placeholder: "Jane A  Smith",
+                  placeholder: "John A  Smith",
                   text: "(Must Match SS Admin)",
                   required: true,
                   pattern: {

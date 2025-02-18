@@ -164,11 +164,12 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
+        required={required}
         data={data[index]}
         onAlert={() => {
           const newData = [...data];
@@ -231,11 +232,11 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           {questionContainer({
             key: "doYou_pay_property_tax_directly",
             question: t("organizer.deductions.step3.question7"),
+            required:true,
             children: radio({
               name: "doYou_pay_property_tax_directly",
               radioButtons: radioButtons,
               required: true,
-              message: "Field is required.",
             }),
           })}
         </div>
