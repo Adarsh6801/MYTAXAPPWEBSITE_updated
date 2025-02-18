@@ -68,6 +68,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
     (state: any) => state.individualOrganizer.data,
   );
 
+  const [hasDriverLicenseImages, setHasDriverLicenseImages] = useState(false);
+
   useEffect(() => {
     init();
   }, []);
@@ -101,6 +103,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
 
+      console.log(resultData, "resultDataaa");
+
       resultData.forEach((item: any) => {
         if (item.question === "spouseSocialSecurityNo") {
           const formattedNumber = formatPhoneNumber(item.answer);
@@ -119,6 +123,9 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
             [item.question]: formattedNumber,
           });
           return;
+        }
+        if (item.question === "spouseImagesOfDriversLicense") {
+          setHasDriverLicenseImages(item.files.length > 0);
         }
         if (item.isFile) {
           form.setFieldsValue({
@@ -152,20 +159,19 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
       // TODO: handle catch error
     }
   };
-  function formatPhoneNumber(number: string): string {
-    // Remove non-digit characters
+
+  const formatPhoneNumber = (number: string): string => {
     if (!number) return "";
     const cleaned = number.replace(/\D/g, "");
-
-    // Apply the regex pattern to format the number
     const match = cleaned.match(/^(\d{3})(\d{2})(\d{4})$/);
 
     if (match) {
       return `${match[1]}-${match[2]}-${match[3]}`;
     }
 
-    return number; // Return the original number if it doesn't match the expected length
-  }
+    return number;
+  };
+
   const restField = (name: string) => {
     let newObject = [...data];
     const resetName: string[] = [];
@@ -248,6 +254,12 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
     );
   };
 
+  const handleDriverLicenseImagesChange = (fileList: any) => {
+    console.log(fileList, "fileList");
+
+    setHasDriverLicenseImages(fileList.fileList.length > 0);
+  };
+
   return (
     <Form
       onFinish={onFinish}
@@ -272,12 +284,14 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     "haveMarriageStatusChangedSinceLastFiledReturn",
                     data,
                   )
-                ]?.answer?data[
-                  findIndexData(
-                    "haveMarriageStatusChangedSinceLastFiledReturn",
-                    data,
-                  )
-                ]?.answer:0
+                ]?.answer
+                  ? data[
+                      findIndexData(
+                        "haveMarriageStatusChangedSinceLastFiledReturn",
+                        data,
+                      )
+                    ]?.answer
+                  : 0
               }
               onChange={e => {
                 form.resetFields(["spouseFirstName"]);
@@ -316,36 +330,6 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   },
                 }),
               })}
-              {/* {questionContainer({
-                key: "spouseMiddleName",
-                children: input({
-                  name: "spouseMiddleName",
-                  label: t(
-                    "organizer.individual.yes_flow.step3.middle_initial",
-                  ),
-                  placeholder: "Donald J Trump",
-                  text: "(Must Match SS Admin)",
-                  required: false,
-                  pattern: {
-                    value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
-                    message: "Only letters are allowed.",
-                  },
-                }),
-              })}
-              {questionContainer({
-                key: "spouseLastName",
-                children: input({
-                  name: "spouseLastName",
-                  label: t("organizer.individual.yes_flow.step3.last_name"),
-                  placeholder: "Donald J Trump",
-                  text: "(Must Match SS Admin)",
-                  required: true,
-                  pattern: {
-                    value: /^[A-Za-z]+$/, // Allows letters, numbers, spaces, and '/'
-                    message: "Only letters are allowed.",
-                  },
-                }),
-              })} */}
               <div className={styles.dataPickerContainer}>
                 {questionContainer({
                   key: "spouseBirthday",
@@ -361,19 +345,6 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   }),
                 })}
                 <div className={styles.zipCode}>
-                  {/* {InputMask({
-                    name: "spouseSocialSecurityNo",
-                    label: t(
-                      "organizer.individual.yes_flow.step3.social_security_no",
-                    ),
-                    required:true,
-                    placeholder:"XXX-XX-XXXX",
-                    pattern: {
-                      value: /^\d{9}$/, // Allows letters, numbers, spaces, and '/'
-                      message: "Invalid format! Please enter exactly 9 digits",
-                    },
-                    message:""
-                  })} */}
                   <InputMask
                     name="spouseSocialSecurityNo"
                     label={t(
@@ -382,18 +353,12 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     hasMargin={true}
                     placeholder="(XXX) XXX-XXXX"
                     required={true}
-                    // isNumericOnly : true,
-                    // minLength : 10,
                     message="Enter Social Security No"
-                    // maxLength : 14,
-                    // minLengthMessage: "Number is too short",
-                    // maxLengthMessage: 'Number is too long',
                     pattern={{
                       value: /^\d{3}-\d{2}-\d{4}$/, // Matches between 10 and 14 numeric digits
                       message: "Social security no must be 9 numeric digits",
                     }}
                     maskFormat="000-00-0000"
-                    // defaultValue="
                   />
                   <p className={styles.promptText}>
                     {t("organizer.individual.yes_flow.step3.irs")}
@@ -414,20 +379,19 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
               })}
               {questionContainer({
                 key: "spouseMobileNumber",
-                // children: phoneNumberInput({
-                //   name: "spouseMobileNumber",
-                //   label: t("organizer.individual.yes_flow.step3.mobile_number"),
-                // }),
                 children: (
                   <InputMask
                     name="spouseMobileNumber"
-                    label={t("organizer.individual.yes_flow.step3.mobile_number")}
+                    label={t(
+                      "organizer.individual.yes_flow.step3.mobile_number",
+                    )}
                     placeholder="(XXX) XXX-XXXX"
                     required={true}
                     message="Enter Mobile Number"
                     pattern={{
                       value: /^(\(\d{3}\) \d{3}-\d{4}(?: \d{0,4})?)?$/,
-                      message: "Phone number must be between 10 and 14 numeric digits",
+                      message:
+                        "Phone number must be between 10 and 14 numeric digits",
                     }}
                     maskFormat="(000) 000-0000[ 0000]"
                   />
@@ -438,128 +402,224 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                 label: t("organizer.individual.yes_flow.step3.legally_blind"),
                 value: data[findIndexData("isSpouseLegallyBlind", data)].answer,
               })}
-                                  {questionContainer({
-                      key: "isSpouseHasDriversLicense",
-                      question: t("organizer.individual.yes_flow.step3.has_driving_license"),
-                      // required:true,
-                      children: radio({
-                        name: "isSpouseHasDriversLicense",
-                        radioButtons: radioButton,
-                      // required:true,
-              
-                      }),
-                    })}
               {questionContainer({
-                key: "spouseDriversLicense",
-                children: input({
-                  name: "spouseDriversLicense",
-                  label: t(
-                    "organizer.individual.yes_flow.step3.drivers_license",
-                  ),
-                  required: true,
-                  placeholder: "A5407613",
-                  pattern: {
-                    value: /^[A-Za-z0-9]{8,14}$/, // Allows letters, numbers, spaces, and '/'
-                    message:
-                      "Invalid format! Please enter between 8 and 14 alphanumeric characters",
-                  },
-                }),
-              })}
-              {questionContainer({
-                key: "spouseDriversLicenseState",
-                children: select({
-                  name: "spouseDriversLicenseState",
-                  label: t("organizer.individual.yes_flow.step3.state"),
-                  data: dataState,
-                  required: true,
-                  placeholder: "CA",
-                }),
-              })}
-              <div className={styles.dataPickerContainer}>
-                {questionContainer({
-                  key: "spouseDriversLicenseIssuedDate",
-                  children: dataPicker({
-                    name: "spouseDriversLicenseIssuedDate",
-                    label: t("organizer.individual.yes_flow.step3.issued_date"),
-                    icon: <Calendar />,
-                    required: true,
-                    disabledDate: disabledDateFuture,
-                    defaultValue:
-                      data[
-                        findIndexData("spouseDriversLicenseIssuedDate", data)
-                      ].answer,
-                  }),
-                })}
-                <div className={styles.zipCode}>
-                  {dataPicker({
-                    name: "spouseDriversLicenseExpiresDate",
-                    label: t("organizer.individual.yes_flow.step3.expires"),
-                    icon: <Calendar />,
-                    disabledDate: disabledDatePast,
-                    required: true,
-                    defaultValue:
-                      data[
-                        findIndexData("spouseDriversLicenseExpiresDate", data)
-                      ].answer,
-                  })}
-                </div>
-              </div>
-
-              {questionContainer({
-                key: "spouseImagesOfDriversLicense",
+                key: "isSpouseHasDriversLicense",
                 question: t(
-                  "organizer.individual.yes_flow.step3.images_drivers_license",
+                  "organizer.individual.yes_flow.step3.has_driving_license",
                 ),
                 required: true,
-                children: upload({
-                  key: "spouseImagesOfDriversLicense",
-                  data: data,
+                children: radio({
                   required: true,
-                  allowedFileTypes: ["application/pdf", "image/jpeg"],
-                  buttonText: t("organizer.individual.yes_flow.step3.attach"),
-                  dispatch: dispatch,
-                  minCount: 1,
-                  onClick: (index = 0) => {
-                    dispatch(
-                      downloadFile(
-                        data[
-                          findIndexData("spouseImagesOfDriversLicense", data)
-                        ].files[index].id,
-                        data[
-                          findIndexData("spouseImagesOfDriversLicense", data)
-                        ].files[index].name,
-                      ),
-                    );
-                  },
-                  onRemove: (index = 0) => {
-                    console.log("Data before removal:", data); // Log the entire data object
-                    const newData = [...data];
-                    const fileIndex = findIndexData(
-                      "spouseImagesOfDriversLicense",
-                      data,
-                    );
-
-                    // Ensure the fileIndex exists and is correct
-                    if (fileIndex !== undefined && newData[fileIndex]?.files) {
-                      const newFileList = [
-                        ...newData[fileIndex].files.slice(0, index),
-                        ...newData[fileIndex].files.slice(index + 1),
-                      ];
-
-                      console.log("Updated file list:", newFileList); // Log the updated list
-                      newData[fileIndex].files = newFileList;
-
-                      setData([...newData]);
-                    } else {
-                      console.error(
-                        "Failed to find file index or file list:",
-                        newData,
-                      );
-                    }
-                  },
-                  maxCount: 2,
+                  name: "isSpouseHasDriversLicense",
+                  radioButtons: radioButton,
                 }),
               })}
+              {!data[findIndexData("isSpouseHasDriversLicense", data)].answer &&
+                (!hasDriverLicenseImages ? (
+                  <>
+                    {questionContainer({
+                      key: "spouseDriversLicense",
+                      children: input({
+                        name: "spouseDriversLicense",
+                        label: t(
+                          "organizer.individual.yes_flow.step3.drivers_license",
+                        ),
+                        required: true,
+                        placeholder: "A5407613",
+                        pattern: {
+                          value: /^[A-Za-z0-9]{8,14}$/, // Allows letters, numbers, spaces, and '/'
+                          message:
+                            "Invalid format! Please enter between 8 and 14 alphanumeric characters",
+                        },
+                      }),
+                    })}
+                    {questionContainer({
+                      key: "spouseDriversLicenseState",
+                      children: select({
+                        name: "spouseDriversLicenseState",
+                        label: t("organizer.individual.yes_flow.step3.state"),
+                        data: dataState,
+                        required: true,
+                        placeholder: "CA",
+                      }),
+                    })}
+                    <div className={styles.dataPickerContainer}>
+                      {questionContainer({
+                        key: "spouseDriversLicenseIssuedDate",
+                        children: dataPicker({
+                          name: "spouseDriversLicenseIssuedDate",
+                          label: t(
+                            "organizer.individual.yes_flow.step3.issued_date",
+                          ),
+                          icon: <Calendar />,
+                          required: true,
+                          disabledDate: disabledDateFuture,
+                          defaultValue:
+                            data[
+                              findIndexData(
+                                "spouseDriversLicenseIssuedDate",
+                                data,
+                              )
+                            ].answer,
+                        }),
+                      })}
+                      <div className={styles.zipCode}>
+                        {dataPicker({
+                          name: "spouseDriversLicenseExpiresDate",
+                          label: t(
+                            "organizer.individual.yes_flow.step3.expires",
+                          ),
+                          icon: <Calendar />,
+                          disabledDate: disabledDatePast,
+                          required: true,
+                          defaultValue:
+                            data[
+                              findIndexData(
+                                "spouseDriversLicenseExpiresDate",
+                                data,
+                              )
+                            ].answer,
+                        })}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {questionContainer({
+                      key: "spouseDriversLicense",
+                      children: input({
+                        name: "spouseDriversLicense",
+                        label: t(
+                          "organizer.individual.yes_flow.step3.drivers_license",
+                        ),
+
+                        placeholder: "A5407613",
+                        pattern: {
+                          value: /^[A-Za-z0-9]{8,14}$/, // Allows letters, numbers, spaces, and '/'
+                          message:
+                            "Invalid format! Please enter between 8 and 14 alphanumeric characters",
+                        },
+                      }),
+                    })}
+                    {questionContainer({
+                      key: "spouseDriversLicenseState",
+                      children: select({
+                        name: "spouseDriversLicenseState",
+                        label: t("organizer.individual.yes_flow.step3.state"),
+                        data: dataState,
+
+                        placeholder: "CA",
+                      }),
+                    })}
+                    <div className={styles.dataPickerContainer}>
+                      {questionContainer({
+                        key: "spouseDriversLicenseIssuedDate",
+                        children: dataPicker({
+                          name: "spouseDriversLicenseIssuedDate",
+                          label: t(
+                            "organizer.individual.yes_flow.step3.issued_date",
+                          ),
+                          icon: <Calendar />,
+                          disabledDate: disabledDateFuture,
+                          defaultValue:
+                            data[
+                              findIndexData(
+                                "spouseDriversLicenseIssuedDate",
+                                data,
+                              )
+                            ].answer,
+                        }),
+                      })}
+                      <div className={styles.zipCode}>
+                        {dataPicker({
+                          name: "spouseDriversLicenseExpiresDate",
+                          label: t(
+                            "organizer.individual.yes_flow.step3.expires",
+                          ),
+                          icon: <Calendar />,
+                          disabledDate: disabledDatePast,
+                          defaultValue:
+                            data[
+                              findIndexData(
+                                "spouseDriversLicenseExpiresDate",
+                                data,
+                              )
+                            ].answer,
+                        })}
+                      </div>
+                    </div>
+                  </>
+                ))}
+              {!data[findIndexData("isSpouseHasDriversLicense", data)].answer &&
+                questionContainer({
+                  key: "spouseImagesOfDriversLicense",
+                  question: t(
+                    "organizer.individual.yes_flow.step3.images_drivers_license",
+                  ),
+                  required: !(
+                    form.getFieldValue("spouseDriversLicense") &&
+                    form.getFieldValue("spouseDriversLicenseState") &&
+                    form.getFieldValue("spouseDriversLicenseIssuedDate") &&
+                    form.getFieldValue("spouseDriversLicenseExpiresDate")
+                  ),
+                  children: upload({
+                    key: "spouseImagesOfDriversLicense",
+                    data: data,
+                    required: !(
+                      form.getFieldValue("spouseDriversLicense") &&
+                      form.getFieldValue("spouseDriversLicenseState") &&
+                      form.getFieldValue("spouseDriversLicenseIssuedDate") &&
+                      form.getFieldValue("spouseDriversLicenseExpiresDate")
+                    ),
+                    allowedFileTypes: ["application/pdf", "image/jpeg"],
+                    buttonText: t("organizer.individual.yes_flow.step3.attach"),
+                    dispatch: dispatch,
+                    minCount: 1,
+                    onClick: (index = 0) => {
+                      dispatch(
+                        downloadFile(
+                          data[
+                            findIndexData("spouseImagesOfDriversLicense", data)
+                          ].files[index].id,
+                          data[
+                            findIndexData("spouseImagesOfDriversLicense", data)
+                          ].files[index].name,
+                        ),
+                      );
+                    },
+                    onRemove: (index = 0) => {
+                      console.log("Data before removal:", data); // Log the entire data object
+                      const newData = [...data];
+                      const fileIndex = findIndexData(
+                        "spouseImagesOfDriversLicense",
+                        data,
+                      );
+
+                      // Ensure the fileIndex exists and is correct
+                      if (
+                        fileIndex !== undefined &&
+                        newData[fileIndex]?.files
+                      ) {
+                        const newFileList = [
+                          ...newData[fileIndex].files.slice(0, index),
+                          ...newData[fileIndex].files.slice(index + 1),
+                        ];
+
+                        console.log("Updated file list:", newFileList); // Log the updated list
+                        newData[fileIndex].files = newFileList;
+
+                        setData([...newData]);
+                      } else {
+                        console.error(
+                          "Failed to find file index or file list:",
+                          newData,
+                        );
+                      }
+                    },
+                    maxCount: 1,
+                    onChange: handleDriverLicenseImagesChange,
+                  }),
+                })}
             </div>
           )}
       </div>

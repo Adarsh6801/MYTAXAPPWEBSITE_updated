@@ -246,6 +246,7 @@ export const radio = (data: IRadio) => {
 export const upload = (dataUpload: IUpload) => {
   const {
     key,
+    onChange,
     label,
     index,
     buttonText = "Attach",
@@ -340,6 +341,7 @@ export const upload = (dataUpload: IUpload) => {
           maxCount={maxCount}
           multiple={multiple}
           beforeUpload={beforeUpload}
+          onChange={onChange}
         >
           <Button icon={<Attach />} text={buttonText} type="ghost" />
         </Upload>

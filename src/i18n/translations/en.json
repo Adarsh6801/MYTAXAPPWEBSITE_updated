@@ -1589,7 +1589,7 @@
           "question_4": "Can you request a pdf copy from your previous preparer?",
           "question_5": "Do you have the hardcopy?",
           "question_6": "Can you scan your return into PDF format?",
-          "question_7": "Which tax year did you file the return?",
+          "question_7": "What was the last year you filed a tax return?",
 
           "info": "Please drop off your tax documents to the tax office",
           "btn_irs": "Order Transcripts from IRS",
@@ -1620,7 +1620,7 @@
           "sub_title": "Please provide information about your spouse",
           "irs": "(or IRS Issued IP-PIN)",
           "legally_blind": "He/She is legally blind",
-          "has_driving_license": "Does have DL?",
+          "has_driving_license": "Does not have a DL",
           "no_change_last_year": "No change from last year",
           "married": "Married",
           "separated": "Separated",
@@ -1645,8 +1645,9 @@
           "description": "<0>{{note}}</0> In order to receive credit for your estimated tax payments which you may have paid please provide accurate payment amount and date information.  Incomplete or incorrect amounts will result in correspondence from the IRS or State taxing agencies.",
           "description2": "<0>{{note}}</0> Providing incorrect or missing amounts may lead to IRS/state tax notices. Double-check your records before submitting.",
 
-          "radio_question": "Did you pay any estimated taxes during the year?",
-
+          "radio_question1": "Did you pay any estimated taxes during the year?",
+          "radio_question2": "Do you have an online payment confirmation?",
+          "radio_question3": "Add payment confirmation attachment.",
           "question1": "First Quarter",
           "question2": "Second Quarter",
           "question3": "Third Quarter",

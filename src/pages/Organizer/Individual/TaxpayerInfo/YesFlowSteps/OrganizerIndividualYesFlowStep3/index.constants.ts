@@ -189,7 +189,7 @@ export const DATA_KEY = [
   "spouseOccupation",
   "spouseMobileNumber",
   "isSpouseLegallyBlind",
-  // "isSpouseHasDriversLicense",
+  "isSpouseHasDriversLicense",
   "spouseDriversLicense",
   "spouseDriversLicenseState",
   "spouseDriversLicenseIssuedDate",

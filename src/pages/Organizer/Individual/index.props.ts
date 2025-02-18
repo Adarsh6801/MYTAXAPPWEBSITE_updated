@@ -120,6 +120,7 @@ export interface IUpload {
   required?: boolean;
   allowedFileTypes?: string[];
   minCount?: number;
+  onChange?: (info: any) => void; 
 }
 
 export interface ISelect {
