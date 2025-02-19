@@ -18,6 +18,26 @@ export const dataTaxpayerQuestion = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.estimatedTaxesPaid,
     forSpouse: false,
+    question: "doYouHaveOnlinePaymentConfirmation",
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.estimatedTaxesPaid,
+    forSpouse: false,
+    question: "onlinePaymentConfirmationAttachment",
+    answer: null,
+    message: "",
+    reminder: false,
+    isFile: true,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.estimatedTaxesPaid,
+    forSpouse: false,
     question: "estimatedTaxesPaidTableInfo",
     answer: null,
     message: "",
@@ -30,57 +50,22 @@ export const dataTaxpayerQuestion = [
 export const dataTabel = [
   {
     key: "1",
-    name: i18n.t("organizer.individual.yes_flow.step4.question1"),
-    dataKey: "firstQuarter",
     federal: "",
     state: "",
     datePaid: "",
     attachement: "",
-  },
-  {
-    key: "2",
-    name: i18n.t("organizer.individual.yes_flow.step4.question2"),
-    dataKey: "secondeQuarter",
-    federal: "",
-    state: "",
-    datePaid: "",
-    attachement: "",
-  },
-  {
-    key: "3",
-    name: i18n.t("organizer.individual.yes_flow.step4.question3"),
-    dataKey: "thirdQuarter",
-    federal: "",
-    state: "",
-    datePaid: "",
-    attachement: "",
-  },
-  {
-    key: "4",
-    name: i18n.t("organizer.individual.yes_flow.step4.question4"),
-    dataKey: "fourthQuarter",
-    federal: "",
-    state: "",
-    datePaid: "",
-    attachement: "",
-  },
+  }
 ];
 
 export const columns = [
   {
-    title: i18n.t("organizer.individual.yes_flow.step4.payment_due_date"),
-    dataIndex: "name",
-    width: "35%",
+    title: i18n.t("organizer.individual.yes_flow.step4.select_option"),
+    dataIndex: "paytype",
     editable: true,
   },
   {
-    title: i18n.t("organizer.individual.yes_flow.step4.federal"),
-    dataIndex: "federal",
-    editable: true,
-  },
-  {
-    title: i18n.t("organizer.individual.yes_flow.step4.state"),
-    dataIndex: "state",
+    title: i18n.t("organizer.individual.yes_flow.step4.amount"),
+    dataIndex: "paytype_amount",
     editable: true,
   },
   {
@@ -92,6 +77,8 @@ export const columns = [
 
 export const DATA_KEY = [
   "didPayAnyEstimatedTaxesDuringTheYear",
+  "doYouHaveOnlinePaymentConfirmation",
+  "onlinePaymentConfirmationAttachment",
   "estimatedTaxesPaidTableInfo",
 ];
 

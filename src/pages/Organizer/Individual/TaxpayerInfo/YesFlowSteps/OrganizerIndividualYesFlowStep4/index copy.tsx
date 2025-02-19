@@ -292,7 +292,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         ];
         return {
           ...item,
-          name: `${item.name} (${dates[index] || ""})`, // Avoid out-of-bounds errors
+       
         };
       });
 

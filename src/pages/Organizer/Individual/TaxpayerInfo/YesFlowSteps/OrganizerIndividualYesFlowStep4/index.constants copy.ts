@@ -88,12 +88,6 @@ export const dataTabel = [
 
 export const columns = [
   {
-    title: i18n.t("organizer.individual.yes_flow.step4.payment_due_date"),
-    dataIndex: "name",
-    width: "35%",
-    editable: true,
-  },
-  {
     title: i18n.t("organizer.individual.yes_flow.step4.federal"),
     dataIndex: "federal",
     editable: true,

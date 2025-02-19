@@ -1655,6 +1655,8 @@
           "payment_due_date": "Payment & Due Date",
           "federal": "Federal",
           "state": "State",
+          "amount": "amount",
+          "select_option":"Select Federal or State",
           "date_paid": "Date Paid",
           "yes": "Yes",
           "no": "No"

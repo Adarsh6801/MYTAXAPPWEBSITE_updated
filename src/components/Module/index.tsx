@@ -326,7 +326,7 @@ export const upload = (dataUpload: IUpload) => {
 
   return (
     <div className={styles.uploadContainer}>
-      <Form.Item name={key}         label={
+      <Form.Item name={key} label={
           label ? (
             <span>
               {label}

@@ -25,7 +25,7 @@ import {
   getCurrentType,
 } from "../../../../../../helpers/format";
 import { disabledDateFuture } from "../../../../../../helpers/date";
-import { radio } from "../../../../../../components/Module";
+import { radio, upload } from "../../../../../../components/Module";
 import {
   dataTaxpayerQuestion,
   columns,
@@ -37,6 +37,7 @@ import { DEFAULT_DATE_FORMAT } from "../../../../../../constants/format";
 // import { ReactComponent as Attach } from "./../../../../../assets/svgs/attach.svg";
 import { ReactComponent as Calendar } from "../../../../../../assets/svgs/calendar.svg";
 import styles from "./index.module.css";
+import { downloadFile } from "../../../../../../redux/conversationSlice";
 
 const noop = () => {};
 
@@ -48,15 +49,26 @@ const EditableCell: React.FC<EditableCellProps> = ({
   record,
   index,
   children,
+  deleteRow,
   ...restProps
 }) => {
+  const [selectedType, setSelectedType] = useState<string>("federal");
   let inputNode = (
-    <Input defaultValue={record.federal.toString()} type={"number"} placeholder="3,500"/>
+    <Input
+      defaultValue={record.federal.toString()}
+      type={"number"}
+      placeholder="3,500 "
+    />
   );
 
-  if (inputType === "state") {
+  if (inputType === "paytype_amount") {
     inputNode = (
-      <Input defaultValue={record.state.toString()} type={"number"} placeholder="3,500"/>
+      <Input
+        defaultValue={record.state.toString()}
+        type={"number"}
+        placeholder="3,500"
+        
+      />
     );
   }
 
@@ -78,16 +90,47 @@ const EditableCell: React.FC<EditableCellProps> = ({
       />
     );
   }
-
-  if(inputType=='attachement'){
-    console.log('attachement success');
-    
-    inputNode=        <Upload
-          accept={ "image/png,image/jpeg,image/jpg,application/pdf,application/doc,application/xlsx,application/docx"}
-          showUploadList={false}
+  if (inputType === "actions") {
+    inputNode = (
+      <Button type="link" danger onClick={() => deleteRow(record.key)}>
+      Delete
+    </Button>
+    );
+  }
+  if (inputType === "paytype") {
+    inputNode = (
+        <Select
+          data={[
+            {
+              label: 'State',
+              value: "state",
+            },
+            {
+              label: 'Federal',
+              value: "federal",
+            }
+          ]}
+          placeholder='Select State / Federal'
+          style={{ width: 120 }}
+          // onChange={(value) => setSelectedType(value)}
         >
-          <Button type="ghost" />
-        </Upload>
+        </Select>
+    );
+  }
+
+  if (inputType == "attachement") {
+    console.log("attachement success");
+
+    inputNode = (
+      <Upload
+        accept={
+          "image/png,image/jpeg,image/jpg,application/pdf,application/doc,application/xlsx,application/docx"
+        }
+        showUploadList={false}
+      >
+        <Button type="ghost" />
+      </Upload>
+    );
   }
   interface ValidationRule {
     required?: boolean;
@@ -97,20 +140,16 @@ const EditableCell: React.FC<EditableCellProps> = ({
     max?: number;
   }
 
-  const rules: ValidationRule[] = [ ];
-  if(title=='Federal'){
-    rules.push({ required: true, message: `Enter Federal Estimate Payment` })
-  }
-  else if(title=='State'){
-    rules.push({ required: true, message: `Enter State Estimate Payment` })
-  }else if (title=="Date Paid"){
-    rules.push({ required: true, message: `Enter ${title}` })
-
-  }else{
-    rules.push({ required: true, message: `Enter ${title}` })
+  const rules: ValidationRule[] = [];
+  if (title == "paytype") {
+    rules.push({ required: true, message: `Enter Federal Estimate Payment` });
+  } else if (title == "Date Paid") {
+    rules.push({ required: true, message: `Enter ${title}` });
+  } else if(title!="Actions") {
+    rules.push({ required: true, message: `Enter ${title}` });
   }
 
-  if (inputType != "datePaid") {
+  if (inputType != "datePaid" && inputType != "paytype") {
     console.log(inputType, "inputType");
 
     rules.push({
@@ -125,9 +164,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
     //   max: 11,
     //   message: `${title} must be at most 11 characters!`,
     // });
-  }
-
-  if (inputType === "datePaid") {
   }
 
   return (
@@ -181,10 +217,10 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
       console.log(previousTaxYear, "Previous Tax Year");
     }
   }, [dataOrganizer]);
+
+
   useEffect(() => {
     if (dataOrganizer) {
-      console.log();
-      
       const stepData = dataOrganizer.filter((el: any, i: number) => {
         return (
           !!DATA_KEY.find(item => {
@@ -205,38 +241,52 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-
-      if (resultData.length >= DATA_KEY.length) {
-        const tabledata = JSON.parse(stepData[1].answer);
-        setData(resultData);
-        form.setFieldsValue({
-          didPayAnyEstimatedTaxesDuringTheYear:
-            resultData[
-              findIndexData("didPayAnyEstimatedTaxesDuringTheYear", resultData)
-            ].answer,
-        });
-
-        let newdata = JSON.parse(tabledata.data);
-        setOriginData(newdata);
-        if (newdata.length > 0) {
-          newdata.forEach((item: Item, i: number) => {
-            console.log(item?.datePaid, "item?.datePaid");
-            form.setFieldsValue({
-              [`federal${item.key}`]: item?.federal || "",
-              [`state${item.key}`]: item?.state || "",
-              // [`datePaid${item.key}`]: item?.datePaid ? new Date(item?.datePaid) : null,
-              [`datePaid${item.key}`]: item?.datePaid
-                ? moment(
-                    moment(item?.datePaid)
-                      .format(DEFAULT_DATE_FORMAT)
-                      .toString(),
-                    DEFAULT_DATE_FORMAT,
-                  )
-                : null,
-            });
+          console.log(resultData,'resultDataresultData',stepData  ,stepData[1].answer);
+          setData(resultData)
+          let estimatedIndex = findIndexData('estimatedTaxesPaidTableInfo',data)
+          if (stepData.length > 1 && stepData[estimatedIndex]?.answer ) {
+            try {
+              const tabledata = JSON.parse(stepData[estimatedIndex].answer);
+              if (tabledata?.data) {
+                let newdata = JSON.parse(tabledata.data);
+                setOriginData(newdata);
+                
+                if (newdata.length > 0) {
+                  newdata.forEach((item: Item, i: number) => {
+                    console.log(item?.datePaid, "item?.datePaid");
+                    form.setFieldsValue({
+                      [`paytype${item.key}`]: item?.paytype || "",
+                      [`paytype_amount${item.key}`]: item?.paytype_amount || "",
+                      [`datePaid${item.key}`]: item?.datePaid
+                        ? moment(
+                            moment(item?.datePaid)
+                              .format(DEFAULT_DATE_FORMAT)
+                              .toString(),
+                            DEFAULT_DATE_FORMAT,
+                          )
+                        : null,
+                    });
+                  });
+                }
+              }
+            } catch (error) {
+              console.error("Error parsing JSON:", error);
+            }
+          }
+          resultData.forEach((item: any) => {
+            console.log(item.question,'item.question');
+            
+            if (item.isFile) {
+              form.setFieldsValue({
+                [item.question]: item.files,
+              });
+            } else {
+              form.setFieldsValue({
+                [item.question]: item.answer,
+              });
+            }
           });
-        }
-      }
+          // resultData.length >= DATA_KEY.length && setData([...resultData])
     }
   }, [dataOrganizer]);
 
@@ -248,30 +298,30 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
     );
   };
   useEffect(() => {
-    console.log(data, 'DATAAAAAAAA');
-  
+    console.log(data, "DATAAAAAAAA");
+
     if (dataOrganizer && dataTabel) {
-      console.log(dataOrganizer, 'dataOrganizer__________');
+      console.log(dataOrganizer, "dataOrganizer__________");
       console.log(dataOrganizer, "Data Organization");
-  
+
       const questionKey = "previousTaxYear"; // The question you want to match
-  
+
       // Find the object with the matching question
       const foundItem = dataOrganizer.find(
-        (item: any) => item.question === questionKey
+        (item: any) => item.question === questionKey,
       );
       console.log(foundItem, "Found Item");
-  
+
       // Get the answer if found, otherwise default to an empty string
       const prevTaxYear = foundItem ? foundItem.answer : "";
-  
+
       // Ensure that prevTaxYear is not empty before proceeding
       if (!prevTaxYear) return;
-  
+
       setpreviousTaxYear(prevTaxYear); // This is asynchronous!
-  
+
       const nextYear = (parseInt(prevTaxYear, 10) + 1).toString();
-  
+
       const updatedData = (dataTabel || []).map((item, index) => {
         const dates = [
           `April 15, ${prevTaxYear}`,
@@ -280,20 +330,30 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
           `Jan 15, ${nextYear}`,
         ];
         return {
-          ...item,
-          name: `${item.name} (${dates[index] || ""})`, // Avoid out-of-bounds errors
+          ...item
         };
       });
-  
+
       setOriginData(updatedData);
     }
   }, [dataOrganizer, dataTabel]); // Dependency array ensures correct re-renders
-  
-  const mergedColumns = columns.map(col => {
+
+  const mergedColumns = [
+    ...columns,
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (_: any, record: Item) => (
+        <Button type="link" danger onClick={() => deleteRow(record.key)}>
+          Delete
+        </Button>
+      ),
+      editable: true,
+    },
+  ].map(col => {
     if (!col.editable) {
       return col;
     }
-
     return {
       ...col,
       onCell: (record: Item) => ({
@@ -301,13 +361,16 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         inputType: col.dataIndex,
         dataIndex: col.dataIndex,
         title: col.title,
+        deleteRow, // Pass deleteRow function here
       }),
     };
   });
-
-  const restField = () => {
-    const nextYear = (parseInt(previousTaxYear, 10) + 1).toString();
   
+  
+  const restField = () => {
+    console.log('restField...')
+    const nextYear = (parseInt(previousTaxYear, 10) + 1).toString();
+
     const updatedData = [
       {
         key: "1",
@@ -359,13 +422,14 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
     });
     setOriginData(updatedData);
 
-    form.resetFields(["estimatedTaxesPaidTableInfo"]);
+    form.resetFields(["estimatedTaxesPaidTableInfo",'doYouHaveOnlinePaymentConfirmation','onlinePaymentConfirmationAttachment']);
   };
 
   const onFinish = async (values: any) => {
     try {
+      console.log(data ,'newData')
       const newData = [...data];
-      newData[1].answer = JSON.stringify({
+      newData[findIndexData('estimatedTaxesPaidTableInfo',data)].answer = JSON.stringify({
         data: JSON.stringify(originData),
         columns: JSON.stringify(columns),
       });
@@ -380,17 +444,28 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
 
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
+    console.log(value,"hiiii are you calling...",);
+    
     if (name === "didPayAnyEstimatedTaxesDuringTheYear") {
+      console.log('didPayAnyEstimatedTaxesDuringTheYear ',value)
       const newData = [...data];
       newData[0].answer = value[name];
       setData(newData);
-      !newData[0].answer && restField();
+      if(!newData[0].answer){
+        data[findIndexData("doYouHaveOnlinePaymentConfirmation", data)].answer=null
+        data[findIndexData("onlinePaymentConfirmationAttachment", data)].answer=null
+        data[findIndexData("onlinePaymentConfirmationAttachment", data)].files=null
+
+
+        restField()
+      }
       return;
     }
 
     const columnIndex = +name[name.length - 1] - 1;
     const filedName = name.replace(/.$/, "");
 
+    if(isNaN(columnIndex)) return
     const newOriginData = [...originData];
     newOriginData[columnIndex] = {
       ...newOriginData[columnIndex],
@@ -399,9 +474,33 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
 
     setOriginData(newOriginData);
   };
+  const addRow = () => {
+    const newKey = (originData.length + 1).toString();
+    setOriginData([
+      ...originData,
+      {
+        key: newKey,
+        federal: "",
+        state: "",
+        datePaid: "",
+        attachement: "",
+      },
+    ]);
+  };
+  
+  const deleteRow = (key: string) => {
+    if (originData.length <= 1) {
+      // Prevent deleting the last row
+      return;
+    }
+  
+    setOriginData(originData.filter(item => item.key !== key));
+  };
+  
+  
 
   const questionContainer = (dataQuestion: any) => {
-    const { key, question, children,required } = dataQuestion;
+    const { key, question, children, required } = dataQuestion;
     const index: number = +findIndexData(key, data);
     return (
       <OrganizerQuestionCard
@@ -424,9 +523,37 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
       </OrganizerQuestionCard>
     );
   };
+  const handleFileUpload = (file: any) => {
+    const newData = [...data];
+    const fileIndex = findIndexData("onlinePaymentConfirmationAttachment", data);
 
+    if (fileIndex !== undefined) {
+      // const newFileList = newData[fileIndex].files ? [...newData[fileIndex].files, file] : file;
+      console.log('newFileList' ,file)
+      newData[fileIndex].files = file && file.fileList;
+      newData[fileIndex].answer = file;
+      form.setFieldsValue({
+        "onlinePaymentConfirmationAttachment": file,
+      });
+
+      setData(newData);
+    }
+  };
+  const handleFileRemove = (index: number) => {
+    const newData = [...data];
+    const fileIndex = findIndexData("onlinePaymentConfirmationAttachment", data);
+
+    if (fileIndex !== undefined && newData[fileIndex]?.files) {
+      const newFileList = [
+        ...newData[fileIndex].files.slice(0, index),
+        ...newData[fileIndex].files.slice(index + 1),
+      ];
+      newData[fileIndex].files = newFileList;
+      setData(newData);
+    }
+  };
   return (
-    <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish}>
+    <Form form={form} onValuesChange={onValuesChange} onFinish={onFinish} onError={(e)=>console.log("erwerewrw",e)}>
       <div>
         <p className={styles.text}>
           {
@@ -449,30 +576,91 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: "didPayAnyEstimatedTaxesDuringTheYear",
           question: t("organizer.individual.yes_flow.step4.radio_question1"),
-          required:true,
+          required: true,
           children: radio({
             name: "didPayAnyEstimatedTaxesDuringTheYear",
             radioButtons: radioButtons,
-            required:true,
-            message:"Select Yes/No",
+            required: true,
+            message: "Select Yes/No",
             value:
               data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]
-                ?.answer === "true",
+                ?.answer === true,
             onChange: ({ target: { value } }) => {
               const newData = [...data];
-              newData[newData.length - 1].answer = value;
+              newData[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)].answer = value;
               setData(newData);
             },
           }),
         })}
-        
+        {data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]?.answer &&
+          questionContainer({
+            key: "doYouHaveOnlinePaymentConfirmation",
+            question: t("organizer.individual.yes_flow.step4.radio_question2"),
+            required: true,
+            children: radio({
+              name: "doYouHaveOnlinePaymentConfirmation",
+              radioButtons: radioButtons,
+              required: true,
+              message: "Select Yes/No",
+              value:
+                data[findIndexData("doYouHaveOnlinePaymentConfirmation", data)]
+                  ?.answer === "true",
+              onChange: ({ target: { value } }) => {
+                const newData = [...data];
+                newData[findIndexData("doYouHaveOnlinePaymentConfirmation", data)].answer = value;
+                setData(newData);
+              },
+            }),
+          })}
+        {data[findIndexData("doYouHaveOnlinePaymentConfirmation", data)]
+          .answer &&
+          questionContainer({
+            key: "onlinePaymentConfirmationAttachment",
+            question: t(
+              "organizer.individual.yes_flow.step4.radio_question3",
+            ),
+            required: true,
+            children: upload({
+              key: "onlinePaymentConfirmationAttachment",
+              data: data,
+              required: true,
+              allowedFileTypes: ["application/pdf", "image/jpeg"],
+              buttonText: t("organizer.individual.yes_flow.step3.attach"),
+              dispatch: dispatch,
+              minCount: 1,
+              onClick: (index = 0) => {
+                dispatch(
+                  downloadFile(
+                    data[
+                      findIndexData("onlinePaymentConfirmationAttachment", data)
+                    ].files[index].id,
+                    data[
+                      findIndexData("onlinePaymentConfirmationAttachment", data)
+                    ].files[index].name,
+                  ),
+                );
+              },
+              onRemove: handleFileRemove,
+              onChange: (info: any) => {
+                if (info.file.status === 'done') {
+                  console.log(info,'handleFileUpload')
+                  handleFileUpload(info);
+                }
+              },
+              maxCount: 2,
+            }),
+          })}
       </div>
-      {data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]
+      {!data[findIndexData("doYouHaveOnlinePaymentConfirmation", data)]
+        .answer === true && data[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)]
         .answer === true &&
         questionContainer({
           key: "estimatedTaxesPaidTableInfo",
           children: (
-            <Table
+            <><Button type="primary" onClick={addRow} style={{ marginBottom: 16 }}>
+            Add Row
+          </Button>
+          <Table
               components={{
                 body: {
                   cell: EditableCell,
@@ -483,8 +671,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
               columns={mergedColumns}
               pagination={false}
               scroll={{ x: 1070 }}
-              style={{ width: "50vw" }}
-            />
+              style={{ width: "50vw" }} /></>
           ),
         })}
       <CircularDirection

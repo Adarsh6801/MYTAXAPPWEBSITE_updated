@@ -60,6 +60,7 @@ export const setIndividualOrganizer =
           if (item.isFile) {
             if (key === "files" && item.files) {
               item.answer.fileList?.forEach((file: any) => {
+                console.log(file.originFileObj,'file.originFileObj')
                 formData.append(
                   `questionList[${index}].files`,
                   file.originFileObj,
