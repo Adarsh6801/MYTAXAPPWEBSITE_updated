@@ -50,10 +50,13 @@ export const input = (data: IInput) => {
     isNumericOnly = false,
     customOnChange,
     pattern,
+    form,
     maskedInputPhone,
   } = data;
   
   console.log(maskedInputPhone, "maskedInputPhone");
+  console.log(required, "required----------------");
+
   const handleChange = (e:any) => {
     let value = e.target.value;
     console.log(value, "vvvvvvvvvvvvvvvvvvvveeeeeee" ,e.unmaskedValue);
@@ -87,6 +90,11 @@ export const input = (data: IInput) => {
       message: message || `Enter ${label || name}.`,
     });
   }
+    // ✅ Clear validation errors when required is false
+    if (!required && form) {
+      form.setFields([{ name, errors: [] }]);
+    }
+  
   if (pattern?.value) {
     rules.push({
       pattern: pattern?.value,
@@ -258,13 +266,17 @@ export const upload = (dataUpload: IUpload) => {
     onRemove,
     dispatch,
     required = false,
+    form,
     allowedFileTypes = [], // Allow passing allowed file types
   } = dataUpload;
 
-  const rules = [];
+  let rules = [];
   
+  console.log(required ,'isRequired.............')
   // Required validation
   if (required) {
+    console.log("JIIII");
+    
     rules.push({
       validator: async (_: any, value: string | any[]) => {
         const fileList = data[findIndexData(key, data)]?.files || []; 
@@ -280,6 +292,160 @@ export const upload = (dataUpload: IUpload) => {
         return Promise.resolve();
       },
     });
+  }else {
+    // **Clear errors when required is false**
+    if (form) {
+      form.setFields([{ name: key, errors: [] }]);
+    }
+    
+  }
+
+
+
+
+  const beforeUpload = (file: UploadFile, fileList: UploadFile[]) => {
+    // Get current uploaded files count
+    const currentFiles = data[findIndexData(key, data)]?.files || [];
+    
+    // Check if adding new files will exceed the maxCount limit
+    if (currentFiles.length + fileList.length > maxCount) {
+      message.error(`You can only upload up to ${maxCount} files.`);
+      return Upload.LIST_IGNORE; // Prevent upload
+    }
+  
+    // Check file type
+    if (!file.type || !file.size) return;
+  
+    const isAllowedType = allowedFileTypes.length > 0
+      ? allowedFileTypes.includes(file.type)
+      : ["image/png", "image/jpeg", "image/jpg", "application/pdf", "application/doc", "application/xlsx", "application/docx"].includes(file.type);
+  
+    if (!isAllowedType) {
+      message.error(`Invalid file type. Allowed types: ${allowedFileTypes.join(", ")}`);
+      return Upload.LIST_IGNORE; // Skip file upload
+    }
+  
+    // Check file size (10MB limit)
+    const maxSize = 10 * 1024 * 1024; 
+    if (file.size > maxSize) {
+      message.error("File size exceeds the limit of 10MB.");
+      return Upload.LIST_IGNORE; // Skip file upload
+    }
+  
+    return true; // File is valid, allow upload
+  };
+  
+
+  // Convert allowed file types to a string format
+  let allowedFileTypesString = "";
+  if (allowedFileTypes && allowedFileTypes.length > 0) {
+    allowedFileTypesString = allowedFileTypes.join(",");
+  }
+
+  return (
+    <div className={styles.uploadContainer}>
+      <Form.Item name={key} required={required} label={
+          label ? (
+            <span>
+              {label}
+              {required && <span style={{ color: 'red' }}>*</span>}
+            </span>
+          ) : null
+        } valuePropName="file" rules={rules} validateFirst='parallel' >
+        <Upload
+          accept={allowedFileTypesString.length > 0 ? allowedFileTypesString : "image/png,image/jpeg,image/jpg,application/pdf,application/doc,application/xlsx,application/docx"}
+          customRequest={dummyRequest}
+          showUploadList={false}
+          maxCount={maxCount}
+          multiple={multiple}
+          beforeUpload={beforeUpload}
+          onChange={onChange}
+        >
+          <Button icon={<Attach />} text={buttonText} type="ghost" />
+        </Upload>
+      </Form.Item>
+      {data[findIndexData(key, data)]?.files &&
+        data[findIndexData(key, data)]?.files.length > 0 &&
+        data[findIndexData(key, data)]?.files.map((item: any, index: number) => {
+          return (
+            <div key={index} className={styles.uploadFileContainer}>
+              <Tooltip
+                key={`conversation_file_${index}`}
+                title={`Click to download ${data[findIndexData(key, data)].files[index].name}`}
+              >
+                <Button
+                  type="text"
+                  icon={<Attach />}
+                  className={styles.attachedItemBtn}
+                  onClick={() => {
+                    data[findIndexData(key, data)].files[index]?.id && onClick(index);
+                  }}
+                />
+              </Tooltip>
+              <Tooltip key={`conversation_file_${index}`} title={"Remove"}>
+                <Button
+                  type="text"
+                  icon={<Delete />}
+                  className={styles.attachedItemBtn}
+                  onClick={async () => {
+                    try {
+                      await dispatch(deleteUploadFile(data[findIndexData(key, data)].files[index]?.id));
+                      onRemove(index);
+                    } catch (error) {
+                      // Handle error (e.g., setError)
+                    }
+                  }}
+                />
+              </Tooltip>
+            </div>
+          );
+        })}
+    </div>
+  );
+};
+
+
+export const Uploads = (dataUpload: IUpload) => {
+  const {
+    key,
+    onChange,
+    label,
+    index,
+    buttonText = "Attach",
+    multiple = true,
+    maxCount = 20,
+    minCount = 0, 
+    data,
+    onClick,
+    onRemove,
+    dispatch,
+    required = false,
+    allowedFileTypes = [], // Allow passing allowed file types
+  } = dataUpload;
+
+  const rules = [];
+  
+  // Required validation
+  if (required) {
+    console.log("JIIII");
+    
+    rules.push({
+      validator: async (_: any, value: string | any[]) => {
+        const fileList = data[findIndexData(key, data)]?.files || []; 
+        if (!value || value.length === 0) {
+          return Promise.reject(new Error("File is required."));
+        }
+        
+      if (fileList.length < minCount) {
+        return Promise.reject(
+          new Error(`Please upload at least ${minCount} file(s).`),
+        );
+      }
+        return Promise.resolve();
+      },
+    });
+  }else{
+
   }
 
 
@@ -387,7 +553,6 @@ export const upload = (dataUpload: IUpload) => {
 };
 
 
-
 export const select = (dataSelect: ISelect) => {
   const {
     name,
@@ -401,6 +566,7 @@ export const select = (dataSelect: ISelect) => {
     maxLength,
     minLengthMessage,
     maxLengthMessage,
+    form
   } = dataSelect;
 
   const rules = [];
@@ -410,6 +576,10 @@ export const select = (dataSelect: ISelect) => {
       message: message || `Enter ${label || name}`,
     });
   }
+  if (!required && form) {
+    form.setFields([{ name, errors: [] }]);
+  }
+
   if (minLength) {
     rules.push({
       min: minLength,
@@ -464,6 +634,7 @@ export const dataPicker = (dataPicker: IDataPicker) => {
     message = false,
     minLengthMessage,
     maxLengthMessage,
+    form
   } = dataPicker;
 
   const rules = [];
@@ -473,6 +644,10 @@ export const dataPicker = (dataPicker: IDataPicker) => {
       message: message || `Enter ${label || name}`,
     });
   }
+  if (!required && form) {
+    form.setFields([{ name, errors: [] }]);
+  }
+
   if (minLength) {
     rules.push({
       min: minLength,

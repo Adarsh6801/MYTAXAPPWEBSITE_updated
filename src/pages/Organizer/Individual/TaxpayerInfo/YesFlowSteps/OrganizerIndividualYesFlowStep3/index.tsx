@@ -41,6 +41,7 @@ import {
   ssnInput,
   phoneNumberInput,
   InputMask,
+  Uploads,
 } from "../../../../../../components/Module";
 import { downloadFile } from "../../../../../../redux/conversationSlice";
 import {
@@ -249,7 +250,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
         required={required}
         className={getClassNames(styles.questionContainer)}
       >
-        {children}
+        { required ?  children : children}
       </OrganizerQuestionCard>
     );
   };
@@ -259,6 +260,12 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
 
     setHasDriverLicenseImages(fileList.fileList.length > 0);
   };
+
+
+  let isRequired = !(form.getFieldValue("spouseDriversLicense") &&
+  form.getFieldValue("spouseDriversLicenseState") &&
+  form.getFieldValue("spouseDriversLicenseIssuedDate") &&
+  form.getFieldValue("spouseDriversLicenseExpiresDate"))
 
   return (
     <Form
@@ -424,6 +431,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                         label: t(
                           "organizer.individual.yes_flow.step3.drivers_license",
                         ),
+                        form,
                         required: true,
                         placeholder: "A5407613",
                         pattern: {
@@ -492,8 +500,9 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                         label: t(
                           "organizer.individual.yes_flow.step3.drivers_license",
                         ),
-
                         placeholder: "A5407613",
+                        form,
+                        required:false,
                         pattern: {
                           value: /^[A-Za-z0-9]{8,14}$/, // Allows letters, numbers, spaces, and '/'
                           message:
@@ -507,6 +516,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                         name: "spouseDriversLicenseState",
                         label: t("organizer.individual.yes_flow.step3.state"),
                         data: dataState,
+                        form,
+                        required:false,
 
                         placeholder: "CA",
                       }),
@@ -520,6 +531,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                             "organizer.individual.yes_flow.step3.issued_date",
                           ),
                           icon: <Calendar />,
+                          form,
+                          required:false,
                           disabledDate: disabledDateFuture,
                           defaultValue:
                             data[
@@ -527,7 +540,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                                 "spouseDriversLicenseIssuedDate",
                                 data,
                               )
-                            ].answer,
+                            ]?.answer,
                         }),
                       })}
                       <div className={styles.zipCode}>
@@ -537,6 +550,8 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                             "organizer.individual.yes_flow.step3.expires",
                           ),
                           icon: <Calendar />,
+                          form,
+                          required:false,
                           disabledDate: disabledDatePast,
                           defaultValue:
                             data[
@@ -544,7 +559,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                                 "spouseDriversLicenseExpiresDate",
                                 data,
                               )
-                            ].answer,
+                            ]?.answer,
                         })}
                       </div>
                     </div>
@@ -556,21 +571,12 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   question: t(
                     "organizer.individual.yes_flow.step3.images_drivers_license",
                   ),
-                  required: !(
-                    form.getFieldValue("spouseDriversLicense") &&
-                    form.getFieldValue("spouseDriversLicenseState") &&
-                    form.getFieldValue("spouseDriversLicenseIssuedDate") &&
-                    form.getFieldValue("spouseDriversLicenseExpiresDate")
-                  ),
+                  required:isRequired,
                   children: upload({
                     key: "spouseImagesOfDriversLicense",
                     data: data,
-                    required: !(
-                      form.getFieldValue("spouseDriversLicense") &&
-                      form.getFieldValue("spouseDriversLicenseState") &&
-                      form.getFieldValue("spouseDriversLicenseIssuedDate") &&
-                      form.getFieldValue("spouseDriversLicenseExpiresDate")
-                    ),
+                    required:isRequired,
+                    form,
                     allowedFileTypes: ["application/pdf", "image/jpeg"],
                     buttonText: t("organizer.individual.yes_flow.step3.attach"),
                     dispatch: dispatch,
@@ -619,6 +625,62 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     maxCount: 1,
                     onChange: handleDriverLicenseImagesChange,
                   }),
+                  // children: <Uploads
+                  //   key={ "spouseImagesOfDriversLicense"}
+                  //   data= {data}
+                  //   required={!(
+                  //         form.getFieldValue("spouseDriversLicense") &&
+                  //         form.getFieldValue("spouseDriversLicenseState") &&
+                  //         form.getFieldValue("spouseDriversLicenseIssuedDate") &&
+                  //         form.getFieldValue("spouseDriversLicenseExpiresDate")
+                  //       )}
+                  //       allowedFileTypes={ ["application/pdf", "image/jpeg"]}
+                  //       buttonText={ t("organizer.individual.yes_flow.step3.attach")}
+                  //       dispatch={ dispatch}
+                  //       onClick={ (index = 0) => {
+                  //             dispatch(
+                  //               downloadFile(
+                  //                 data[
+                  //                   findIndexData("spouseImagesOfDriversLicense", data)
+                  //                 ].files[index].id,
+                  //                 data[
+                  //                   findIndexData("spouseImagesOfDriversLicense", data)
+                  //                 ].files[index].name,
+                  //               ),
+                  //             );
+                  //           }}
+                  //                      onRemove={ (index = 0) => {
+                  //     console.log("Data before removal:", data); // Log the entire data object
+                  //     const newData = [...data];
+                  //     const fileIndex = findIndexData(
+                  //       "spouseImagesOfDriversLicense",
+                  //       data,
+                  //     );
+
+                  //     // Ensure the fileIndex exists and is correct
+                  //     if (
+                  //       fileIndex !== undefined &&
+                  //       newData[fileIndex]?.files
+                  //     ) {
+                  //       const newFileList = [
+                  //         ...newData[fileIndex].files.slice(0, index),
+                  //         ...newData[fileIndex].files.slice(index + 1),
+                  //       ];
+
+                  //       console.log("Updated file list:", newFileList); // Log the updated list
+                  //       newData[fileIndex].files = newFileList;
+
+                  //       setData([...newData]);
+                  //     } else {
+                  //       console.error(
+                  //         "Failed to find file index or file list:",
+                  //         newData,
+                  //       );
+                  //     }
+                  //   }}
+                  //   maxCount= {1}
+                  //   onChange={ handleDriverLicenseImagesChange}
+                  // />,
                 })}
             </div>
           )}

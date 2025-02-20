@@ -1,6 +1,7 @@
 import { Dispatch } from "react";
 import { IRadioGroupItem } from "../../../components/RadioGroup/index.props";
 import { IDataItem } from "../../../components/Select/index.props";
+import { FormInstance } from "antd";
 
 export interface ITaxPayerInfoStepsProps {
   state: any;
@@ -66,6 +67,7 @@ export interface IInput {
   };
   maskedInputPhone?: boolean;
   maskFormat?: string;
+  form?:FormInstance
 }
 
 export interface IInputMask {
@@ -121,6 +123,7 @@ export interface IUpload {
   allowedFileTypes?: string[];
   minCount?: number;
   onChange?: (info: any) => void; 
+  form?: FormInstance; // ✅ Add this line
 }
 
 export interface ISelect {
@@ -135,6 +138,7 @@ export interface ISelect {
   minLengthMessage?: string; // Custom message for minLength
   maxLengthMessage?: string; // Custom message for maxLength
   placeholder?: string; // Add this property
+  form?:FormInstance
 }
 
 export interface IDataPicker {
@@ -151,6 +155,8 @@ export interface IDataPicker {
   minLengthMessage?: string; // Custom message for minLength
   maxLengthMessage?: string; // Custom message for maxLength
   isNumericOnly?: boolean;
+  form?:FormInstance
+
 }
 
 export interface IDataCheckbox {
