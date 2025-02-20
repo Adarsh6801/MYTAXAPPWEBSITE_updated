@@ -1,9 +1,7 @@
 export interface Item {
   key: string;
-  federal: string;
-  state: string;
   datePaid: string;
-  paytype_amount?: string;
+  paytype_amount: string;
   paytype?: string;
 }
 

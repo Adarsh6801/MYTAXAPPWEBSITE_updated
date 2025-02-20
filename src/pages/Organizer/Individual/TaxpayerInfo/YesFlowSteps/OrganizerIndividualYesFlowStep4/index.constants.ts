@@ -50,10 +50,9 @@ export const dataTaxpayerQuestion = [
 export const dataTabel = [
   {
     key: "1",
-    federal: "",
-    state: "",
     datePaid: "",
-    attachement: "",
+    paytype:"",
+    paytype_amount:"",
   }
 ];
 

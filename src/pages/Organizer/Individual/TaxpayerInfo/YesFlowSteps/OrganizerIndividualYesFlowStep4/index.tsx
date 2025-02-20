@@ -55,7 +55,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   const [selectedType, setSelectedType] = useState<string>("federal");
   let inputNode = (
     <Input
-      defaultValue={record.federal.toString()}
+      defaultValue={record.paytype_amount.toString()}
       type={"number"}
       placeholder="3,500 "
     />
@@ -64,7 +64,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   if (inputType === "paytype_amount") {
     inputNode = (
       <Input
-        defaultValue={record.state.toString()}
+        defaultValue={record.paytype_amount.toString()}
         type={"number"}
         placeholder="3,500"
         
@@ -246,28 +246,25 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
           let estimatedIndex = findIndexData('estimatedTaxesPaidTableInfo',data)
           if (stepData.length > 1 && stepData[estimatedIndex]?.answer ) {
             try {
+              console.log(stepData[estimatedIndex].answer,'stepData[estimatedIndex].answer')
               const tabledata = JSON.parse(stepData[estimatedIndex].answer);
               if (tabledata?.data) {
                 let newdata = JSON.parse(tabledata.data);
+                console.log(newdata, 'newdatanewdata');
+                
                 setOriginData(newdata);
                 
                 if (newdata.length > 0) {
                   newdata.forEach((item: Item, i: number) => {
-                    console.log(item?.datePaid, "item?.datePaid");
+                    console.log(item, "item?.datePaid");
                     form.setFieldsValue({
                       [`paytype${item.key}`]: item?.paytype || "",
                       [`paytype_amount${item.key}`]: item?.paytype_amount || "",
-                      [`datePaid${item.key}`]: item?.datePaid
-                        ? moment(
-                            moment(item?.datePaid)
-                              .format(DEFAULT_DATE_FORMAT)
-                              .toString(),
-                            DEFAULT_DATE_FORMAT,
-                          )
-                        : null,
+                      [`datePaid${item.key}`]: item?.datePaid ? moment(item?.datePaid) : null,
                     });
                   });
                 }
+                
               }
             } catch (error) {
               console.error("Error parsing JSON:", error);
@@ -323,18 +320,12 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
       const nextYear = (parseInt(prevTaxYear, 10) + 1).toString();
 
       const updatedData = (dataTabel || []).map((item, index) => {
-        const dates = [
-          `April 15, ${prevTaxYear}`,
-          `June 15, ${prevTaxYear}`,
-          `Sept 15, ${prevTaxYear}`,
-          `Jan 15, ${nextYear}`,
-        ];
         return {
           ...item
         };
       });
 
-      setOriginData(updatedData);
+      // setOriginData(updatedData);
     }
   }, [dataOrganizer, dataTabel]); // Dependency array ensures correct re-renders
 
@@ -374,50 +365,13 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
     const updatedData = [
       {
         key: "1",
-        name: t("organizer.individual.yes_flow.step4.question1"),
-        dataKey: "firstQuarter",
-        federal: "",
-        state: "",
         datePaid: "",
-        attachement: "",
-      },
-      {
-        key: "2",
-        name: t("organizer.individual.yes_flow.step4.question2"),
-        dataKey: "secondeQuarter",
-        federal: "",
-        state: "",
-        datePaid: "",
-        attachement: "",
-      },
-      {
-        key: "3",
-        name: t("organizer.individual.yes_flow.step4.question3"),
-        dataKey: "thirdQuarter",
-        federal: "",
-        state: "",
-        datePaid: "",
-        attachement: "",
-      },
-      {
-        key: "4",
-        name: t("organizer.individual.yes_flow.step4.question4"),
-        dataKey: "fourthQuarter",
-        federal: "",
-        state: "",
-        datePaid: "",
-        attachement: "",
+        paytype:"",
+        paytype_amount:""
       },
     ].map((item, index) => {
-      const dates = [
-        `April 15, ${previousTaxYear}`,
-        `June 15, ${previousTaxYear}`,
-        `Sept 15, ${previousTaxYear}`,
-        `Jan 15, ${nextYear}`,
-      ];
       return {
-        ...item,
-        name: `${item.name} (${dates[index] || ""})`, // Avoid out-of-bounds errors
+        ...item
       };
     });
     setOriginData(updatedData);
@@ -429,6 +383,8 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
     try {
       console.log(data ,'newData')
       const newData = [...data];
+      console.log(originData,'originDataoriginDataoriginDataoriginData');
+      
       newData[findIndexData('estimatedTaxesPaidTableInfo',data)].answer = JSON.stringify({
         data: JSON.stringify(originData),
         columns: JSON.stringify(columns),
@@ -480,10 +436,9 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
       ...originData,
       {
         key: newKey,
-        federal: "",
-        state: "",
         datePaid: "",
-        attachement: "",
+        paytype:"",
+        paytype_amount:""
       },
     ]);
   };
@@ -667,7 +622,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
                 },
               }}
               bordered
-              dataSource={originData}
+              dataSource={ console.log(originData ,'originData') as any || originData}
               columns={mergedColumns}
               pagination={false}
               scroll={{ x: 1070 }}
