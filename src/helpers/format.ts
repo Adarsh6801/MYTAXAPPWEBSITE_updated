@@ -105,7 +105,7 @@ export const getCurrentType = (data: any) => {
     case QUESTION_TYPE_ANSWER.json:
       return {
         ...data,
-        answer: JSON.parse(data.answer),
+        answer: data.answer?JSON.parse(data.answer):"",
         message: data.message === "null" ? null : data.message,
       };
     default:

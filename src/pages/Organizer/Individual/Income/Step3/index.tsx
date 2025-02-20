@@ -96,6 +96,8 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
             });
           }
         });
+        console.log(resultData,'resultDataaaaaaaaaaaaaaaa');
+        
         setData(resultData);
 
         setCountTaxPayer(

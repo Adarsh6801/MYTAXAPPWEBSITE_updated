@@ -241,8 +241,8 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-          console.log(resultData,'resultDataresultData',stepData  ,stepData[1].answer);
-          setData(resultData)
+          // console.log(resultData,'resultDataresultData',stepData  ,stepData[1].answer);
+          resultData.length >= DATA_KEY.length && setData(resultData)
           let estimatedIndex = findIndexData('estimatedTaxesPaidTableInfo',data)
           if (stepData.length > 1 && stepData[estimatedIndex]?.answer ) {
             try {
