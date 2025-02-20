@@ -32,3 +32,21 @@
 .questionContainer {
   grid-template-columns: auto;
 }
+.inlineText {
+  display: flex; /* Aligns items in a row */
+  align-items: center; /* Ensures vertical alignment */
+  gap: 4px; /* Adds a small gap between text and * */
+  font-size: 16px; /* Adjust based on your design */
+}
+
+.additionalInfo {
+  font-weight: bold; /* Make it stand out */
+  color: #555; /* Slightly darkened text */
+}
+
+.requiredSymbol {
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 4px; /* Ensures spacing from the text */
+}

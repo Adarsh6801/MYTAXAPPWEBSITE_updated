@@ -91,12 +91,20 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               [item.question]: item.files,
             });
           } else {
+            if(item.question === 'taxPayerBusiness_EmployerIDNumber1') {
+              console.log('taxPayerBusiness_EmployerIDNumber1' ,item.question , item.answer)
+              form.setFieldsValue({
+                [item.question]:item.question,
+              });
+              return
+            }
+              
             form.setFieldsValue({
               [item.question]: item.answer,
             });
           }
         });
-        console.log(resultData,'resultDataaaaaaaaaaaaaaaa');
+        console.log(resultData,'resultDataaaaaaaaaaaaaaaa' , form.getFieldsValue());
         
         setData(resultData);
 
@@ -191,7 +199,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               placeholder = "XX-XXXXXXX";
               inputComponent = (
                 <InputMask
-                  name={names[key]}
+                  name={ console.log(names[key] ,'names[key]') as any ||  names[key]}
                   label={t(`organizer.individual.income.step3.question${index + 1}`)}
                   placeholder={placeholder}
                   required={required}

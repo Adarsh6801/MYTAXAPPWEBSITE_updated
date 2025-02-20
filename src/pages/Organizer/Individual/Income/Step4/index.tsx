@@ -35,6 +35,7 @@ import {
 import { checkbox, input, radio } from "../../../../../components/Module";
 
 import styles from "./index.module.css";
+import { color } from "html2canvas/dist/types/css/types/color";
 
 const noop = () => {};
 
@@ -582,17 +583,22 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   key: "taxPayer_TotalMilesDrivenThisYear",
                   required:true,
                   question: (
-                    <p>
-                      <Trans
-                        i18nKey="organizer.individual.income.step4.question7"
-                        values={{
-                          info: "Include all mileage –<br /> personal, commuting and business",
-                        }}
-                        components={[
-                          <span className={styles.additionalInfo}>text</span>,
-                        ]}
-                      />
-                    </p>
+
+
+                      <p>
+                        <Trans
+                          i18nKey="organizer.individual.income.step4.question7"
+                          values={{
+                            info: "Include all mileage –<br /> personal, commuting and business",
+                          }}
+                          components={[
+                            <span className={styles.additionalInfo}>text</span>,
+                          ]}
+                        />
+  
+                      <span style={{ color: 'red' }}>*</span>
+                      </p>
+       
                   ),
                   children: input({
                     name: "taxPayer_TotalMilesDrivenThisYear",
