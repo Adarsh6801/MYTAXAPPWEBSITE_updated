@@ -357,19 +357,20 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
     console.log('restField...')
     const nextYear = (parseInt(previousTaxYear, 10) + 1).toString();
 
-    const updatedData = [
-      {
-        key: "1",
-        datePaid: "",
-        paytype:"",
-        paytype_amount:""
-      },
-    ].map((item, index) => {
-      return {
-        ...item
-      };
-    });
-    setOriginData(updatedData);
+    // const updatedData = [
+    //   {
+    //     key: "1",
+    //     datePaid: "",
+    //     paytype:"",
+    //     paytype_amount:""
+    //   },
+    // ]
+    // setOriginData(updatedData);
+    // form.setFieldsValue({
+    //   [`paytype1`]: "",
+    //   [`paytype_amount1`]: "",
+    //   [`datePaid1`]: null,
+    // });
 
     form.resetFields(["estimatedTaxesPaidTableInfo",'doYouHaveOnlinePaymentConfirmation','onlinePaymentConfirmationAttachment']);
   };
@@ -539,6 +540,8 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
             onChange: ({ target: { value } }) => {
               const newData = [...data];
               newData[findIndexData("didPayAnyEstimatedTaxesDuringTheYear", data)].answer = value;
+              newData[findIndexData("doYouHaveOnlinePaymentConfirmation", data)].answer = false;
+
               setData(newData);
             },
           }),
