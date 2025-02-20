@@ -110,7 +110,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
               value: "federal",
             }
           ]}
-          placeholder='Select State / Federal'
+          placeholder='Type'
           style={{ width: 120 }}
           // onChange={(value) => setSelectedType(value)}
         >
@@ -141,11 +141,13 @@ const EditableCell: React.FC<EditableCellProps> = ({
   }
 
   const rules: ValidationRule[] = [];
-  if (title == "paytype") {
-    rules.push({ required: true, message: `Enter Federal Estimate Payment` });
+  console.log(title,'TITLEEE');
+  
+  if (title == "Payment Type") {
+    rules.push({ required: true, message: `Select Type` });
   } else if (title == "Date Paid") {
     rules.push({ required: true, message: `Enter ${title}` });
-  } else if(title!="Actions") {
+  } else if(title!="Actions" && title!="paytype") {
     rules.push({ required: true, message: `Enter ${title}` });
   }
 
@@ -153,17 +155,10 @@ const EditableCell: React.FC<EditableCellProps> = ({
     console.log(inputType, "inputType");
 
     rules.push({
-      pattern: /^\d{1,11}$/,
+      pattern: /^\d{1,11}(\.\d+)?$/,
       message: `${title} must be numeric and 11 numbers!`,
     });
-    rules.push({
-      min: 1,
-      message: `${title} must be at least 1 character!`,
-    });
-    // rules.push({
-    //   max: 11,
-    //   message: `${title} must be at most 11 characters!`,
-    // });
+
   }
 
   return (
@@ -425,9 +420,10 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
     const newOriginData = [...originData];
     newOriginData[columnIndex] = {
       ...newOriginData[columnIndex],
-      [filedName]: value[name],
+      [filedName]: 
+        filedName === "paytype_amount" ? Math.round(value[name]) : value[name],
     };
-
+    
     setOriginData(newOriginData);
   };
   const addRow = () => {

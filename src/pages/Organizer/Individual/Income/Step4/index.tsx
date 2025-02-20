@@ -202,10 +202,13 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
       dataIndex: "taxPayer",
       editable: true,
       render: (_: any, record: any) => {
+        console.log(record,'recordrecordrecord')
         return (
           // <Form.Item name={`taxPayer${record.key}`} style={{ margin: 0 }}>
           //   <Input defaultValue={record.taxPayer} required={true}  />
           // </Form.Item>
+         
+          
           <Form.Item
             label="Tax Payer"
             name={`taxPayer${record.key}`}
@@ -213,7 +216,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: "Enter total Rental-related miles driven during the year",
+                message: record.name==='Rental'?"Enter total Rental-related miles driven during the year":"Enter total Self Employed-related miles driven during the year.",
               },
               {
                 pattern: /^\d{1,6}$/,
@@ -221,7 +224,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
               },
             ]}
           >
-            <Input defaultValue={record.taxPayer} />
+            <Input defaultValue={record.taxPayer} placeholder={record.name==='Rental'?"1,500":"9,500"}/>
           </Form.Item>
         );
       },
@@ -238,7 +241,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: "Enter total Self Employed-related miles driven during the year.",
+                message: record.name==='Rental'?"Enter total Rental-related miles driven during the year":"Enter total Self Employed-related miles driven during the year.",
               },
               {
                 pattern: /^\d{1,6}$/,
@@ -246,7 +249,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
               },
             ]}
           >
-            <Input defaultValue={record.spouse} />
+            <Input defaultValue={record.spouse} placeholder={record.name==='Rental'?"1,500":"9,500"} />
           </Form.Item>
         );
       },
@@ -591,14 +594,16 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                         <Trans
                           i18nKey="organizer.individual.income.step4.question7"
                           values={{
-                            info: "Include all mileage –<br /> personal, commuting and business",
+                            info: "",
                           }}
                           components={[
-                            <span className={styles.additionalInfo}>text</span>,
+                            
+                            //<span className={styles.additionalInfo}>text</span>
                           ]}
                         />
+                        <span style={{ color: 'red' }}>*</span>
+                        <span className={styles.additionalInfo}>Include all mileage –<br /> personal, commuting and business</span>
   
-                      <span style={{ color: 'red' }}>*</span>
                       </p>
        
                   ),
@@ -798,6 +803,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                       ]
                     }
                     question={t("organizer.individual.income.step4.question8")}
+                    required={true}
                     onAlert={() => {
                       const newData = [...taxPayerAccountType];
                       newData[

@@ -421,7 +421,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   radioButtons: radioButton,
                 }),
               })}
-              {!data[findIndexData("isSpouseHasDriversLicense", data)].answer &&
+              {data[findIndexData("isSpouseHasDriversLicense", data)].answer==false &&
                 (!hasDriverLicenseImages ? (
                   <>
                     {questionContainer({
@@ -565,7 +565,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     </div>
                   </>
                 ))}
-              {!data[findIndexData("isSpouseHasDriversLicense", data)].answer &&
+              {data[findIndexData("isSpouseHasDriversLicense", data)].answer==false &&
                 questionContainer({
                   key: "spouseImagesOfDriversLicense",
                   question: t(
