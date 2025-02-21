@@ -78,40 +78,6 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
     init();
   }, []);
 
-  // useEffect(() => {
-  //   if (dataOrganizer) {
-  //     const stepData = dataOrganizer.filter((el: any) => {
-  //       return !!DATA_KEY.find(item => {
-  //         return el.question.includes(item);
-  //       });
-  //     });
-
-  //     const currentType = stepData.map((el: any) => {
-  //       return getCurrentType(el);
-  //     });
-
-  //     const resultData: any[] =
-  //       stepData.length > 0
-  //         ? addQuoteIdOrganizer(currentType, Number(quoteId))
-  //         : [];
-  //         console.log(resultData,'resultdataaaaaaaaa');
-  //         console.log(form.getFieldsValue(),'form.getFieldsValue()');
-          
-  //     resultData.forEach((item: any) => {
-  //       if (item.isFile) {
-  //         form.setFieldsValue({
-  //           [item.question]: item.files,
-  //         });
-  //       } else {
-  //         form.setFieldsValue({
-  //           [item.question]: item.answer,
-  //         });
-  //       }
-  //     });
-
-  //     resultData.length >= DATA_KEY.length && setData(resultData);
-  //   }
-  // }, [dataOrganizer]);
 
   useEffect(() => {
     if (!dataOrganizer || dataOrganizer.length === 0) return;
@@ -416,7 +382,6 @@ console.log(newData,'newDatanewData');
                                     key: "taxPayerRealEstateExpenses_MortgageInterestPaidToBanks_Attachement",
                                     data: data,
                                     required:true,
-                                    form,
                                     allowedFileTypes: ["application/pdf", "image/jpeg"],
                                     buttonText: t("organizer.individual.yes_flow.step3.attach"),
                                     dispatch: dispatch,
