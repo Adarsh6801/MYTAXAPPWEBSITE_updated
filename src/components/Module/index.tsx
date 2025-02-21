@@ -1017,11 +1017,11 @@ if (pattern?.value && !required) {
   className={getClassNames(inputStyle)}
   onChange={handleChange}
   required={required}
-  placeholder={placeholder || "(XXX) XXX-XXXX"} // ✅ Ensures proper placeholder
+  placeholder={placeholder || "(XXX) XXX-XXXX"}
+  value={defaultValue || ""}  // ✅ Ensuring controlled component
   maskOptions={{
     overwrite: false,
-    placeholderChar: "X", // ✅ Removes underscores (_) and uses spaces instead
-     // ✅ Ensures the placeholder is always visible
+    placeholderChar: "X",
   }}
 />
       </Form.Item>

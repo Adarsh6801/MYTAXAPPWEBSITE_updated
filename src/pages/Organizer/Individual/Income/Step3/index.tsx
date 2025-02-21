@@ -29,11 +29,13 @@ import {
   getCurrentType,
   getDynamicDataCount,
 } from "../../../../../helpers/format";
-import { input, InputMask } from "../../../../../components/Module";
+import { input, InputMask, radio, upload } from "../../../../../components/Module";
 import { QUESTION_TYPE_ANSWER } from "../../../../../constants/organizer";
 import { IQuestionContainer } from "./index.props";
 
 import styles from "./index.module.css";
+import { downloadFile } from "../../../../../redux/conversationSlice";
+import { radioButtons } from "../Step4/index.constants";
 
 const noop = () => {};
 
@@ -78,27 +80,28 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
       });
-
+      console.log(stepData,'stepDatastepDatastepDatastepData');
+      
       const resultData: any[] =
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
+          console.log(resultData,'resultDataresultData');
+          console.log(DATA_KEY.length,'DATA_KEY.length');
+          console.log(resultData.length,'resultData.length');
 
-      if (resultData.length >= DATA_KEY.length) {
+
+
+
+      if (resultData.length >= DATA_KEY.length || resultData.length <= DATA_KEY.length) {
         resultData.forEach((item: any) => {
+          console.log(item,'ITEMsssssssssssss');
+          
           if (item.isFile) {
             form.setFieldsValue({
               [item.question]: item.files,
             });
           } else {
-            if(item.question === 'taxPayerBusiness_EmployerIDNumber1') {
-              console.log('taxPayerBusiness_EmployerIDNumber1' ,item.question , item.answer)
-              form.setFieldsValue({
-                [item.question]:item.question,
-              });
-              return
-            }
-              
             form.setFieldsValue({
               [item.question]: item.answer,
             });
@@ -125,27 +128,36 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const onValuesChange = (value: any) => {
+    console.log(value,'value');
+    
     const [name] = Object.keys(value);
+    console.log(name,'name');
+console.log(data,'datadata');
+
     const index: number = findIndexData(name, data);
     const newData = [...data];
-
+    console.log(newData,'newDatanewData');
+    console.log(index,'indexindexindex');
+    
     newData[index] = {
       ...data[index],
       question: data[index].question,
       answer: value[name],
-      files: newData[index].isFile ? value[name].fileList : null,
+      isFile: data[index].isFile,
+      files: data[index].isFile ? value[name].fileList : null,
     };
 
     setData([...newData]);
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -194,19 +206,19 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               placeholder = "Enter your product or service";
               break;
             case "employerIDNumber":
-              pattern = /^\d{2}-\d{7}$/;
+              pattern = /^(\d{2}-\d{7}(?: \d{0,4})?)?$/;
               message = "9 digits only allowed";
               placeholder = "XX-XXXXXXX";
-              inputComponent = (
+              inputComponent = 
                 <InputMask
-                  name={ console.log(names[key] ,'names[key]') as any ||  names[key]}
+                  name={names[key]}
                   label={t(`organizer.individual.income.step3.question${index + 1}`)}
                   placeholder={placeholder}
                   required={required}
                   pattern={{ value: pattern, message: message }}
                   maskFormat="00-0000000"
                 />
-              );
+              
               break;
             case "grossIncome":
               pattern = /^[0-9\s-]{1,9}$/;
@@ -409,8 +421,79 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
             };
             return (
               <div key={index}>
-                {formInfo(namesTaxPayer, index + 1)}
-                {countTaxPayer === index + 1 && countTaxPayer > 1 && (
+        {questionContainer({
+          key: "do_you_use_accounting_software_prepare_income_tax",
+          question: t("organizer.individual.income.step3.radio_question"),
+          required:true,
+          children: radio({
+            name: "do_you_use_accounting_software_prepare_income_tax",
+          required:true,
+            radioButtons: radioButtons,
+          }),
+        })}
+                              {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)].answer==true &&
+                                questionContainer({
+                                  key: "do_you_use_accounting_software_prepare_income_tax_attachment",
+                                  question: t(
+                                    "organizer.individual.income.step3.radio_question_attchement",
+                                  ),
+                                  required:true,
+                                  children: upload({
+                                    key: "do_you_use_accounting_software_prepare_income_tax_attachment",
+                                    data: data,
+                                    required:true,
+                                    form,
+                                    allowedFileTypes: ["application/pdf", "image/jpeg"],
+                                    buttonText: t("organizer.individual.yes_flow.step3.attach"),
+                                    dispatch: dispatch,
+                                    minCount: 1,
+                                    onClick: (index = 0) => {
+                                      dispatch(
+                                        downloadFile(
+                                          data[
+                                            findIndexData("do_you_use_accounting_software_prepare_income_tax_attachment", data)
+                                          ].files[index].id,
+                                          data[
+                                            findIndexData("do_you_use_accounting_software_prepare_income_tax_attachment", data)
+                                          ].files[index].name,
+                                        ),
+                                      );
+                                    },
+                                    onRemove: (index = 0) => {
+                                      console.log("Data before removal:", data); // Log the entire data object
+                                      const newData = [...data];
+                                      const fileIndex = findIndexData(
+                                        "do_you_use_accounting_software_prepare_income_tax_attachment",
+                                        data,
+                                      );
+                
+                                      // Ensure the fileIndex exists and is correct
+                                      if (
+                                        fileIndex !== undefined &&
+                                        newData[fileIndex]?.files
+                                      ) {
+                                        const newFileList = [
+                                          ...newData[fileIndex].files.slice(0, index),
+                                          ...newData[fileIndex].files.slice(index + 1),
+                                        ];
+                
+                                        console.log("Updated file list:", newFileList); // Log the updated list
+                                        newData[fileIndex].files = newFileList;
+                
+                                        setData([...newData]);
+                                      } else {
+                                        console.error(
+                                          "Failed to find file index or file list:",
+                                          newData,
+                                        );
+                                      }
+                                    },
+                                    maxCount: 1,
+                                  }),
+                                
+                                })}
+                {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)].answer==false && formInfo(namesTaxPayer, index + 1)}
+                {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)].answer==false && countTaxPayer === index + 1 && countTaxPayer > 1 && (
                   <Button
                     key={`button${index}`}
                     text={t(
@@ -425,13 +508,16 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
               </div>
             );
           })}
-          <Button
-            text={t("organizer.individual.income.step3.add_business")}
-            type="link"
-            onClick={() => {
-              add(namesTaxPayerFields);
-            }}
-          />
+{data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)]?.answer == false && (
+  <Button
+    text={t("organizer.individual.income.step3.add_business")}
+    type="link"
+    onClick={() => {
+      add(namesTaxPayerFields);
+    }}
+  />
+)}
+
         </div>
         <div className={styles.subContainer}>
           <Checkbox

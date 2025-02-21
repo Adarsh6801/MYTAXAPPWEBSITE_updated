@@ -13,6 +13,7 @@ export interface IFormInfo {
   isTaxPayer: boolean;
   dynamicKeys: string[];
   staticKeys: string[];
+  allData?:any
 }
 
 export interface IQuestionContainer {

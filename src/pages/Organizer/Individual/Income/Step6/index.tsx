@@ -36,6 +36,7 @@ import {
   input,
   radio,
   select,
+  upload,
 } from "../../../../../components/Module";
 import {
   getTaxpayerIndividualOrganizer,
@@ -43,6 +44,7 @@ import {
 } from "../../../../../redux/individualOrganizerSlice";
 
 import styles from "./index.module.css";
+import { downloadFile } from "../../../../../redux/conversationSlice";
 
 const noop = () => {};
 
@@ -187,17 +189,21 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
       ? taxPayerAccountType
       : spouseAccountType;
     const index: number = findIndexData(name, dataValue);
+    console.log(dataValue,'dataValue');
+    
     const newData = [...dataValue];
+console.log(newData,'newDatanewData');
 
     newData[index] = {
       ...dataValue[index],
       answer: value[name],
-      answerTypeId: QUESTION_TYPE_ANSWER.boolean,
+      answerTypeId: newData[index].answerTypeId,
       message: "",
       reminder: false,
       isFile: newData[index].isFile,
       files: newData[index].isFile ? value[name] : null,
     };
+    console.log(newData,'newDatanewData121');
 
     name.includes("taxPayer")
       ? setTaxPayerAccountType(newData)
@@ -348,8 +354,9 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
     );
   };
 
-  const formInfo = (data: IFormInfo) => {
-    const { isTaxPayer, dynamicKeys, staticKeys } = data;
+  const formInfo = (datas: IFormInfo) => {
+    const { isTaxPayer, dynamicKeys, staticKeys } = datas;
+    console.log(data,'allDataallDataallData')
     const count = isTaxPayer ? countTaxPayer : countSpouse;
     return (
       <div>
@@ -389,10 +396,80 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
             {t("organizer.individual.income.step6.sub_title2")}
           </p>
           {staticKeys.map((item, index) => {
-            if (staticKeys[12] === item) {
+                        if (staticKeys[8] === item) {
+                          return questionContainer({
+                            key: item,
+                            question: (
+                              <div>
+                                <Trans
+                                  i18nKey="organizer.individual.income.step6.question21"
+                                  values={{
+                                    info: "",
+                                  }}
+                                  components={[
+                                    <span className={styles.additionalInfo}>text</span>,
+                                  ]}
+                                />
+                              </div>
+                            ),
+                                  children: upload({
+                                    key: "taxPayerRealEstateExpenses_MortgageInterestPaidToBanks_Attachement",
+                                    data: data,
+                                    required:true,
+                                    form,
+                                    allowedFileTypes: ["application/pdf", "image/jpeg"],
+                                    buttonText: t("organizer.individual.yes_flow.step3.attach"),
+                                    dispatch: dispatch,
+                                    minCount: 1,
+                                    onClick: (index = 0) => {
+                                      dispatch(
+                                        downloadFile(
+                                          data[
+                                            findIndexData("taxPayerRealEstateExpenses_MortgageInterestPaidToBanks_Attachement", data)
+                                          ].files[index].id,
+                                          data[
+                                            findIndexData("taxPayerRealEstateExpenses_MortgageInterestPaidToBanks_Attachement", data)
+                                          ].files[index].name,
+                                        ),
+                                      );
+                                    },
+                                    onRemove: (index = 0) => {
+                                      console.log("Data before removal:", data); // Log the entire data object
+                                      const newData = [...data];
+                                      const fileIndex = findIndexData(
+                                        "taxPayerRealEstateExpenses_MortgageInterestPaidToBanks_Attachement",
+                                        data,
+                                      );
+                
+                                      // Ensure the fileIndex exists and is correct
+                                      if (
+                                        fileIndex !== undefined &&
+                                        newData[fileIndex]?.files
+                                      ) {
+                                        const newFileList = [
+                                          ...newData[fileIndex].files.slice(0, index),
+                                          ...newData[fileIndex].files.slice(index + 1),
+                                        ];
+                
+                                        console.log("Updated file list:", newFileList); // Log the updated list
+                                        newData[fileIndex].files = newFileList;
+                
+                                        setData([...newData]);
+                                      } else {
+                                        console.error(
+                                          "Failed to find file index or file list:",
+                                          newData,
+                                        );
+                                      }
+                                    },
+                                    maxCount: 1,
+                                  }),
+                          });
+                        }
+            if (staticKeys[13] === item) {
               return 
             }
-            if (staticKeys[13] === item) {
+            if (staticKeys[14] === item) {
               return questionContainer({
                 key: item,
                 question: (
@@ -417,7 +494,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                  }),
               });
             }
-            if (staticKeys[14] === item) {
+            if (staticKeys[15] === item) {
               return questionContainer({
                 key: item,
                 question: (
@@ -442,7 +519,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                  }),
               });
             }
-            if (staticKeys[16] === item) {
+            if (staticKeys[17] === item) {
               return questionContainer({
                 key: item,
                 question: t(
@@ -504,20 +581,18 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
           required:true,
           }),
         })}
-        {(taxPayerAccountType[17].answer ||
-          data[
-            findIndexData(taxPayerAccountType[17].question, taxPayerAccountType)
-          ]?.answer) && (
+        {
           <>
             <Divider />
             {formInfo({
               isTaxPayer: true,
               dynamicKeys: taxPayerDynamic,
               staticKeys: taxPayerStatic,
+              allData:data
             })}
             <Divider />
           </>
-        )}
+        }
       </div>
       <div>
         <Checkbox
@@ -548,6 +623,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                   isTaxPayer: true,
                   dynamicKeys: spouseDynamic,
                   staticKeys: spouseStatic,
+                  allData:data
                 })}
               </>
             )}

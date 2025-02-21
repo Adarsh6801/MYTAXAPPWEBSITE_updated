@@ -601,7 +601,7 @@ const OrganizerIndividualYesFlowStep4 = (props: ITaxPayerInfoStepsProps) => {
                   handleFileUpload(info);
                 }
               },
-              maxCount: 2,
+              maxCount: 8,
             }),
           })}
       </div>

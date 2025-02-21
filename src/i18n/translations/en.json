@@ -1345,6 +1345,8 @@
         },
         "step3": {
           "step_title": "Self employment",
+          "radio_question":"Do you use an accounting software to prepare your income statement",
+          "radio_question_attchement":"Attach  Profit in Loss in Excel",
           "title": "Business Information #",
           "sub_title": "Expenses #",
           "taxpayer": "Taxpayer",
@@ -1405,6 +1407,8 @@
           "question7": "TOTAL MILES DRIVEN THIS YEAR <0>{{info}}</0>",
           "question8": "Business miles",
           "question9": "This information is only required if you are using the actual expense method, or if you used the actual method the first year the vehicle was placed in service.",
+          "question10": "Date first used in business.",
+
           "label1": "Make",
           "label2": "Model",
           "label3": "Year",
@@ -1487,11 +1491,13 @@
           "question18": "Wages (W-2) <0>{{info}}</0>",
           "question19": "Condo or Homeowner Association (HOA) Dues",
           "question20": "For short-term rentals, including when tenants are secured using online services such as HomeAway, Airbnb and VRBO, enter the average number of days of rental use.",
+          "question21": "field for Form 1098.",
+
           "yes": "Yes",
           "no": "No"
         },
         "step7": {
-          "step_title": "Income",
+          "step_title": "Other Income",
           "description": "<0>{{note}} </0> If you received any of the following tax forms for the current tax year please attach the individual PDF file.  Attach each document separately, confirm if you did not receive any or when you have attached all your forms.",
           "question1": "Attach <0>{{init}} </0> or  <1>{{div}}</1>",
           "question2": "Attach if you received a <0>{{bForm}} </0>",

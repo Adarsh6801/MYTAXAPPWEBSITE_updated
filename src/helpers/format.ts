@@ -10,8 +10,13 @@ export const getClassNames = (...args: Array<string | boolean | undefined>) => {
   return classNames;
 };
 
-export const findIndexData = (key: string, data: any = []) =>
-  data.findIndex((item: any) => item.question === key);
+export const findIndexData = (key: string, data: any = []) =>{
+console.log(key,'key');
+console.log(data,'data');
+
+
+ return data.findIndex((item: any) => item.question === key);
+}
 
 export const findIndexByValue = (value: string, data: any = [], key: any) =>
   data.findIndex((item: any) => item.value == value);
@@ -105,7 +110,7 @@ export const getCurrentType = (data: any) => {
     case QUESTION_TYPE_ANSWER.json:
       return {
         ...data,
-        answer: data.answer?JSON.parse(data.answer):"",
+        answer: JSON.parse(data.answer),
         message: data.message === "null" ? null : data.message,
       };
     default:

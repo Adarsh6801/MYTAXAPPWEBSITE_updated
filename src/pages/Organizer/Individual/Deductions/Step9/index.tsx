@@ -183,7 +183,7 @@ const Step9 = (props: ITaxPayerInfoStepsProps) => {
             }),
           })}
         <Divider />
-        {questionContainer({
+        {/* {questionContainer({
           key: keys.educationExpenses.key,
           question: t("organizer.deductions.step9.question2"),
           required:true,
@@ -192,7 +192,7 @@ const Step9 = (props: ITaxPayerInfoStepsProps) => {
             radioButtons: radioButtons,
             required:true
           }),
-        })}
+        })} */}
         {data[findIndexData(keys.educationExpenses.key)]?.answer &&
           questionContainer({
             key: keys.upload1098T.key,

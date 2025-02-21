@@ -8,6 +8,9 @@ import _ from "lodash";
 import CircularDirection from "../../../../../components/CircularDirection";
 import OrganizerQuestionCard from "../../../../../components/OrganizerQuestionCard";
 import Button from "../../../../../components/Button";
+// import { ReactComponent as Calendar } from "../../../../../../assets/svgs/date.svg";
+import { ReactComponent as Calendar } from "../../../../../assets/svgs/date.svg";
+
 import {
   findIndexData,
   addQuoteIdOrganizer,
@@ -32,10 +35,11 @@ import {
   dataRadio,
   DATA_KEY,
 } from "./index.constants";
-import { checkbox, input, radio } from "../../../../../components/Module";
+import { checkbox, dataPicker, input, radio } from "../../../../../components/Module";
 
 import styles from "./index.module.css";
 import { color } from "html2canvas/dist/types/css/types/color";
+import { disabledDateFuture } from "../../../../../helpers/date";
 
 const noop = () => {};
 
@@ -75,7 +79,8 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
           return el.question.includes(item);
         });
       });
-
+      console.log(stepData,'stepDatastepData');
+      
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
       });
@@ -84,6 +89,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
+          console.log(resultData,'resultDataresultData');
 
       resultData.forEach((item: any) => {
         if (item.isFile) {
@@ -96,7 +102,8 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
           });
         }
       });
-
+      console.log(form.getFieldsValue(),'form.getFieldsValue()');
+      
       if (resultData.length >= DATA_KEY.length) {
         if (
           stepData[findIndexData("businessMilesTableInfo", resultData)]
@@ -581,6 +588,20 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   ),
                   children: input({
                     name: "taxPayer_ParkingExpensesAndTolls",
+                  }),
+                })}
+                <Divider />
+                {questionContainer({
+                  key: "taxPayer_DateFirstUsedInBusiness",
+                  required: true,
+                  children: dataPicker({
+                    name: "taxPayer_DateFirstUsedInBusiness",
+                    label: t("organizer.individual.income.step4.question10"),
+                    icon: <Calendar />,
+                    required: true,
+                    disabledDate: disabledDateFuture,
+                    defaultValue:
+                      data[findIndexData("taxPayer_DateFirstUsedInBusiness", data)].answer,
                   }),
                 })}
                 <Divider />
