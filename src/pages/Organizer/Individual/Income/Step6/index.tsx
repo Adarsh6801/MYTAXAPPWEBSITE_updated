@@ -85,6 +85,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
     const stepData = dataOrganizer.filter((el: any) =>
       DATA_KEY.some(item => el.question.includes(item))
     );
+    console.log( "are you here");
   
     if (stepData.length === 0) return;
   
@@ -100,6 +101,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
         value: item.isFile ? item.files : item.answer,
       }))
     );
+    console.log(form.getFieldsValue(), "getFieldvalueee");
   
     setData(prevData => (JSON.stringify(prevData) !== JSON.stringify(resultData) ? resultData : prevData));
   }, [dataOrganizer]);
@@ -362,6 +364,10 @@ console.log(newData,'newDatanewData');
             {t("organizer.individual.income.step6.sub_title2")}
           </p>
           {staticKeys.map((item, index) => {
+                        if (staticKeys[13] === item) {
+                          return 
+                        }
+                        
                         if (staticKeys[8] === item) {
                           return questionContainer({
                             key: item,
@@ -431,9 +437,7 @@ console.log(newData,'newDatanewData');
                                   }),
                           });
                         }
-            if (staticKeys[13] === item) {
-              return 
-            }
+
             if (staticKeys[14] === item) {
               return questionContainer({
                 key: item,
@@ -502,7 +506,7 @@ console.log(newData,'newDatanewData');
             return questionContainer({
               key: item,
               question: t(
-                `organizer.individual.income.step6.question${index + 4}`,
+                `organizer.individual.income.step6.question${index + 3}`,
               ),
               children: input({ name: item ,
                 pattern:{
