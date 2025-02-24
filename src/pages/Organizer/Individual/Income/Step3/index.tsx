@@ -71,6 +71,8 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
 
   useEffect(() => {
     if (dataOrganizer) {
+      console.log(data,'datafirst');
+
       const stepData = dataOrganizer.filter((el: any) => {
         return !!DATA_KEY.find(item => {
           return el.question.includes(item);
@@ -79,24 +81,14 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
 
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
-      });
-      console.log(stepData,'stepDatastepDatastepDatastepData');
-      
+      });      
       const resultData: any[] =
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-          console.log(resultData,'resultDataresultData');
-          console.log(DATA_KEY.length,'DATA_KEY.length');
-          console.log(resultData.length,'resultData.length');
-
-
-
 
       if (resultData.length >= DATA_KEY.length || resultData.length <= DATA_KEY.length) {
-        resultData.forEach((item: any) => {
-          console.log(item,'ITEMsssssssssssss');
-          
+        resultData.forEach((item: any) => {          
           if (item.isFile) {
             form.setFieldsValue({
               [item.question]: item.files,
@@ -107,14 +99,20 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
             });
           }
         });
+        console.log(data,'data');
+
         console.log(resultData,'resultDataaaaaaaaaaaaaaaa' , form.getFieldsValue());
         
-        setData(resultData);
+        if(resultData.length > 0 ){
+          setData(resultData);
+          setCountTaxPayer(
+            getDynamicDataCount("taxPayerBusinessName", resultData),
+          );
+          setCountSpouse(getDynamicDataCount("spouseBusinessName", resultData));
+        }
 
-        setCountTaxPayer(
-          getDynamicDataCount("taxPayerBusinessName", resultData),
-        );
-        setCountSpouse(getDynamicDataCount("spouseBusinessName", resultData));
+        console.log(data,'datalast');
+
       }
     }
   }, [dataOrganizer]);
