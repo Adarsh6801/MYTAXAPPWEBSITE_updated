@@ -586,9 +586,24 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   key: "taxPayer_DateFirstUsedInBusiness",
                   required: true,
                   subClass: styles.questionSubClass,
+                  question: (
+                    <p>
+                      <Trans
+                        i18nKey="organizer.individual.income.step4.question10"
+                        values={{
+                          info: "",
+                        }}
+                        components={
+                          [
+                            //<span className={styles.additionalInfo}>text</span>
+                          ]
+                        }
+                      />
+                      <span style={{ color: "red" }}>*</span>
+                    </p>
+                  ),
                   children: dataPicker({
                     name: "taxPayer_DateFirstUsedInBusiness",
-                    label: t("organizer.individual.income.step4.question10"),
                     icon: <Calendar />,
                     required: true,
                     disabledDate: disabledDateFuture,

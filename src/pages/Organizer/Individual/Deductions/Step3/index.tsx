@@ -14,8 +14,8 @@ import {
   addQuoteIdOrganizer,
   getCurrentType,
 } from "../../../../../helpers/format";
-import { disabledDatePast } from "../../../../../helpers/date";
-import { data as initialData, DATA_KEY, radioButtons } from "./index.constants";
+import { disabledDateFuture, disabledDatePast } from "../../../../../helpers/date";
+import { data as initialData, DATA_KEY, radioButtons, dataRelation, personalProperyTypeOptions } from "./index.constants";
 import { ORGANIZER_CATEGORY_ID } from "../../../../../constants/organizer";
 import { IRS_LINK } from "../../../../../constants/settings";
 import {
@@ -23,7 +23,7 @@ import {
   IOrganizerStepProps,
 } from "../../index.props";
 import { IQuestionContainer } from "./index.props";
-import { dataPicker, input, radio } from "../../../../../components/Module";
+import { dataPicker, input, radio, select } from "../../../../../components/Module";
 import {
   getTaxpayerIndividualOrganizer,
   setIndividualOrganizer,
@@ -41,10 +41,13 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
   const { id: quoteId } = useParams();
   const { nextStep = noop, prevStep = noop, onStepSubmit = noop } = props;
   const [taxPayerCount, setTaxPayerCount] = useState(1);
+  const [personalPropertyCount, setpersonalPropertyCount] = useState(1);
+
   const [data, setData] = useState<IOrganizerStepProps[]>(
     addQuoteIdOrganizer(initialData, Number(quoteId)),
   );
 
+  
   const dataOrganizer = useSelector(
     (state: any) => state.individualOrganizer.data,
   );
@@ -131,6 +134,16 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
         {
           categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
           forSpouse: false,
+          question: `taxesPaid_RealEstateType${taxPayerCount + 1}`,
+          answer: null,
+          message: "",
+          reminder: false,
+          isFile: false,
+          file: null,
+        },
+        {
+          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
+          forSpouse: false,
           question: `taxesPaid_VehicleLicenseFees_Amount${taxPayerCount + 1}`,
           answer: null,
           message: "",
@@ -161,6 +174,55 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
     );
     setData(newData);
     setTaxPayerCount(taxPayerCount - 1);
+  };
+
+  const addPersonalPropertyFields = () => {
+    const newData: any = [...data];
+    newData.push(
+      ...[
+        {
+          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
+          forSpouse: false,
+          question: `taxesPaid_PersonalPropertyType${personalPropertyCount + 1}`,
+          answer: null,
+          message: "",
+          reminder: false,
+          isFile: false,
+          file: null,
+        },
+        {
+          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
+          forSpouse: false,
+          question: `taxesPaid_PersonalProperty_Amount${personalPropertyCount + 1}`,
+          answer: null,
+          message: "",
+          reminder: false,
+          isFile: false,
+          file: null,
+        },
+        {
+          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
+          forSpouse: false,
+          question: `taxesPaid_PersonalProperty_Date${personalPropertyCount + 1}`,
+          answer: null,
+          message: "",
+          reminder: false,
+          isFile: false,
+          file: null,
+        },
+      ],
+    );
+    setData(addQuoteIdOrganizer(newData, Number(quoteId)));
+    setpersonalPropertyCount(personalPropertyCount + 1);
+  };
+
+  const removePersonalPropertyFields = () => {
+    const newData = data.filter(
+      (item, index) =>
+        !(+item.question.charAt(item.question.length - 1) === personalPropertyCount),
+    );
+    setData(newData);
+    setpersonalPropertyCount(personalPropertyCount - 1);
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
@@ -240,98 +302,38 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
             }),
           })}
         </div>
-        {questionContainer({
-          key: "taxesPaid_RealEstatePrimaryResidence_Amount",
-          question: t("organizer.deductions.step3.question1"),
-          children: (
-            <div className={styles.pickerContainer}>
-              {input({
-                name: "taxesPaid_RealEstatePrimaryResidence_Amount",
-                label: t("organizer.deductions.step3.label1"),
-              })}
-              {dataPicker({
-                name: "taxesPaid_RealEstatePrimaryResidence_Date",
-                label: t("organizer.deductions.step3.label2"),
-                icon: <Calendar />,
-                disabledDate: disabledDatePast,
-                defaultValue:
-                  data[
-                    findIndexData(
-                      "taxesPaid_RealEstatePrimaryResidence_Date",
-                      data,
-                    )
-                  ].answer,
-              })}
-            </div>
-          ),
-        })}
-        <Divider />
-        {questionContainer({
-          key: "taxesPaid_RealEstate2ndHome_Amount",
-          question: t("organizer.deductions.step3.question2"),
-          children: (
-            <div className={styles.pickerContainer}>
-              {input({
-                name: "taxesPaid_RealEstate2ndHome_Amount",
-                label: t("organizer.deductions.step3.label1"),
-              })}
-              {dataPicker({
-                name: "taxesPaid_RealEstate2ndHome_Date",
-                label: t("organizer.deductions.step3.label2"),
-                icon: <Calendar />,
-                disabledDate: disabledDatePast,
-                defaultValue:
-                  data[findIndexData("taxesPaid_RealEstate2ndHome_Date", data)]
-                    .answer,
-              })}
-            </div>
-          ),
-        })}
-        <Divider />
-        {questionContainer({
-          key: "taxesPaid_RealEstateInvestmentProperty_Amount",
-          question: t("organizer.deductions.step3.question3"),
-          children: (
-            <div className={styles.pickerContainer}>
-              {input({
-                name: "taxesPaid_RealEstateInvestmentProperty_Amount",
-                label: t("organizer.deductions.step3.label1"),
-              })}
-              {dataPicker({
-                name: "taxesPaid_RealEstateInvestmentProperty_Date",
-                label: t("organizer.deductions.step3.label2"),
-                icon: <Calendar />,
-                disabledDate: disabledDatePast,
-                defaultValue:
-                  data[
-                    findIndexData(
-                      "taxesPaid_RealEstateInvestmentProperty_Date",
-                      data,
-                    )
-                  ].answer,
-              })}
-            </div>
-          ),
-        })}
 
         <Divider />
         {_.times(taxPayerCount, (index: number) => {
           return (
             <div key={index}>
+
               {questionContainer({
                 key: `taxesPaid_VehicleLicenseFees_Amount${index + 1}`,
                 question: t("organizer.deductions.step3.question1"),
                 children: (
                   <div className={styles.pickerContainer}>
+                                          { select({
+                          name: `dependantRelation${index + 1}`,
+                          label: t("organizer.deductions.step3.label4"),
+                          data: dataRelation,
+                          placeholder:"Select Type",
+                          required: true,
+                          message: "Select Real Estate Type",
+                       
+                      })}
                     {input({
                       name: `taxesPaid_VehicleLicenseFees_Amount${index + 1}`,
                       label: t("organizer.deductions.step3.label1"),
+                      placeholder:"4,900",
+                      required: true,
                     })}
                     {dataPicker({
                       name: `taxesPaid_VehicleLicenseFees_Date${index + 1}`,
                       label: t("organizer.deductions.step3.label2"),
                       icon: <Calendar />,
-                      disabledDate: disabledDatePast,
+                      disabledDate: disabledDateFuture,
+                      required:true,
                       defaultValue:
                         data[
                           findIndexData(
@@ -343,7 +345,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                     <div className={styles.addRemoveContainer}>
                       {taxPayerCount === index + 1 && (
                         <Button
-                          text={t("organizer.deductions.step3.add_vehicle")}
+                          text={t("organizer.deductions.step3.add_realEstate")}
                           type="link"
                           className={styles.addAndRemoveBtn}
                           onClick={() => addFields()}
@@ -351,7 +353,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                       )}
                       {taxPayerCount === index + 1 && taxPayerCount > 1 && (
                         <Button
-                          text={t("organizer.deductions.step3.remove_vehicle")}
+                          text={t("organizer.deductions.step3.remove_realEstate")}
                           type="link"
                           className={styles.addAndRemoveBtn}
                           onClick={() => {
@@ -367,72 +369,68 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           );
         })}
         <Divider />
-        {questionContainer({
-          key: "taxesPaid_PersonalPropertyTax_Amount",
-          question: t("organizer.deductions.step3.question4"),
-          children: (
-            <div className={styles.pickerContainer}>
-              {input({
-                name: "taxesPaid_PersonalPropertyTax_Amount",
-                label: t("organizer.deductions.step3.label1"),
-              })}
-              {dataPicker({
-                name: "taxesPaid_PersonalPropertyTax_Date",
-                label: t("organizer.deductions.step3.label2"),
-                icon: <Calendar />,
-                disabledDate: disabledDatePast,
-                defaultValue:
-                  data[
-                    findIndexData("taxesPaid_PersonalPropertyTax_Date", data)
-                  ].answer,
-              })}
-            </div>
-          ),
-        })}
-        <Divider />
-        {questionContainer({
-          key: "taxesPaid_SalesTaxReceipted_Amount",
-          question: t("organizer.deductions.step3.question5"),
-          children: (
-            <div className={styles.pickerContainer}>
-              {input({
-                name: "taxesPaid_SalesTaxReceipted_Amount",
-                label: t("organizer.deductions.step3.label1"),
-              })}
-              {dataPicker({
-                name: "taxesPaid_SalesTaxReceipted_Date",
-                label: t("organizer.deductions.step3.label2"),
-                icon: <Calendar />,
-                disabledDate: disabledDatePast,
-                defaultValue:
-                  data[findIndexData("taxesPaid_SalesTaxReceipted_Date", data)]
-                    .answer,
-              })}
-            </div>
-          ),
-        })}
-        <Divider />
-        {questionContainer({
-          key: "taxesPaid_SalesTaxCarsBoatsHome_Amount",
-          question: t("organizer.deductions.step3.question6"),
-          children: (
-            <div className={styles.pickerContainer}>
-              {input({
-                name: "taxesPaid_SalesTaxCarsBoatsHome_Amount",
-                label: t("organizer.deductions.step3.label1"),
-              })}
-              {dataPicker({
-                name: "taxesPaid_SalesTaxCarsBoatsHome_Date",
-                label: t("organizer.deductions.step3.label2"),
-                icon: <Calendar />,
-                disabledDate: disabledDatePast,
-                defaultValue:
-                  data[
-                    findIndexData("taxesPaid_SalesTaxCarsBoatsHome_Date", data)
-                  ].answer,
+        {_.times(personalPropertyCount, (index: number) => {
+          return (
+            <div key={index}>
+
+              {questionContainer({
+                key: `taxesPaid_PersonalProperty_Amount1${index + 1}`,
+                question: t("organizer.deductions.step3.question2"),
+                children: (
+                  <div className={styles.pickerContainer}>
+                                          { select({
+                          name: `taxesPaid_PersonalPropertyType${index + 1}`,
+                          label: t("organizer.deductions.step3.label5"),
+                          data: personalProperyTypeOptions,
+                          required: true,
+                          placeholder:"Select Personal Property",
+                          message: "Select Personal Property Type",
+                      })}
+                    {input({
+                      name: `taxesPaid_PersonalProperty_Amount${index + 1}`,
+                      label: t("organizer.deductions.step3.label1"),
+                      placeholder:"4,900",
+                      required: true,
+                    })}
+                    {dataPicker({
+                      name: `taxesPaid_PersonalProperty_Date${index + 1}`,
+                      label: t("organizer.deductions.step3.label2"),
+                      icon: <Calendar />,
+                      disabledDate: disabledDateFuture,
+                      required: true,
+                      defaultValue:
+                        data[
+                          findIndexData(
+                            `taxesPaid_PersonalProperty_Date${index + 1}`,
+                            data,
+                          )
+                        ].answer,
+                    })}
+                    <div className={styles.addRemoveContainer}>
+                      {personalPropertyCount === index + 1 && (
+                        <Button
+                          text={t("organizer.deductions.step3.add_personalProperty")}
+                          type="link"
+                          className={styles.addAndRemoveBtn}
+                          onClick={() => addPersonalPropertyFields()}
+                        />
+                      )}
+                      {personalPropertyCount === index + 1 && personalPropertyCount > 1 && (
+                        <Button
+                          text={t("organizer.deductions.step3.remove_personalProperty")}
+                          type="link"
+                          className={styles.addAndRemoveBtn}
+                          onClick={() => {
+                            removePersonalPropertyFields();
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                ),
               })}
             </div>
-          ),
+          );
         })}
       </div>
       <CircularDirection
