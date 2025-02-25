@@ -35,7 +35,12 @@ import {
   dataRadio,
   DATA_KEY,
 } from "./index.constants";
-import { checkbox, dataPicker, input, radio } from "../../../../../components/Module";
+import {
+  checkbox,
+  dataPicker,
+  input,
+  radio,
+} from "../../../../../components/Module";
 
 import styles from "./index.module.css";
 import { color } from "html2canvas/dist/types/css/types/color";
@@ -79,8 +84,8 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
           return el.question.includes(item);
         });
       });
-      console.log(stepData,'stepDatastepData');
-      
+      console.log(stepData, "stepDatastepData");
+
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
       });
@@ -89,7 +94,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-          console.log(resultData,'resultDataresultData');
+      console.log(resultData, "resultDataresultData");
 
       resultData.forEach((item: any) => {
         if (item.isFile) {
@@ -102,8 +107,8 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
           });
         }
       });
-      console.log(form.getFieldsValue(),'form.getFieldsValue()');
-      
+      console.log(form.getFieldsValue(), "form.getFieldsValue()");
+
       if (resultData.length >= DATA_KEY.length) {
         if (
           stepData[findIndexData("businessMilesTableInfo", resultData)]
@@ -175,22 +180,21 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const onFinish = async () => {
-    const data = [...taxPayerAccountType, ...spouseAccountType];
+    const datas = [...data];
 
-    data[findIndexData("businessMilesTableInfo", data)].answer = JSON.stringify(
-      {
+    datas[findIndexData("businessMilesTableInfo", datas)].answer =
+      JSON.stringify({
         data: JSON.stringify(originData),
         columns: JSON.stringify(columnsTable1),
-      },
-    );
+      });
 
-    data[findIndexData("vehicleOperatingAndExpensesTableInfo", data)].answer =
+    datas[findIndexData("vehicleOperatingAndExpensesTableInfo", datas)].answer =
       JSON.stringify({
         data: JSON.stringify(tableVheicle),
         columns: JSON.stringify(columnsTable2),
       });
-    onStepSubmit(data);
-    await dispatch(setIndividualOrganizer(data));
+    onStepSubmit(datas);
+    await dispatch(setIndividualOrganizer(datas));
     nextStep();
   };
 
@@ -209,13 +213,12 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
       dataIndex: "taxPayer",
       editable: true,
       render: (_: any, record: any) => {
-        console.log(record,'recordrecordrecord')
+        console.log(record, "recordrecordrecord");
         return (
           // <Form.Item name={`taxPayer${record.key}`} style={{ margin: 0 }}>
           //   <Input defaultValue={record.taxPayer} required={true}  />
           // </Form.Item>
-         
-          
+
           <Form.Item
             label="Tax Payer"
             name={`taxPayer${record.key}`}
@@ -223,7 +226,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: record.name==='Rental'?"Enter total Rental-related miles driven during the year":"Enter total Self Employed-related miles driven during the year.",
+                message:
+                  record.name === "Rental"
+                    ? "Enter total Rental-related miles driven during the year"
+                    : "Enter total Self Employed-related miles driven during the year.",
               },
               {
                 pattern: /^\d{1,6}$/,
@@ -231,7 +237,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
               },
             ]}
           >
-            <Input defaultValue={record.taxPayer} placeholder={record.name==='Rental'?"1,500":"9,500"}/>
+            <Input
+              defaultValue={record.taxPayer}
+              placeholder={record.name === "Rental" ? "1,500" : "9,500"}
+            />
           </Form.Item>
         );
       },
@@ -248,7 +257,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             rules={[
               {
                 required: true,
-                message: record.name==='Rental'?"Enter total Rental-related miles driven during the year":"Enter total Self Employed-related miles driven during the year.",
+                message:
+                  record.name === "Rental"
+                    ? "Enter total Rental-related miles driven during the year"
+                    : "Enter total Self Employed-related miles driven during the year.",
               },
               {
                 pattern: /^\d{1,6}$/,
@@ -256,7 +268,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
               },
             ]}
           >
-            <Input defaultValue={record.spouse} placeholder={record.name==='Rental'?"1,500":"9,500"} />
+            <Input
+              defaultValue={record.spouse}
+              placeholder={record.name === "Rental" ? "1,500" : "9,500"}
+            />
           </Form.Item>
         );
       },
@@ -357,14 +372,21 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
 
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
+    console.log(value, "value");
+    console.log(name, "name");
+
 
     const dataValues = name.includes("taxPayer")
       ? taxPayerAccountType
       : spouseAccountType;
+    console.log(dataValues, "dataValues");
+
     const columnIndex = +name[name.length - 1] - 1;
+    console.log(columnIndex, "columnIndex");
 
     const filedName = !_.isNaN(+columnIndex) ? name.replace(/.$/, "") : name;
     const index: number = findIndexData(filedName, dataValues);
+    console.log(index, "index");
 
     if (index !== -1) {
       const newData = [...dataValues];
@@ -414,11 +436,11 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
             {questionContainer({
               key: "taxPayer_HaveVehicleExpensesFromBusinessOrRealEstate",
               question: t("organizer.individual.income.step4.question1"),
-              required:true,
+              required: true,
               children: radio({
                 name: "taxPayer_HaveVehicleExpensesFromBusinessOrRealEstate",
                 radioButtons: radioButtons,
-                required:true
+                required: true,
               }),
             })}
             {data[
@@ -482,10 +504,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                       ].answer,
                   }),
                 })} */}
-                                                {questionContainer({
+                {questionContainer({
                   key: "taxPayer_VehicleAvailableForPersonalUse",
                   question: t("organizer.individual.income.step4.question3"),
-                  required:true,
+                  required: true,
                   children: radio({
                     name: "taxPayer_VehicleAvailableForPersonalUse",
                     radioButtons: dataRadio,
@@ -502,24 +524,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                 })}
                 <Divider />
 
-                {/* {questionContainer({
+                {questionContainer({
                   key: "taxPayer_AnotherVehicleAvailableForPersonalUse",
                   question: t("organizer.individual.income.step4.question4"),
-                  children: radio({
-                    name: "taxPayer_AnotherVehicleAvailableForPersonalUse",
-                    value:
-                      data[
-                        findIndexData(
-                          `taxPayer_AnotherVehicleAvailableForPersonalUse`,
-                          data,
-                        )
-                      ].answer,
-                  }),
-                })} */}
-                                {questionContainer({
-                  key: "taxPayer_AnotherVehicleAvailableForPersonalUse",
-                  question: t("organizer.individual.income.step4.question4"),
-                  required:true,
+                  required: true,
                   children: radio({
                     name: "taxPayer_AnotherVehicleAvailableForPersonalUse",
                     radioButtons: dataRadio,
@@ -536,24 +544,10 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                 })}
 
                 <Divider />
-                {/* {questionContainer({
+                {questionContainer({
                   key: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
                   question: t("organizer.individual.income.step4.question5"),
-                  children: radio({
-                    name: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
-                    value:
-                      data[
-                        findIndexData(
-                          `taxPayer_HaveWrittenEvidenceToSupportDeduction`,
-                          data,
-                        )
-                      ].answer,
-                  }),
-                })} */}
-                                                {questionContainer({
-                  key: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
-                  question: t("organizer.individual.income.step4.question5"),
-                  required:true,
+                  required: true,
                   children: radio({
                     name: "taxPayer_HaveWrittenEvidenceToSupportDeduction",
                     radioButtons: dataRadio,
@@ -569,7 +563,6 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                   }),
                 })}
 
-                
                 <Divider />
                 {questionContainer({
                   key: "taxPayer_ParkingExpensesAndTolls",
@@ -594,6 +587,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                 {questionContainer({
                   key: "taxPayer_DateFirstUsedInBusiness",
                   required: true,
+                  subClass: styles.questionSubClass,
                   children: dataPicker({
                     name: "taxPayer_DateFirstUsedInBusiness",
                     label: t("organizer.individual.income.step4.question10"),
@@ -601,37 +595,39 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                     required: true,
                     disabledDate: disabledDateFuture,
                     defaultValue:
-                      data[findIndexData("taxPayer_DateFirstUsedInBusiness", data)].answer,
+                      data[
+                        findIndexData("taxPayer_DateFirstUsedInBusiness", data)
+                      ].answer,
                   }),
                 })}
                 <Divider />
                 {questionContainer({
                   key: "taxPayer_TotalMilesDrivenThisYear",
-                  required:true,
+                  required: true,
                   question: (
-
-
-                      <p>
-                        <Trans
-                          i18nKey="organizer.individual.income.step4.question7"
-                          values={{
-                            info: "",
-                          }}
-                          components={[
-                            
+                    <p>
+                      <Trans
+                        i18nKey="organizer.individual.income.step4.question7"
+                        values={{
+                          info: "",
+                        }}
+                        components={
+                          [
                             //<span className={styles.additionalInfo}>text</span>
-                          ]}
-                        />
-                        <span style={{ color: 'red' }}>*</span>
-                        <span className={styles.additionalInfo}>Include all mileage –<br /> personal, commuting and business</span>
-  
-                      </p>
-       
+                          ]
+                        }
+                      />
+                      <span style={{ color: "red" }}>*</span>
+                      <span className={styles.additionalInfo}>
+                        Include all mileage –<br /> personal, commuting and
+                        business
+                      </span>
+                    </p>
                   ),
                   children: input({
                     name: "taxPayer_TotalMilesDrivenThisYear",
                     required: true,
-                    message:"Enter total miles driven during the year.",
+                    message: "Enter total miles driven during the year.",
                     pattern: {
                       value: /^\d{1,6}$/,
                       message: "6 number allowed",
@@ -705,7 +701,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
                           ].answer,
                       }),
                     })}
-                    
+
                     <Divider />
                     {questionContainer({
                       key: "spouse_AnotherVehicleAvailableForPersonalUse",

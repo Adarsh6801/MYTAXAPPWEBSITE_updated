@@ -95,7 +95,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
             });
           } else {
             form.setFieldsValue({
-              [item.question]: item.answer,
+              [item.question]: item.answer!="null"?item.answer:null,
             });
           }
         });

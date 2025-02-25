@@ -1345,7 +1345,7 @@
         },
         "step3": {
           "step_title": "Self employment",
-          "radio_question":"Do you use an accounting software to prepare your income statement",
+          "radio_question":"Do you use an accounting software to prepare your income statement?",
           "radio_question_attchement":"Attach  Profit in Loss in Excel",
           "title": "Business Information #",
           "sub_title": "Expenses #",
