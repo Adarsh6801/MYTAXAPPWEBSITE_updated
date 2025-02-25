@@ -102,8 +102,8 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
       }))
     );
     console.log(form.getFieldsValue(), "getFieldvalueee");
-  
-    setData(prevData => (JSON.stringify(prevData) !== JSON.stringify(resultData) ? resultData : prevData));
+    
+    setData(resultData);
   }, [dataOrganizer]);
   
   const init = async () => {
@@ -116,9 +116,11 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
 
   const onFinish = async () => {
     try {
-      const data = [...taxPayerAccountType, ...spouseAccountType];
-      onStepSubmit(data);
-      await dispatch(setIndividualOrganizer(data));
+      const datas = [...data];
+      console.log(datas,'datasdatas..onFinish');
+      
+      onStepSubmit(datas);
+      await dispatch(setIndividualOrganizer(datas));
       nextStep();
     } catch (e) {
       // TODO: handle catch error
@@ -153,14 +155,13 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
 
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
-    const dataValue = name.includes("taxPayer")
-      ? taxPayerAccountType
-      : spouseAccountType;
+    let isTaxPayer = name.includes("taxPayer")
+    const dataValue = data;
     const index: number = findIndexData(name, dataValue);
     console.log(dataValue,'dataValue');
     
     const newData = [...dataValue];
-console.log(newData,'newDatanewData');
+    console.log(newData,'newDatanewData');
 
     newData[index] = {
       ...dataValue[index],
@@ -169,15 +170,18 @@ console.log(newData,'newDatanewData');
       message: "",
       reminder: false,
       isFile: newData[index].isFile,
-      files: newData[index].isFile ? value[name] : null,
+      files: newData[index].isFile ? value[name].fileList : null,
     };
     console.log(newData,'newDatanewData121');
+    
+    if(isTaxPayer){
+      setTaxPayerAccountType(newData)
+      setData([...newData]);
+    }else{
+      setSpouseAccountType(newData);
+      setData([...newData,]);
+    }
 
-    name.includes("taxPayer")
-      ? setTaxPayerAccountType(newData)
-      : setSpouseAccountType(newData);
-
-    setData([...newData, ...spouseAccountType, ...taxPayerAccountType]);
   };
 
   const add = (names: string[], isTaxpayer: boolean) => {
@@ -387,7 +391,7 @@ console.log(newData,'newDatanewData');
                                   children: upload({
                                     key: "taxPayerRealEstateExpenses_MortgageInterestPaidToBanks_Attachement",
                                     data: data,
-                                    required:true,
+                                    required:false,
                                     allowedFileTypes: ["application/pdf", "image/jpeg"],
                                     buttonText: t("organizer.individual.yes_flow.step3.attach"),
                                     dispatch: dispatch,
@@ -492,7 +496,7 @@ console.log(newData,'newDatanewData');
               return questionContainer({
                 key: item,
                 question: t(
-                  `organizer.individual.income.step6.question${index + 4}`,
+                  `organizer.individual.income.step6.question20`,
                 ),
                 children: input({ name: item ,
                   pattern:{
