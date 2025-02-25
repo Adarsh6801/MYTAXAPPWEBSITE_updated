@@ -378,7 +378,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                             question: (
                               <div>
                                 <Trans
-                                  i18nKey="organizer.individual.income.step6.question21"
+                                  i18nKey="organizer.individual.income.step6.question12"
                                   values={{
                                     info: "",
                                   }}
@@ -448,7 +448,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 question: (
                   <div>
                     <Trans
-                      i18nKey="organizer.individual.income.step6.question17"
+                      i18nKey="organizer.individual.income.step6.question18"
                       values={{
                         info: "еlectric, gas, water, <br /> garbage collection, etc.",
                       }}
@@ -473,7 +473,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
                 question: (
                   <div>
                     <Trans
-                      i18nKey="organizer.individual.income.step6.question16"
+                      i18nKey="organizer.individual.income.step6.question17"
                       values={{
                         info: `Generally the amount from <br /> line 1 of the 2019 form W-3`,
                       }}
@@ -496,7 +496,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
               return questionContainer({
                 key: item,
                 question: t(
-                  `organizer.individual.income.step6.question20`,
+                  `organizer.individual.income.step6.question21`,
                 ),
                 children: input({ name: item ,
                   pattern:{
@@ -510,7 +510,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
             return questionContainer({
               key: item,
               question: t(
-                `organizer.individual.income.step6.question${index + 3}`,
+                `organizer.individual.income.step6.question${index + 4}`,
               ),
               children: input({ name: item ,
                 pattern:{
@@ -554,7 +554,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
           required:true,
           }),
         })}
-        {
+        {data[findIndexData('taxPayerRealEstate_OwnAnyMoreRealEstate',data)].answer && 
           <>
             <Divider />
             {formInfo({
@@ -590,7 +590,7 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
               required:true,
               }),
             })}
-            {spouseAccountType[17].answer && (
+            {data[findIndexData('spouseRealEstate_OwnAnyMoreRealEstate',data)].answer && (
               <>
                 {formInfo({
                   isTaxPayer: true,
