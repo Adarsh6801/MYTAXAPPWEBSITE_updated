@@ -376,9 +376,7 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
     console.log(name, "name");
 
 
-    const dataValues = name.includes("taxPayer")
-      ? taxPayerAccountType
-      : spouseAccountType;
+    const dataValues = data;
     console.log(dataValues, "dataValues");
 
     const columnIndex = +name[name.length - 1] - 1;
