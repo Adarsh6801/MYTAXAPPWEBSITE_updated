@@ -69,77 +69,85 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
     if (dataOrganizer) {
       const stepData = dataOrganizer.filter((el: any, i: number) => {
         return (
-          !!DATA_KEY.find(item => {
-            return el.question.includes(item);
-          }) &&
+          !!DATA_KEY.find(item => el.question.includes(item)) &&
           dataOrganizer.filter(
-            (item: any, index: number) =>
-              index < i && item.question === el.question,
+            (item: any, index: number) => index < i && item.question === el.question,
           )?.length < 2
         );
       });
-console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
-
-      let realestateIndex = findIndexData('taxesPaid_realestateProperty',data)
-      let personalpropertyIndex = findIndexData('taxesPaid_personalProperty',data)
-      const realestateStepData = JSON.parse(stepData[realestateIndex]?.answer);
-      const personalPropertyStepData = JSON.parse(stepData[personalpropertyIndex]?.answer);
-      console.log(realestateStepData,'realestateStepData');
-      console.log(personalPropertyStepData,'personalPropertyStepData');
-      let newdata1 = JSON.parse(realestateStepData.data);
-      let newdata2 = JSON.parse(personalPropertyStepData.data);
-      console.log(newdata1,'newdata1');
-      console.log(newdata2,'newdata2');
-      
-      setRentalProperties(newdata1);
-      setPersonalProperties(newdata2);
-                if (newdata1.length > 0) {
-                  newdata1.forEach((item: any, i: number) => {
-                    console.log(item, "item?.datePaid");
-                    form.setFieldsValue({
-                      [item.question]:  item.question.includes("Date") ?  moment(item?.answer) : item?.answer || ""
-                    })
-                    setTaxPayerCount(newdata1.length / 3);
-                  });
-                }
-
-                if (newdata2.length > 0) {
-                  newdata2.forEach((item: any, i: number) => {
-                    console.log(item, "item?.datePaid");
-
-                    form.setFieldsValue({
-                      [item.question]:  item.question.includes("Date") ?  moment(item?.answer) : item?.answer || ""
-                    })
-                    setpersonalPropertyCount(newdata2.length / 3);
-                  });
-                }
-
-
-      const currentType = stepData.map((el: any) => {
-        return getCurrentType(el);
-      });
-
+  
+      console.log(stepData, 'stepDatastepDatastepDatastepDatastepData');
+  
+      let realestateIndex = findIndexData('taxesPaid_realestateProperty', data);
+      let personalpropertyIndex = findIndexData('taxesPaid_personalProperty', data);
+  
+      const realestateStepData = stepData[realestateIndex]?.answer;
+      const personalPropertyStepData = stepData[personalpropertyIndex]?.answer;
+  
+      // Ensure valid JSON before parsing
+      const isValidJson = (str: any) => {
+        try {
+          return JSON.parse(str);
+        } catch (e) {
+          console.error("Invalid JSON:", str);
+          return null;
+        }
+      };
+  
+      const parsedRealEstate = isValidJson(realestateStepData);
+      const parsedPersonalProperty = isValidJson(personalPropertyStepData);
+  
+      if (parsedRealEstate) {
+        let newdata1 = isValidJson(parsedRealEstate.data);
+        if (newdata1) {
+          console.log(newdata1, 'newdata1');
+          setRentalProperties(newdata1);
+          if (newdata1.length > 0) {
+            newdata1.forEach((item: any) => {
+              form.setFieldsValue({
+                [item.question]: item.question.includes("Date") ? moment(item?.answer) : item?.answer || null
+              });
+            });
+            setTaxPayerCount(newdata1.length / 3);
+          }
+        }
+      }
+  
+      if (parsedPersonalProperty) {
+        let newdata2 = isValidJson(parsedPersonalProperty.data);
+        if (newdata2) {
+          console.log(newdata2, 'newdata2');
+          setPersonalProperties(newdata2);
+          if (newdata2.length > 0) {
+            newdata2.forEach((item: any) => {
+              form.setFieldsValue({
+                [item.question]: item.question.includes("Date") ?item?.answer!=null? moment(item?.answer):null : item?.answer || null
+              });
+            });
+            setpersonalPropertyCount(newdata2.length / 3);
+          }
+        }
+      }
+  
+      const currentType = stepData.map((el: any) => getCurrentType(el));
+  
       const resultData: any[] =
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-
+  
       resultData.forEach((item: any) => {
         if (item.isFile) {
-          form.setFieldsValue({
-            [item.question]: item.files,
-          });
+          form.setFieldsValue({ [item.question]: item.files });
         } else {
-          form.setFieldsValue({
-            [item.question]: item.answer,
-          });
+          form.setFieldsValue({ [item.question]: item.answer?item.answer:null });
         }
       });
-
+  
       resultData.length >= DATA_KEY.length && setData(resultData);
     }
   }, [dataOrganizer]);
-
+  
   const init = async () => {
     await dispatch(
       getTaxpayerIndividualOrganizer({
@@ -424,7 +432,7 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
         </div>
 
         <Divider />
-        {_.times(taxPayerCount, (index: number) => {
+        {data[findIndexData('doYou_pay_property_tax_directly',data)].answer && _.times(taxPayerCount, (index: number) => {
           return (
             <div key={index}>
 
@@ -432,13 +440,14 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                 key: `taxesPaid_VehicleLicenseFees_Amount${index + 1}`,
                 question: t("organizer.deductions.step3.question1"),
                 children: (
+                  <>
                   <div className={styles.pickerContainer}>
                                           { select({
                           name: `taxesPaid_VehicleLicenseFees_Type${index + 1}`,
                           label: t("organizer.deductions.step3.label4"),
                           data: dataRelation,
                           placeholder:"Select Type",
-                          required: true,
+                          // required: true,
                           message: "Select Real Estate Type",
                        
                       })}
@@ -446,14 +455,18 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                       name: `taxesPaid_VehicleLicenseFees_Amount${index + 1}`,
                       label: t("organizer.deductions.step3.label1"),
                       placeholder:"4,900",
-                      required: true,
+                      pattern:{
+                        value:/^\d{1,7}$/,
+                        message:"Amount must be numeric and maximum 7 digits."
+                      },
+                      // required: true,
                     })}
                     {dataPicker({
                       name: `taxesPaid_VehicleLicenseFees_Date${index + 1}`,
                       label: t("organizer.deductions.step3.label2"),
                       icon: <Calendar />,
                       disabledDate: disabledDateFuture,
-                      required:true,
+                      // required:true,
                       defaultValue:
                       rentalPropertyData[
                           findIndexData(
@@ -462,6 +475,7 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                           )
                         ]?.answer,
                     })}
+                  </div>
                     <div className={styles.addRemoveContainer}>
                       {taxPayerCount === index + 1 && (
                         <Button
@@ -482,14 +496,14 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                         />
                       )}
                     </div>
-                  </div>
+                  </>
                 ),
               })}
             </div>
           );
         })}
         <Divider />
-        {_.times(personalPropertyCount, (index: number) => {
+        {data[findIndexData('doYou_pay_property_tax_directly',data)].answer && _.times(personalPropertyCount, (index: number) => {
           return (
             <div key={index}>
 
@@ -497,12 +511,13 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                 key: `taxesPaid_PersonalProperty_Amount${index + 1}`,
                 question: t("organizer.deductions.step3.question2"),
                 children: (
+                  <>
                   <div className={styles.pickerContainer}>
                                           { select({
                           name: `taxesPaid_PersonalProperty_Type${index + 1}`,
                           label: t("organizer.deductions.step3.label5"),
                           data: personalProperyTypeOptions,
-                          required: true,
+                          // required: true,
                           placeholder:"Select Personal Property",
                           message: "Select Personal Property Type",
                       })}
@@ -510,14 +525,18 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                       name: `taxesPaid_PersonalProperty_Amount${index + 1}`,
                       label: t("organizer.deductions.step3.label1"),
                       placeholder:"4,900",
-                      required: true,
+                      pattern:{
+                        value:/^\d{1,7}$/,
+                        message:"Amount must be numeric and maximum 7 digits."
+                      },
+                      // required: true,
                     })}
                     {dataPicker({
                       name: `taxesPaid_PersonalProperty_Date${index + 1}`,
                       label: t("organizer.deductions.step3.label2"),
                       icon: <Calendar />,
                       disabledDate: disabledDateFuture,
-                      required: true,
+                      // required: true,
                       defaultValue:
                       personalPropertData[
                           findIndexData(
@@ -526,6 +545,7 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                           )
                         ]?.answer,
                     })}
+                  </div>
                     <div className={styles.addRemoveContainer}>
                       {personalPropertyCount === index + 1 && (
                         <Button
@@ -546,7 +566,7 @@ console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
                         />
                       )}
                     </div>
-                  </div>
+                  </>
                 ),
               })}
             </div>

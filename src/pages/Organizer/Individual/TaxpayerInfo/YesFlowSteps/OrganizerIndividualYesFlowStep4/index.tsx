@@ -102,13 +102,14 @@ const EditableCell: React.FC<EditableCellProps> = ({
         <Select
           data={[
             {
+              label: 'Federal',
+              value: "federal",
+            },
+            {
               label: 'State',
               value: "state",
             },
-            {
-              label: 'Federal',
-              value: "federal",
-            }
+
           ]}
           placeholder='Type'
           style={{ width: 120 }}

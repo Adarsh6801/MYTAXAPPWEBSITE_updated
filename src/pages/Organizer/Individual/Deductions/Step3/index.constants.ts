@@ -97,15 +97,15 @@ export const DATA_KEY = [
 
 export const dataRelation: IRadioGroupItem[] = [
   {
-    label: "Real Estate – Primary Residence",
+    label: "Primary Residence",
     value: "Real_Estate_Primary_Residence",
   },
   {
-    label: "Real Estate – 2nd Home",
+    label: "2nd Home",
     value: "Real_Estate_2nd_Home",
   },
   {
-    label: "Real Estate – Investment Property (Land, etc.)",
+    label: "Investment Property (Land, etc.)",
     value: "Real_Estate_Investment_Property",
   },
 ];
