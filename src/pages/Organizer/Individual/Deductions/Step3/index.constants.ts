@@ -9,8 +9,8 @@ export const data = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
     forSpouse: false,
-    question: "taxesPaid_RealEstateType1",
-    answerTypeId: QUESTION_TYPE_ANSWER.string,
+    question: "doYou_pay_property_tax_directly",
+    answerTypeId: QUESTION_TYPE_ANSWER.radio,
     answer: null,
     message: "",
     reminder: false,
@@ -20,57 +20,61 @@ export const data = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
     forSpouse: false,
+    question: "taxesPaid_realestateProperty",
+    answerTypeId: QUESTION_TYPE_ANSWER.string,
+    answer: null, // Store as string
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  },
+  {
+    categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
+    forSpouse: false,
+    question: "taxesPaid_personalProperty",
+    answerTypeId: QUESTION_TYPE_ANSWER.string,
+    answer: null, // Store as string
+    message: "",
+    reminder: false,
+    isFile: false,
+    files: null,
+  }
+];
+
+export const rentalPropertyData = [
+  {
+    question: "taxesPaid_VehicleLicenseFees_Type1",
+    answerTypeId: QUESTION_TYPE_ANSWER.string,
+    answer: null,
+  },
+  {
     question: "taxesPaid_VehicleLicenseFees_Amount1",
     answerTypeId: QUESTION_TYPE_ANSWER.string,
     answer: null,
-    message: "",
-    reminder: false,
-    isFile: false,
-    files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-    forSpouse: false,
     question: "taxesPaid_VehicleLicenseFees_Date1",
     answerTypeId: QUESTION_TYPE_ANSWER.date,
     answer: null,
-    message: "",
-    reminder: false,
-    isFile: false,
-    files: null,
   },
+];
+
+
+export const personalPropertData = [
   {
-    categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-    forSpouse: false,
-    question: "taxesPaid_PersonalPropertyType1",
+    question: "taxesPaid_PersonalProperty_Type1",
     answerTypeId: QUESTION_TYPE_ANSWER.string,
     answer: null,
-    message: "",
-    reminder: false,
-    isFile: false,
-    files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-    forSpouse: false,
     question: "taxesPaid_PersonalProperty_Amount1",
     answerTypeId: QUESTION_TYPE_ANSWER.string,
     answer: null,
-    message: "",
-    reminder: false,
-    isFile: false,
-    files: null,
   },
   {
-    categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-    forSpouse: false,
     question: "taxesPaid_PersonalProperty_Date1",
     answerTypeId: QUESTION_TYPE_ANSWER.date,
     answer: null,
-    message: "",
-    reminder: false,
-    isFile: false,
-    files: null,
   },
 ];
 
@@ -86,20 +90,9 @@ export const radioButtons = [
 ];
 
 export const DATA_KEY = [
-  "taxesPaid_RealEstatePrimaryResidence_Amount",
-  "taxesPaid_RealEstatePrimaryResidence_Date",
-  "taxesPaid_RealEstate2ndHome_Amount",
-  "taxesPaid_RealEstate2ndHome_Date",
-  "taxesPaid_RealEstateInvestmentProperty_Amount",
-  "taxesPaid_RealEstateInvestmentProperty_Date",
-  "taxesPaid_PersonalPropertyTax_Amount",
-  "taxesPaid_PersonalPropertyTax_Date",
-  "taxesPaid_SalesTaxReceipted_Amount",
-  "taxesPaid_SalesTaxReceipted_Date",
-  "taxesPaid_SalesTaxCarsBoatsHome_Amount",
-  "taxesPaid_SalesTaxCarsBoatsHome_Date",
-  "taxesPaid_VehicleLicenseFees_Amount",
-  "taxesPaid_VehicleLicenseFees_Date",
+  "doYou_pay_property_tax_directly",
+  "taxesPaid_realestateProperty",
+  "taxesPaid_personalProperty",
 ];
 
 export const dataRelation: IRadioGroupItem[] = [

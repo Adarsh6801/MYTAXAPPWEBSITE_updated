@@ -15,8 +15,8 @@ import {
   getCurrentType,
 } from "../../../../../helpers/format";
 import { disabledDateFuture, disabledDatePast } from "../../../../../helpers/date";
-import { data as initialData, DATA_KEY, radioButtons, dataRelation, personalProperyTypeOptions } from "./index.constants";
-import { ORGANIZER_CATEGORY_ID } from "../../../../../constants/organizer";
+import { data as initialData, DATA_KEY, radioButtons, dataRelation, personalProperyTypeOptions,rentalPropertyData,personalPropertData } from "./index.constants";
+import { ORGANIZER_CATEGORY_ID, QUESTION_TYPE_ANSWER } from "../../../../../constants/organizer";
 import { IRS_LINK } from "../../../../../constants/settings";
 import {
   ITaxPayerInfoStepsProps,
@@ -31,6 +31,7 @@ import {
 
 import { ReactComponent as Calendar } from "../../../../../assets/svgs/calendar.svg";
 import styles from "./index.module.css";
+import moment from "moment";
 
 const noop = () => {};
 
@@ -45,6 +46,14 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
 
   const [data, setData] = useState<IOrganizerStepProps[]>(
     addQuoteIdOrganizer(initialData, Number(quoteId)),
+  );
+
+  const [rentalProperties, setRentalProperties] = useState(
+    rentalPropertyData
+  );
+
+  const [personalProperties, setPersonalProperties] = useState(
+    personalPropertData
   );
 
   
@@ -69,6 +78,42 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           )?.length < 2
         );
       });
+console.log(stepData,'stepDatastepDatastepDatastepDatastepData');
+
+      let realestateIndex = findIndexData('taxesPaid_realestateProperty',data)
+      let personalpropertyIndex = findIndexData('taxesPaid_personalProperty',data)
+      const realestateStepData = JSON.parse(stepData[realestateIndex]?.answer);
+      const personalPropertyStepData = JSON.parse(stepData[personalpropertyIndex]?.answer);
+      console.log(realestateStepData,'realestateStepData');
+      console.log(personalPropertyStepData,'personalPropertyStepData');
+      let newdata1 = JSON.parse(realestateStepData.data);
+      let newdata2 = JSON.parse(personalPropertyStepData.data);
+      console.log(newdata1,'newdata1');
+      console.log(newdata2,'newdata2');
+      
+      setRentalProperties(newdata1);
+      setPersonalProperties(newdata2);
+                if (newdata1.length > 0) {
+                  newdata1.forEach((item: any, i: number) => {
+                    console.log(item, "item?.datePaid");
+                    form.setFieldsValue({
+                      [item.question]:  item.question.includes("Date") ?  moment(item?.answer) : item?.answer || ""
+                    })
+                    setTaxPayerCount(newdata1.length / 3);
+                  });
+                }
+
+                if (newdata2.length > 0) {
+                  newdata2.forEach((item: any, i: number) => {
+                    console.log(item, "item?.datePaid");
+
+                    form.setFieldsValue({
+                      [item.question]:  item.question.includes("Date") ?  moment(item?.answer) : item?.answer || ""
+                    })
+                    setpersonalPropertyCount(newdata2.length / 3);
+                  });
+                }
+
 
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
@@ -105,123 +150,198 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
 
   const onFinish = async () => {
     try {
-      onStepSubmit(data);
-      await dispatch(setIndividualOrganizer(data));
+      if (!data || !Array.isArray(data)) {
+        console.error("Error: data is undefined or not an array");
+        return;
+      }
+
+      const newData = [...data];
+        newData[findIndexData('taxesPaid_realestateProperty',data)].answer = JSON.stringify({
+          data: JSON.stringify(rentalProperties)
+        });
+        newData[findIndexData('taxesPaid_personalProperty',data)].answer = JSON.stringify({
+          data: JSON.stringify(personalProperties)
+        });
+  
+      // Submit the updated data
+      onStepSubmit(newData);
+      await dispatch(setIndividualOrganizer(newData));
       nextStep();
     } catch (e) {
-      // TODO: handle catch error
+      console.error("Error submitting data:", e);
     }
   };
+  
+  
+  
+  
+
+  // const onValuesChange = (value: any) => {
+  //   const [name] = Object.keys(value);
+
+    
+  //   if (name.startsWith("taxesPaid_VehicleLicenseFees_")) {
+  //     const index: number = findIndexData(name, rentalProperties);
+  //     console.log(index,'index');
+      
+  //     const newData = [...rentalProperties];
+  //     newData[index] = {
+  //       ...rentalProperties[index],
+  //       question: rentalProperties[index].question,
+  //       answer: value[name],
+  //     };
+  //     setRentalProperties(newData)
+  //     console.log(rentalProperties,'rentalProperties');
+  //   }
+    
+  //   else if (name.startsWith("taxesPaid_PersonalProperty_")) {
+  //     const index: number = findIndexData(name, personalProperties);
+  //     const newData = [...personalProperties];
+  //     newData[index] = {
+  //       ...personalProperties[index],
+  //       question: personalProperties[index].question,
+  //       answer: value[name],
+  //     };
+  //     setPersonalProperties(newData)
+
+  //   }else{
+  //     const index: number = findIndexData(name, data);
+  //     const newData = [...data];
+  //     console.log(index,'indexindexindex');
+  
+  //     console.log(newData,'newDatanewDatanewData');
+      
+  //     newData[index] = {
+  //       ...data[index],
+  //       question: data[index].question,
+  //       answer: value[name],
+  //       files: newData[index].isFile ? value[name] : null,
+  //     };
+  //     setData([...newData]);
+  //   }
+  //   console.log(data,'dataaaaaa');
+    
+  //   console.log(rentalProperties,'rentalProperties');
+  //   console.log(personalProperties,'personalProperties');
+    
+  // };
+
 
   const onValuesChange = (value: any) => {
     const [name] = Object.keys(value);
-    const index: number = findIndexData(name, data);
-    const newData = [...data];
-
-    newData[index] = {
-      ...data[index],
-      question: data[index].question,
-      answer: value[name],
-      files: newData[index].isFile ? value[name] : null,
-    };
-    setData([...newData]);
+    const newValue = value[name];
+  
+    if (name.startsWith("taxesPaid_VehicleLicenseFees_")) {
+      const index = findIndexData(name, rentalProperties);
+      if (index !== -1) {
+        setRentalProperties(prev => {
+          const updated = [...prev];
+          updated[index] = { ...updated[index], answer: newValue };
+          return updated;
+        });
+      }
+    } else if (name.startsWith("taxesPaid_PersonalProperty_")) {
+      const index = findIndexData(name, personalProperties);
+      if (index !== -1) {
+        setPersonalProperties(prev => {
+          const updated = [...prev];
+          updated[index] = { ...updated[index], answer: newValue };
+          return updated;
+        });
+      }
+    } else {
+      const index = findIndexData(name, data);
+      if (index !== -1) {
+        setData(prev => {
+          const updated = [...prev];
+          updated[index] = {
+            ...updated[index],
+            answer: newValue,
+            files: updated[index].isFile ? newValue : null,
+          };
+          return updated;
+        });
+      }
+    }
   };
+  
 
   const addFields = () => {
-    const newData: any = [...data];
+    // {
+    //   question: "taxesPaid_VehicleLicenseFees_Type1",
+    //   answerTypeId: QUESTION_TYPE_ANSWER.string,
+    //   answer: null,
+    // },
+    // {
+    //   question: "taxesPaid_VehicleLicenseFees_Amount1",
+    //   answerTypeId: QUESTION_TYPE_ANSWER.string,
+    //   answer: null,
+    // },
+    // {
+    //   question: "taxesPaid_VehicleLicenseFees_Date1",
+    //   answerTypeId: QUESTION_TYPE_ANSWER.date,
+    //   answer: null,
+    // },
+    const newData: any = [...rentalProperties];
     newData.push(
       ...[
         {
-          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-          forSpouse: false,
-          question: `taxesPaid_RealEstateType${taxPayerCount + 1}`,
+          question: `taxesPaid_VehicleLicenseFees_Type${taxPayerCount + 1}`,
           answer: null,
-          message: "",
-          reminder: false,
-          isFile: false,
-          file: null,
         },
         {
-          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-          forSpouse: false,
           question: `taxesPaid_VehicleLicenseFees_Amount${taxPayerCount + 1}`,
           answer: null,
-          message: "",
-          reminder: false,
-          isFile: false,
-          file: null,
         },
         {
-          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-          forSpouse: false,
           question: `taxesPaid_VehicleLicenseFees_Date${taxPayerCount + 1}`,
           answer: null,
-          message: "",
-          reminder: false,
-          isFile: false,
-          file: null,
         },
       ],
     );
-    setData(addQuoteIdOrganizer(newData, Number(quoteId)));
+    console.log(newData,'newDatanewDatanewData');
+    
+    setRentalProperties(newData);
     setTaxPayerCount(taxPayerCount + 1);
   };
 
   const removeFields = () => {
-    const newData = data.filter(
+    const newData = rentalProperties.filter(
       (item, index) =>
         !(+item.question.charAt(item.question.length - 1) === taxPayerCount),
     );
-    setData(newData);
+    setRentalProperties(newData);
     setTaxPayerCount(taxPayerCount - 1);
   };
 
   const addPersonalPropertyFields = () => {
-    const newData: any = [...data];
+    const newData: any = [...personalProperties];
     newData.push(
       ...[
         {
-          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-          forSpouse: false,
-          question: `taxesPaid_PersonalPropertyType${personalPropertyCount + 1}`,
+          question: `taxesPaid_PersonalProperty_Type${personalPropertyCount + 1}`,
           answer: null,
-          message: "",
-          reminder: false,
-          isFile: false,
-          file: null,
         },
         {
-          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-          forSpouse: false,
           question: `taxesPaid_PersonalProperty_Amount${personalPropertyCount + 1}`,
           answer: null,
-          message: "",
-          reminder: false,
-          isFile: false,
-          file: null,
         },
         {
-          categoryId: ORGANIZER_CATEGORY_ID.taxesPaid,
-          forSpouse: false,
           question: `taxesPaid_PersonalProperty_Date${personalPropertyCount + 1}`,
           answer: null,
-          message: "",
-          reminder: false,
-          isFile: false,
-          file: null,
         },
       ],
     );
-    setData(addQuoteIdOrganizer(newData, Number(quoteId)));
+    setPersonalProperties(newData);
     setpersonalPropertyCount(personalPropertyCount + 1);
   };
 
   const removePersonalPropertyFields = () => {
-    const newData = data.filter(
+    const newData = personalProperties.filter(
       (item, index) =>
         !(+item.question.charAt(item.question.length - 1) === personalPropertyCount),
     );
-    setData(newData);
+    setPersonalProperties(newData);
     setpersonalPropertyCount(personalPropertyCount - 1);
   };
 
@@ -314,7 +434,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                 children: (
                   <div className={styles.pickerContainer}>
                                           { select({
-                          name: `dependantRelation${index + 1}`,
+                          name: `taxesPaid_VehicleLicenseFees_Type${index + 1}`,
                           label: t("organizer.deductions.step3.label4"),
                           data: dataRelation,
                           placeholder:"Select Type",
@@ -335,12 +455,12 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                       disabledDate: disabledDateFuture,
                       required:true,
                       defaultValue:
-                        data[
+                      rentalPropertyData[
                           findIndexData(
                             `taxesPaid_VehicleLicenseFees_Date${index + 1}`,
-                            data,
+                            rentalPropertyData,
                           )
-                        ].answer,
+                        ]?.answer,
                     })}
                     <div className={styles.addRemoveContainer}>
                       {taxPayerCount === index + 1 && (
@@ -374,12 +494,12 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
             <div key={index}>
 
               {questionContainer({
-                key: `taxesPaid_PersonalProperty_Amount1${index + 1}`,
+                key: `taxesPaid_PersonalProperty_Amount${index + 1}`,
                 question: t("organizer.deductions.step3.question2"),
                 children: (
                   <div className={styles.pickerContainer}>
                                           { select({
-                          name: `taxesPaid_PersonalPropertyType${index + 1}`,
+                          name: `taxesPaid_PersonalProperty_Type${index + 1}`,
                           label: t("organizer.deductions.step3.label5"),
                           data: personalProperyTypeOptions,
                           required: true,
@@ -399,12 +519,12 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                       disabledDate: disabledDateFuture,
                       required: true,
                       defaultValue:
-                        data[
+                      personalPropertData[
                           findIndexData(
                             `taxesPaid_PersonalProperty_Date${index + 1}`,
-                            data,
+                            personalPropertData,
                           )
-                        ].answer,
+                        ]?.answer,
                     })}
                     <div className={styles.addRemoveContainer}>
                       {personalPropertyCount === index + 1 && (
