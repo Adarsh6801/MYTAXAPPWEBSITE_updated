@@ -407,7 +407,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
               {checkbox({
                 name: "isSpouseLegallyBlind",
                 label: t("organizer.individual.yes_flow.step3.legally_blind"),
-                value: data[findIndexData("isSpouseLegallyBlind", data)].answer,
+                value: data[findIndexData("isSpouseLegallyBlind", data)]?.answer,
               })}
               {questionContainer({
                 key: "isSpouseHasDriversLicense",
@@ -421,7 +421,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                   radioButtons: radioButton,
                 }),
               })}
-              {data[findIndexData("isSpouseHasDriversLicense", data)].answer==false &&
+              {data[findIndexData("isSpouseHasDriversLicense", data)]?.answer==false &&
                 (!hasDriverLicenseImages ? (
                   <>
                     {questionContainer({
@@ -565,7 +565,7 @@ const OrganizerIndividualYesFlowStep3 = (props: ITaxPayerInfoStepsProps) => {
                     </div>
                   </>
                 ))}
-              {data[findIndexData("isSpouseHasDriversLicense", data)].answer==false &&
+              {data[findIndexData("isSpouseHasDriversLicense", data)]?.answer==false &&
                 questionContainer({
                   key: "spouseImagesOfDriversLicense",
                   question: t(

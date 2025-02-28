@@ -99,7 +99,7 @@ const OrganizerIndividual = () => {
       console.log(foundItem, "Found Item");
 
       // Get the answer if found, otherwise default to an empty string
-      setpreviousTaxYear(foundItem ? foundItem.answer : "");
+      setpreviousTaxYear(foundItem ? (Number(foundItem.answer)+1).toString() : "");
       console.log(previousTaxYear, "Previous Tax Year");
     }
   }, [dataOrganizer]);
