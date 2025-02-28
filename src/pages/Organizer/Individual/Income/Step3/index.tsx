@@ -429,7 +429,7 @@ console.log(data,'datadata');
             radioButtons: radioButtons,
           }),
         })}
-                              {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)].answer==true &&
+                              {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)]?.answer==true &&
                                 questionContainer({
                                   key: "do_you_use_accounting_software_prepare_income_tax_attachment",
                                   question: t(
@@ -490,8 +490,8 @@ console.log(data,'datadata');
                                   }),
                                 
                                 })}
-                {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)].answer==false && formInfo(namesTaxPayer, index + 1)}
-                {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)].answer==false && countTaxPayer === index + 1 && countTaxPayer > 1 && (
+                {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)]?.answer==false && formInfo(namesTaxPayer, index + 1)}
+                {data[findIndexData("do_you_use_accounting_software_prepare_income_tax", data)]?.answer==false && countTaxPayer === index + 1 && countTaxPayer > 1 && (
                   <Button
                     key={`button${index}`}
                     text={t(

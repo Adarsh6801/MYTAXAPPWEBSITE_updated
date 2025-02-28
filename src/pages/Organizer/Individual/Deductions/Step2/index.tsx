@@ -135,7 +135,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
       data[findIndexData("taxPayer_PayHomeMortgageinterest", data)].answer &&
       data[findIndexData("taxPayer_Reseive1098Form", data)].answer === null
         ? goTo(31)
-        : goTo(27);
+        : goTo(25);
     } catch (e) {
       // TODO: handle catch error
     }
@@ -386,10 +386,13 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
               </>
             ),
           })}
-        {data[findIndexData(homeMortgage.key, data)]?.answer === true && (
+        {data[findIndexData(youReceiveForm1098.key, data)]?.answer ===
+                    false && (
           <>
+                        {" "}
+                        <p>{t("organizer.deductions.step2.sub_title1")}</p>
             <>
-              <p>Paid to</p>
+              {/* <p>Paid to</p> */}
               {questionContainer({
                 key: payersName.key,
                 children: input({
@@ -432,9 +435,8 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 }),
               })}
             </>
-            <>
-              {" "}
-              <p>{t("organizer.deductions.step2.sub_title1")}</p>
+            {/* <>
+
               <p>
                 <Trans
                   i18nKey="organizer.deductions.step4.description1"
@@ -456,7 +458,7 @@ const Step2 = (props: ITaxPayerInfoStepsProps) => {
                 key: address.key,
                 label: t("organizer.deductions.step4.label3"),
               },
-            })}
+            })} */}
             <>
               <p>{t("organizer.deductions.step2.sub_title2")}</p>
               {questionContainer({

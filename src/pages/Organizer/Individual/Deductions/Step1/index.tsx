@@ -104,7 +104,7 @@ const Step1 = (props: ITaxPayerInfoStepsProps) => {
       onStepSubmit(data);
       await dispatch(setIndividualOrganizer(data));
       if (!data[0].answer) {
-        goTo(25);
+        goTo(27);
         return;
       }
       nextStep();

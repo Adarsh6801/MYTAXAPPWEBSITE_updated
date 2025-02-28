@@ -40,7 +40,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { id: quoteId } = useParams();
-  const { nextStep = noop, prevStep = noop, onStepSubmit = noop } = props;
+  const { nextStep = noop, prevStep = noop, onStepSubmit = noop, goTo = noop } = props;
   const [taxPayerCount, setTaxPayerCount] = useState(1);
   const [personalPropertyCount, setpersonalPropertyCount] = useState(1);
 
