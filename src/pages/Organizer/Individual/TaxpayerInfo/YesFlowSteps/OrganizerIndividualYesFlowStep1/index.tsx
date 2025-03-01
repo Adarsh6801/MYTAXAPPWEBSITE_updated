@@ -35,13 +35,6 @@ import TT from "../../../../../../documents/1099INT.pdf";
 import styles from "./index.module.css";
 
 const noop = () => {};
-const currentYear: number = new Date().getFullYear();
-
-// Generate an array of previous years (exclude the current year)
-const previousYears: number[] = Array.from(
-  { length: currentYear - 2000 },
-  (_, index: number): number => currentYear - index - 1,
-);
 
 const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
   const { onStepSubmit = noop, goTo = noop } = props;
@@ -57,7 +50,14 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
   const dataOrganizer = useSelector(
     (state: any) => state.individualOrganizer.data,
   );
+  const currentYear: number = new Date().getFullYear();
 
+  // Generate an array of previous years (exclude the current year)
+  const previousYears: number[] = Array.from(
+    { length: currentYear - 2019 },
+    (_, index: number): number => currentYear - index ,
+  );
+  
   useEffect(() => {
     init();
   }, []);
@@ -99,7 +99,20 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           });
         }
       });
+      const previousYear= resultData[findIndexData('taxFillingYear',resultData)].answer
+      const prevTaxYearIndex= findIndexData('previousTaxYear',resultData)
+    // Filter previous years to be less than the selected tax filing year
+    let filteredPreviousYears = previousYears.filter(
+      (year) => year < previousYear
+    )
+    if (previousYear === 2020 && filteredPreviousYears.length === 0) {
+      filteredPreviousYears = [2019,2018,2017,2016];
+    }
 
+    resultData[prevTaxYearIndex].options = filteredPreviousYears.map((year) => ({
+      label: year.toString(),
+      value: year,
+    }));
       resultData.length >= DATA_KEY.length && setData(resultData);
     }
   }, [dataOrganizer]);
@@ -149,29 +162,51 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
     setData(newObject);
   };
 
-  const onValuesChange = (value: any) => {
-    const [name] = Object.keys(value);
-    const index: number = +findIndexData(name, data);
-    const newData = [...data];
-    console.log(newData, "NEW DATA");
-    console.log(name, "name");
-    console.log(value, "value");
-    console.log(index, "indexxxxx");
-    console.log(data, "dataaaa");
+const onValuesChange = (value: any) => {
+  const [name] = Object.keys(value);
+  const index: number = findIndexData(name, data);
+  const newData = [...data];
 
-    newData[index] = {
-      ...data[index],
-      answer: value[name],
-      message: "",
-      reminder: false,
-      isFile: data[index].isFile,
-      files: data[index].isFile ? value[name].fileList : null,
-    };
-    console.log(newData, "newData");
-
-    setData([...newData]);
-    setFiledName(name);
+  newData[index] = {
+    ...data[index],
+    answer: value[name],
+    message: "",
+    reminder: false,
+    isFile: data[index].isFile,
+    files: data[index].isFile ? value[name].fileList : null,
   };
+
+  // If taxFillingYear is changed, filter previousTaxYear options
+  if (name === "taxFillingYear") {
+    const selectedYear = value[name];
+
+    // Filter previous years to be less than the selected tax filing year
+    let filteredPreviousYears = previousYears.filter(
+      (year) => year < selectedYear
+    )
+    if (selectedYear === 2020 && filteredPreviousYears.length === 0) {
+      filteredPreviousYears = [2019,2018,2017,2016];
+    }
+
+    // Find index of previousTaxYear field in data
+    const prevTaxYearIndex = findIndexData("previousTaxYear", newData);
+
+    // Reset previousTaxYear if it is invalid
+    if (newData[prevTaxYearIndex]?.answer >= selectedYear) {
+      newData[prevTaxYearIndex].answer = null;
+      form.setFieldValue("previousTaxYear", null);
+    }
+
+    // Update previousTaxYear options
+    newData[prevTaxYearIndex].options = filteredPreviousYears.map((year) => ({
+      label: year.toString(),
+      value: year,
+    }));
+  }
+
+  setData([...newData]);
+};
+
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
     const { question, key, children, required } = dataQuestion;
@@ -209,6 +244,23 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
       requiredMark={false}
       layout="vertical"
     >
+
+{
+        questionContainer({
+          question: t("organizer.individual.yes_flow.step1.question_8"),
+          key: "taxFillingYear",
+          children: select({
+            name: "taxFillingYear",
+            placeholder: "Select Tax Filing Year",
+            data: previousYears.map((year: number) => ({
+              label: year.toString(),
+              value: year,
+            })),
+            required: true,
+            message: "Select Tax Filing Year.",
+          }),
+          required: true,
+        })}
       {questionContainer({
         question: t("organizer.individual.yes_flow.step1.question_1"),
         key: "hasFiledTaxReturnPreviously",
@@ -221,21 +273,18 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
         }),
       })}
       {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
-        questionContainer({
-          question: t("organizer.individual.yes_flow.step1.question_7"),
-          key: "previousTaxYear",
-          children: select({
-            name: "previousTaxYear",
-            placeholder: "Select Year",
-            data: previousYears.map((year: number) => ({
-              label: year.toString(),
-              value: year,
-            })),
-            required: true,
-            message: "Select Previous Tax Year.",
-          }),
-          required: true,
-        })}
+questionContainer({
+  question: t("organizer.individual.yes_flow.step1.question_7"),
+  key: "previousTaxYear",
+  children: select({
+    name: "previousTaxYear",
+    placeholder: "Select Year",
+    data: data[findIndexData("previousTaxYear", data)].options || [],
+    required: true,
+    message: "Select Previous Tax Year.",
+  }),
+  required: true,
+})}
       {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
         questionContainer({
           question: t("organizer.individual.yes_flow.step1.question_2"),

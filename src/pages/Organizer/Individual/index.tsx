@@ -90,7 +90,7 @@ const OrganizerIndividual = () => {
   useEffect(() => {
     if (dataOrganizer) {
       console.log(dataOrganizer, "Data Organization");
-      const questionKey = "previousTaxYear"; // The question you want to match
+      const questionKey = "taxFillingYear"; // The question you want to match
 
       // Find the object with the matching question
       const foundItem = dataOrganizer.find(
@@ -99,7 +99,7 @@ const OrganizerIndividual = () => {
       console.log(foundItem, "Found Item");
 
       // Get the answer if found, otherwise default to an empty string
-      setpreviousTaxYear(foundItem ? (Number(foundItem.answer)+1).toString() : "");
+      setpreviousTaxYear(foundItem ? (Number(foundItem.answer)).toString() : "");
       console.log(previousTaxYear, "Previous Tax Year");
     }
   }, [dataOrganizer]);

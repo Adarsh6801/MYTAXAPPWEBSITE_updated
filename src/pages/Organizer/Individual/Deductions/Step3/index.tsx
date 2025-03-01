@@ -135,16 +135,33 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-  
+
+          console.log(resultData,'resultDataresultData');
+          
       resultData.forEach((item: any) => {
+        console.log(item,'itemitemitem');
+
         if (item.isFile) {
           form.setFieldsValue({ [item.question]: item.files });
         } else {
-          form.setFieldsValue({ [item.question]: item.answer?item.answer:null });
+          console.log(item.question,'item.question');
+          if(item.answer==false){
+
+            form.setFieldsValue({
+              [item.question]: item.answer
+            });
+          }else{
+            form.setFieldsValue({
+              [item.question]: item.answer?item.answer:null
+            });
+          }
+          // form.setFieldsValue({ [item.question]: item.answer?item.answer:null });
         }
       });
-  
-      resultData.length >= DATA_KEY.length && setData(resultData);
+
+      console.log(resultData,'resultDataresultData');
+      
+       setData(resultData);
     }
   }, [dataOrganizer]);
   
@@ -473,7 +490,12 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                             `taxesPaid_VehicleLicenseFees_Date${index + 1}`,
                             rentalPropertyData,
                           )
-                        ]?.answer,
+                        ]?.answer?      rentalPropertyData[
+                          findIndexData(
+                            `taxesPaid_VehicleLicenseFees_Date${index + 1}`,
+                            rentalPropertyData,
+                          )
+                        ]?.answer:null,
                     })}
                   </div>
                     <div className={styles.addRemoveContainer}>
@@ -543,7 +565,12 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
                             `taxesPaid_PersonalProperty_Date${index + 1}`,
                             personalPropertData,
                           )
-                        ]?.answer,
+                        ]?.answer? personalPropertData[
+                          findIndexData(
+                            `taxesPaid_PersonalProperty_Date${index + 1}`,
+                            personalPropertData,
+                          )
+                        ]?.answer:null,
                     })}
                   </div>
                     <div className={styles.addRemoveContainer}>

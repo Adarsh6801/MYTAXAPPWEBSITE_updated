@@ -18,6 +18,7 @@ export interface IOrganizerQuestionStatus {
 }
 
 export interface IOrganizerStepProps {
+  options?: { label: string; value: number; }[];
   answerTypeId: number;
   quoteId: number;
   categoryId: number;

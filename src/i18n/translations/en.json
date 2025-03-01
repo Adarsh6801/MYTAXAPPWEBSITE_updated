@@ -990,7 +990,7 @@
         "no": "No"
       },
       "step6": {
-        "step_title": "Health Coverage",
+        "step_title": "Medical Expenses",
         "question": "Did you pay any out of pocket medical expense or health Insurance Premiums?",
         "yes": "Yes",
         "no": "No",
@@ -998,7 +998,7 @@
         "add_spouse": "Add separately for Spouse"
       },
       "step7": {
-        "step_title": "Medical Expenses",
+        "step_title": "Medical Expenses Details",
         "description1": "<0>{{note}}</0> If you itemize your deductions for a taxable year on Schedule A (Form 1040), Itemized Deductions, you may be able to deduct expenses you paid that year for medical and dental care for yourself, your spouse, and your dependents. You may deduct only the amount of your total medical expenses that exceed 7.5% of your adjusted gross income. You figure the amount you're allowed to deduct on Schedule A (Form 1040). Medical care expenses include payments for the diagnosis, cure, mitigation, treatment, or prevention of disease, or payments for treatments affecting any structure or function of the body.",
         "description2": "Medical care expenses include payments for the diagnosis, cure, mitigation, treatment, or prevention of disease, or payments for treatments affecting any structure or function of the body.",
         "question1": "INSURANCE PREMIUMS for Medical, Dental, Vision & Hospital",
@@ -1594,7 +1594,7 @@
       },
       "yes_flow": {
         "step1": {
-          "step_title": "Prior year return copy",
+          "step_title": "Tax filing",
           "question_1": "Did you file a personal income tax return for the previous tax year?",
           "question_2": "Do you have a digital copy in pdf format?",
           "question_3": "Upload document in .pdf",
@@ -1602,6 +1602,8 @@
           "question_5": "Do you have the hardcopy?",
           "question_6": "Can you scan your return into PDF format?",
           "question_7": "What was the last year you filed a tax return?",
+          "question_8": "Select Tax filing year.",
+
 
           "info": "Please drop off your tax documents to the tax office",
           "btn_irs": "Order Transcripts from IRS",
