@@ -112,16 +112,16 @@ const Step4 = (props: ITaxPayerInfoStepsProps) => {
     try {
       await dispatch(setIndividualOrganizer(data));
       onStepSubmit(data);
-      if (
-        !data[
-          findIndexData(
-            "taxPayer_CashCharitableContributions_HasAnyWhereNoServicesWereReceived",
-            data,
-          )
-        ].answer
-      ) {
-        goTo(29);
-      }
+      // if (
+      //   !data[
+      //     findIndexData(
+      //       "taxPayer_CashCharitableContributions_HasAnyWhereNoServicesWereReceived",
+      //       data,
+      //     )
+      //   ].answer
+      // ) {
+      //   goTo(29);
+      // }
       nextStep();
     } catch (e) {
       // TODO: handle catch error

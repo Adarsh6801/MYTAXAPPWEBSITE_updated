@@ -391,20 +391,20 @@ const OrganizerIndividual = () => {
             stepIcon: <OrganizerHeart />,
             stepTitle: t("organizer.deductions.step4.step_title"),
           },
-          // {
-          //   // 26
-          //   component: (
-          //     <OrganizerDeductionsStep4_1
-          //       state={state}
-          //       onStepSubmit={onStepSubmit}
-          //     />
-          //   ),
-          //   groupName: "Deductions",
-          //   stepIcon: <OrganizerHeart />,
-          //   stepTitle: t("organizer.deductions.step4_1.step_title"),
-          // },
           {
             // 27
+            component: (
+              <OrganizerDeductionsStep4_1
+                state={state}
+                onStepSubmit={onStepSubmit}
+              />
+            ),
+            groupName: "Deductions",
+            stepIcon: <OrganizerHeart />,
+            stepTitle: t("organizer.deductions.step4_1.step_title"),
+          },
+          {
+            // 28
             component: (
               <OrganizerDeductionsStep5
                 state={state}
@@ -416,7 +416,7 @@ const OrganizerIndividual = () => {
             stepTitle: t("organizer.deductions.step5.step_title"),
           },
           {
-            // 28
+            // 29
             component: (
               <OrganizerDeductionsStep6
                 state={state}
@@ -428,7 +428,7 @@ const OrganizerIndividual = () => {
             stepTitle: t("organizer.deductions.step6.step_title"),
           },
           {
-            // 29
+            // 30
             component: (
               <OrganizerDeductionsStep7
                 state={state}
@@ -440,7 +440,7 @@ const OrganizerIndividual = () => {
             stepTitle: t("organizer.deductions.step7.step_title"),
           },
           {
-            // 30
+            // 31
             component: (
               <OrganizerDeductionsStep8
                 state={state}
@@ -452,7 +452,7 @@ const OrganizerIndividual = () => {
             stepTitle: t("organizer.deductions.step8.step_title"),
           },
           {
-            // 31
+            // 32
             component: (
               <OrganizerDeductionsStep9
                 state={state}
@@ -464,7 +464,7 @@ const OrganizerIndividual = () => {
             stepTitle: t("organizer.deductions.step9.step_title"),
           },
           {
-            // 32
+            // 33
             component: (
               <OrganizerDeductionsStep10
                 state={state}
@@ -476,7 +476,7 @@ const OrganizerIndividual = () => {
             stepTitle: t("organizer.deductions.step10.step_title"),
           },
           {
-            // 33
+            // 34
             component: (
               <OrganizerDeductionsStep11
                 state={state}

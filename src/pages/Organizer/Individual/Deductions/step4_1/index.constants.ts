@@ -70,7 +70,7 @@ export const initialSpouseData = [
   {
     categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
-    question: "spouse_taxPayer_NonCashCharitableContributions_HasAny",
+    question: "taxPayer_NonCashCharitableContributions_Spouce_HasAny",
     answerTypeId: QUESTION_TYPE_ANSWER.boolean,
     answer: null,
     cmessage: "",
@@ -82,7 +82,7 @@ export const initialSpouseData = [
     categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
-      "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
+      "taxPayer_NonCashCharitableContributions_Spouce_ReceivedRecieptFromOrganisation",
     answerTypeId: QUESTION_TYPE_ANSWER.boolean,
     answer: null,
     cmessage: "",
@@ -94,7 +94,7 @@ export const initialSpouseData = [
     categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
-      "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
+      "taxPayer_NonCashCharitableContributions_Spouce_ReceivedRecieptFromOrganisationFile",
     answerTypeId: QUESTION_TYPE_ANSWER.file,
     answer: null,
     cmessage: "",
@@ -106,7 +106,7 @@ export const initialSpouseData = [
     categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
-      "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
+      "taxPayer_NonCashCharitableContributions_Spouce_ItemizedListOf_GoodsContribution",
     answerTypeId: QUESTION_TYPE_ANSWER.boolean,
     answer: null,
     cmessage: "",
@@ -118,7 +118,7 @@ export const initialSpouseData = [
     categoryId: ORGANIZER_CATEGORY_ID.nonCashCharitableContributions,
     forSpouse: false,
     question:
-      "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+      "taxPayer_NonCashCharitableContributions_Spouce_ItemizedListOf_GoodsContributionFile",
     answerTypeId: QUESTION_TYPE_ANSWER.file,
     answer: null,
     cmessage: "",
@@ -145,9 +145,9 @@ export const DATA_KEY = [
   "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
   "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
   "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
-  "spouse_taxPayer_NonCashCharitableContributions_HasAny",
-  "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
-  "spouse_taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisationFile",
-  "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
-  "spouse_taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
+  "taxPayer_NonCashCharitableContributions_Spouce_HasAny",
+  "taxPayer_NonCashCharitableContributions_Spouce_ReceivedRecieptFromOrganisation",
+  "taxPayer_NonCashCharitableContributions_Spouce_ReceivedRecieptFromOrganisationFile",
+  "taxPayer_NonCashCharitableContributions_Spouce_ItemizedListOf_GoodsContribution",
+  "taxPayer_NonCashCharitableContributions_Spouce_ItemizedListOf_GoodsContributionFile",
 ];
