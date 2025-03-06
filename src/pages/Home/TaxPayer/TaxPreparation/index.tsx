@@ -153,9 +153,9 @@ const TaxPreparation = () => {
       dataIndex: "year",
       key: "year",
       render: (_: any, record: ITaxPayerTaxPreparationData) => (
-        <p className={styles.tableTextGreyFields}>
-          {utc(record.createdDate, YEAR_FORMAT)}
-        </p>
+<p className={styles.tableTextGreyFields}>
+  {record.taxPreparationYear ? record.taxPreparationYear : ""}
+</p>
       ),
     },
     {

@@ -99,7 +99,7 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
           });
         }
       });
-      const previousYear= resultData[findIndexData('taxFillingYear',resultData)].answer
+      const previousYear= resultData[findIndexData('taxFillingYear',resultData)]?.answer
       const prevTaxYearIndex= findIndexData('previousTaxYear',resultData)
     // Filter previous years to be less than the selected tax filing year
     let filteredPreviousYears = previousYears.filter(
@@ -108,11 +108,13 @@ const OrganizerIndividualYesFlowStep1 = (props: ITaxPayerInfoStepsProps) => {
     if (previousYear === 2020 && filteredPreviousYears.length === 0) {
       filteredPreviousYears = [2019,2018,2017,2016];
     }
-
-    resultData[prevTaxYearIndex].options = filteredPreviousYears.map((year) => ({
-      label: year.toString(),
-      value: year,
-    }));
+    if (prevTaxYearIndex !== -1 && resultData[prevTaxYearIndex]) {
+      resultData[prevTaxYearIndex].options = filteredPreviousYears.map((year) => ({
+        label: year.toString(),
+        value: year,
+      }));
+    } 
+    
       resultData.length >= DATA_KEY.length && setData(resultData);
     }
   }, [dataOrganizer]);
@@ -272,7 +274,7 @@ const onValuesChange = (value: any) => {
           message: "Select Yes/No.",
         }),
       })}
-      {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
+      {data[findIndexData("hasFiledTaxReturnPreviously", data)]?.answer &&
 questionContainer({
   question: t("organizer.individual.yes_flow.step1.question_7"),
   key: "previousTaxYear",
@@ -285,7 +287,7 @@ questionContainer({
   }),
   required: true,
 })}
-      {data[findIndexData("hasFiledTaxReturnPreviously", data)].answer &&
+      {data[findIndexData("hasFiledTaxReturnPreviously", data)]?.answer &&
         questionContainer({
           question: t("organizer.individual.yes_flow.step1.question_2"),
           key: "hasDigitalCopyInPdfFormat",
@@ -298,8 +300,8 @@ questionContainer({
           }),
         })}
 
-      {data[findIndexData("hasDigitalCopyInPdfFormat", data)].answer !== null
-        ? data[findIndexData("hasDigitalCopyInPdfFormat", data)].answer
+      {data[findIndexData("hasDigitalCopyInPdfFormat", data)]?.answer !== null
+        ? data[findIndexData("hasDigitalCopyInPdfFormat", data)]?.answer
           ? questionContainer({
               question: t("organizer.individual.yes_flow.step1.question_3"),
               key: "previousTaxReturnFileUpload",
@@ -389,8 +391,8 @@ questionContainer({
             message: "Select Yes/No",
           }),
         })}
-      {data[findIndexData("hasHardCopyOfTaxReturn", data)].answer !== null ? (
-        data[findIndexData("hasHardCopyOfTaxReturn", data)].answer ? (
+      {data[findIndexData("hasHardCopyOfTaxReturn", data)]?.answer !== null ? (
+        data[findIndexData("hasHardCopyOfTaxReturn", data)]?.answer ? (
           questionContainer({
             question: t("organizer.individual.yes_flow.step1.question_6"),
             key: "canScanTaxReturnIntoPdfFormat",
@@ -420,9 +422,9 @@ questionContainer({
           </div>
         )
       ) : null}
-      {data[findIndexData("canScanTaxReturnIntoPdfFormat", data)].answer !==
+      {data[findIndexData("canScanTaxReturnIntoPdfFormat", data)]?.answer !==
       null ? (
-        data[findIndexData("canScanTaxReturnIntoPdfFormat", data)].answer ? (
+        data[findIndexData("canScanTaxReturnIntoPdfFormat", data)]?.answer ? (
           questionContainer({
             question: t("organizer.individual.yes_flow.step1.question_3"),
             key: "previousTaxReturnFileUpload",

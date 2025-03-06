@@ -10,6 +10,7 @@ interface ITaxReturnFile {
   modifiedSessionId: number;
   name: string;
   uniqName: string;
+  taxPreparationYear?:string;
   path: string;
 }
 
@@ -21,6 +22,7 @@ export interface ITaxPayerTaxPreparationData {
   accountantLastName: string;
   jobType: JobType;
   createdDate: string;
+  taxPreparationYear?:string;
   price: string;
   jobStatusId: number;
   taxReturnFile: ITaxReturnFile;

@@ -81,7 +81,8 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
           )?.length < 2
         );
       });
-
+      console.log(stepData,'----------');
+      
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
       });
@@ -90,7 +91,8 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
         stepData.length > 0
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
-
+          console.log(resultData,'--resultData--');
+          
       resultData.forEach((item: any) => {
         if (item.isFile) {
           form.setFieldsValue({
@@ -103,7 +105,7 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
         }
       });
 
-      resultData.length >= DATA_KEY.length && setData(resultData);
+      setData(resultData);
     }
   }, [dataOrganizer]);
 
@@ -111,16 +113,16 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
     try {
       await dispatch(setIndividualOrganizer(data));
       onStepSubmit(data);
-      if (
-        !data[
-          findIndexData(
-            "taxPayer_CashCharitableContributions_HasAnyWhereNoServicesWereReceived",
-            data,
-          )
-        ].answer
-      ) {
-        goTo(30);
-      }
+      // if (
+      //   !data[
+      //     findIndexData(
+      //       "taxPayer_CashCharitableContributions_HasAnyWhereNoServicesWereReceived",
+      //       data,
+      //     )
+      //   ].answer
+      // ) {
+      //   goTo(28);
+      // }
       nextStep();
     } catch (e) {
       // TODO: handle catch error
@@ -276,12 +278,13 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
   };
 
   const questionContainer = (dataQuestion: IQuestionContainer) => {
-    const { question, key, children } = dataQuestion;
+    const { question, key, children, required } = dataQuestion;
     const index: number = findIndexData(key, data);
     return (
       <OrganizerQuestionCard
         question={question}
         data={data[index]}
+        required={required}
         onAlert={() => {
           const newData = [...data];
           newData[index] = { ...data[index], reminder: !data[index].reminder };
@@ -333,9 +336,11 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
         {questionContainer({
           key: "taxPayer_NonCashCharitableContributions_HasAny",
           question: t("organizer.deductions.step4_1.question1"),
+          required:true,
           children: radio({
             name: "taxPayer_NonCashCharitableContributions_HasAny",
             radioButtons: radioButtons,
+            required:true
           }),
         })}
         <Divider />
@@ -345,11 +350,14 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
           questionContainer({
             key: "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
             question: t("organizer.deductions.step4_1.question2"),
+            required:true,
             children: (
               <>
                 {radio({
                   name: "taxPayer_NonCashCharitableContributions_ReceivedRecieptFromOrganisation",
                   radioButtons: radioButtons,
+            required:true
+
                 })}
                 {data[
                   findIndexData(
@@ -404,6 +412,7 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
 
                       setData([...newData]);
                     },
+            required:true,
                   })}
               </>
             ),
@@ -415,11 +424,14 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
           questionContainer({
             key: "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
             question: t("organizer.deductions.step4_1.question3"),
+            required:true,
             children: (
               <>
                 {radio({
                   name: "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContribution",
                   radioButtons: radioButtons,
+            required:true
+
                 })}
                 {data[
                   findIndexData(
@@ -431,6 +443,7 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
                     key: "taxPayer_NonCashCharitableContributions_ItemizedListOf_GoodsContributionFile",
                     data: data,
                     dispatch: dispatch,
+            required:true,
                     onClick: (index = 0) => {
                       dispatch(
                         downloadFile(

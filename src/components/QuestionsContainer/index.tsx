@@ -12,7 +12,7 @@ import styles from "./index.module.css";
 
 const noop = () => {};
 
-const QuestionsContainer: React.FC<IQuestionsContainerProps> = forwardRef(
+const QuestionsContainer = forwardRef<any, IQuestionsContainerProps>(
   (props, ref) => {
     const {
       contentClassName,
