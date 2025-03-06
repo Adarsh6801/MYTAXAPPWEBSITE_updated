@@ -139,10 +139,10 @@ console.log(data,'datadata');
     
     newData[index] = {
       ...data[index],
-      question: data[index].question,
+      question: data[index]?.question,
       answer: value[name],
-      isFile: data[index].isFile,
-      files: data[index].isFile ? value[name].fileList : null,
+      isFile: data[index]?.isFile,
+      files: data[index]?.isFile ? value[name].fileList : null,
     };
 
     setData([...newData]);

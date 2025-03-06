@@ -69,6 +69,8 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
   }, []);
 
   useEffect(() => {
+    console.log(dataOrganizer,'dataOrganizer0000000000000');
+    
     if (dataOrganizer) {
       const stepData = dataOrganizer.filter((el: any, i: number) => {
         return (
@@ -81,7 +83,7 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
           )?.length < 2
         );
       });
-      console.log(stepData,'----------');
+      console.log(stepData,'stepdata0000000');
       
       const currentType = stepData.map((el: any) => {
         return getCurrentType(el);
@@ -92,20 +94,22 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
           ? addQuoteIdOrganizer(currentType, Number(quoteId))
           : [];
           console.log(resultData,'--resultData--');
-          
-      resultData.forEach((item: any) => {
-        if (item.isFile) {
-          form.setFieldsValue({
-            [item.question]: item.files,
-          });
-        } else {
-          form.setFieldsValue({
-            [item.question]: item.answer,
-          });
-        }
-      });
+          if(resultData.length>0){
 
-      setData(resultData);
+            resultData.forEach((item: any) => {
+              if (item.isFile) {
+                form.setFieldsValue({
+                  [item.question]: item.files,
+                });
+              } else {
+                form.setFieldsValue({
+                  [item.question]: item.answer,
+                });
+              }
+            });
+            setData(resultData);
+          }
+
     }
   }, [dataOrganizer]);
 
@@ -145,9 +149,9 @@ const Step4_1 = (props: ITaxPayerInfoStepsProps) => {
 
     newData[index] = {
       ...newData[index],
-      question: newData[index].question,
+      question: newData[index]?.question,
       answer: value[name],
-      files: newData[index].isFile ? value[name].fileList : null,
+      files: newData[index]?.isFile ? value[name].fileList : null,
     };
 
     setData([...newData]);

@@ -967,7 +967,7 @@
         "description1": "<0>{{note}}</0> If you made cash donations in 2021, complete this section even if not itemizing. All cash contributions MUST be documented with either a bank record or written verification from the charity. Personal benefits must be excluded from the donation.",
         "description2": "<0>{{note}}</0> Payments to Go Fund Me and other similar social fund raising sites are not deductible unless the organization is a qualified charity. ",
         "question1": "Did you make any Non Cash Charitable contributions?",
-        "question2": "Did you receive thank you letter or proof of receipt from organization?",
+        "question2": "Did you receive Thank you letter or receipt received from the organization that shows the amount contributed and that no goods or services were received in exchange for the contribution amount?",
         "question3": "Do you have an itemized list of the goods contributed?",
         "label1": "Name of Qualified Organization",
         "label2": "Amount",

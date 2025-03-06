@@ -137,31 +137,33 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           : [];
 
           console.log(resultData,'resultDataresultData');
-          
-      resultData.forEach((item: any) => {
-        console.log(item,'itemitemitem');
+          if(resultData.length>0){
 
-        if (item.isFile) {
-          form.setFieldsValue({ [item.question]: item.files });
-        } else {
-          console.log(item.question,'item.question');
-          if(item.answer==false){
-
-            form.setFieldsValue({
-              [item.question]: item.answer
-            });
-          }else{
-            form.setFieldsValue({
-              [item.question]: item.answer?item.answer:null
-            });
-          }
-          // form.setFieldsValue({ [item.question]: item.answer?item.answer:null });
-        }
-      });
-
-      console.log(resultData,'resultDataresultData');
+            resultData.forEach((item: any) => {
+              console.log(item,'itemitemitem');
       
-       setData(resultData);
+              if (item.isFile) {
+                form.setFieldsValue({ [item.question]: item.files });
+              } else {
+                console.log(item.question,'item.question');
+                if(item.answer==false){
+      
+                  form.setFieldsValue({
+                    [item.question]: item.answer
+                  });
+                }else{
+                  form.setFieldsValue({
+                    [item.question]: item.answer?item.answer:null
+                  });
+                }
+                // form.setFieldsValue({ [item.question]: item.answer?item.answer:null });
+              }
+            });
+      
+            console.log(resultData,'resultDataresultData');
+            
+             setData(resultData);
+          }
     }
   }, [dataOrganizer]);
   
@@ -449,7 +451,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
         </div>
 
         <Divider />
-        {data[findIndexData('doYou_pay_property_tax_directly',data)].answer && _.times(taxPayerCount, (index: number) => {
+        {data[findIndexData('doYou_pay_property_tax_directly',data)]?.answer && _.times(taxPayerCount, (index: number) => {
           return (
             <div key={index}>
 
@@ -525,7 +527,7 @@ const Step3 = (props: ITaxPayerInfoStepsProps) => {
           );
         })}
         <Divider />
-        {data[findIndexData('doYou_pay_property_tax_directly',data)].answer && _.times(personalPropertyCount, (index: number) => {
+        {data[findIndexData('doYou_pay_property_tax_directly',data)]?.answer && _.times(personalPropertyCount, (index: number) => {
           return (
             <div key={index}>
 
