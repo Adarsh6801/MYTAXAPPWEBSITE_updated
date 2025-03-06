@@ -109,7 +109,7 @@ const Step5 = (props: ITaxPayerInfoStepsProps) => {
         nextStep();
         return;
       }
-      goTo(30);
+      goTo(31);
     } catch (e) {
       // TODO: handle catch error
     }

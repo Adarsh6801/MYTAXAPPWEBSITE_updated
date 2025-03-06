@@ -94,10 +94,10 @@ const Step6 = (props: ITaxPayerInfoStepsProps) => {
       onStepSubmit(data);
       await dispatch(setIndividualOrganizer(data));
       if (data[0].answer) {
-        goTo(29);
+        goTo(30);
         return;
       }
-      goTo(30);
+      goTo(31);
     } catch (e) {
       // TODO: handle catch error
     }
